@@ -1,0 +1,88 @@
+@import '../../../../../assets/styles/variables.scss';
+
+.mobile-hero-case{
+    width: 100%;
+    .hero{
+        width: 100%;
+        .hero-spread{
+            width: 92%;
+            max-width: 1250px;
+            margin: auto;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            @include mediaM(1000px) {
+                justify-content: center;
+                flex-direction: column;
+            }
+            // display: grid;
+            // grid-template-columns: auto auto;
+            min-height: calc(100vh - 83px);
+            @include mediaM(885px) {
+                min-height: calc(100vh - 55px);
+            }
+            .text-content{
+                max-width: 500px;
+                button{
+                    width: 100%;
+                    border-radius: 9px;
+                }
+                img{
+                    width: 100%;
+                }
+                .img-holder{
+                    display: none;
+                    width: 90%;
+                }
+                .action-holder{
+                    max-width: 300px;
+                }
+                @include mediaM(1000px) {
+                    text-align: center;
+                    h3{
+                        font-size: 1.2em;
+                    }
+                    .img-holder{
+                        display: block;
+                        margin: 1em auto;
+                    }
+                    .action-holder{
+                        margin: auto;
+                    }
+                }
+            }
+            .image{
+                position: relative;
+                width: 100%;
+                max-width: 650px;
+                min-height: calc(100vh - 83px);
+                @include mediaM(1000px) {
+                    // min-height: calc(100vh - 55px);
+                    display: none;
+                }
+                img{
+                    width: 100%;
+                }
+                .img-holder{
+                    position: absolute;
+                    width: 100%;
+                    bottom: 0;
+                    img{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+        
+    }
+    .banner-1{
+        background-color: $custom-yellow;
+    }
+    .banner-2{
+        background-color: $white;
+    }
+    .banner-3{
+        background-image: url(../../../../../assets/images/banner-3-bg.jpg);
+    }
+}

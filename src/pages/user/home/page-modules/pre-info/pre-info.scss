@@ -1,0 +1,40 @@
+@import '../../../../../assets/styles/variables.scss';
+
+.crypto-stats{
+    position: relative;
+    .stats-card{
+        width: 94%;
+        max-width: 1100px;
+        z-index: 10;
+        background-color: $white;
+        margin: 2em auto -30vh;
+        border: 1px solid $primary-blue-hover;
+        border-radius: 30px;
+        box-shadow: 10px 10px 2px 0 $black-faint4;
+        padding:1.5em;
+        @include mediaM(750px){
+            border-radius: 15px;
+        }
+        position: relative;
+        .overflow-holder{
+            overflow: auto;
+            .stats-bar{
+                // display: flex;
+                // align-items: center;
+                // justify-content: space-between;
+                display: grid;
+                grid-template-columns: 70px 200px 150px auto 180px 160px;
+                // grid-template-columns: auto auto auto auto auto auto;
+                p{
+                    white-space: nowrap;
+                    padding: 0 2em;
+                    text-align: left;
+                }
+                .price{
+                    text-align: left;
+                    min-width: 220px;
+                }
+            }
+        }
+    }
+}

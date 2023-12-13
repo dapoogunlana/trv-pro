@@ -1,0 +1,43 @@
+@import "../../../assets/styles/variables.scss";
+
+.careers{
+    background-image: url(../../../assets/images/small-angle-bg.jpg);
+    .content-body{
+        width: 100%;
+        // background-size: cover;
+        background-position: center;
+        .cover{
+            border: 1px dashed $primary-blue;
+            border-radius: 20px;
+            background-color: $white-faint2;
+            padding: 5px 26px;
+            .item{
+              border-radius: 10px;
+              border: 1px solid $white-faint3;
+              background-color: $white;
+              box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.20);
+              padding: 10px;
+              transition: 0.3s ease;
+              .view-icon{
+                  width: 20px;
+                  transition: 0.3s ease;
+                  img{
+                      width: 100%;
+                  }
+              }
+              .answer{
+                transition: 0.6s ease;
+                max-height: 0;
+                overflow: hidden;
+              }
+              .full{
+                max-height: 600px;
+                transition: 0.3s ease;
+              }
+              .full-view{
+                transform: rotate(180deg);
+              }
+            }
+        }
+    }
+}

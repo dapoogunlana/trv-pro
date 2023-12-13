@@ -1,0 +1,135 @@
+@import '../../../../../assets/styles/variables.scss';
+
+.hero-case{
+    width: 100%;
+    background-image: url(../../../../../assets/images/blue-brick-bg.jpg);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    .hero-case-bg{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        .bg-shape{
+            clip-path: polygon(85% 0%, 100% 0%, 100% 100%, 50% 100%);
+            height: 100vh;
+            background-image: url(../../../../../assets/images/light-blue-brick-bg.jpg);
+            background-size: cover;
+            background-position: center;
+        }
+    }
+    .underband{
+        position: absolute;
+        width: 110%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+        @include mediaM(750px) {
+            display: block;
+            width: 100%;
+        }
+        @include mediaM(450px) {
+            width: 118%;
+        }
+        video{
+            width: 100%;
+        }
+    }
+    .hero{
+        width: 100%;
+        // background-color: $black-faint1;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        // flex-direction: column;
+        position: relative;
+        overflow: hidden;
+        padding: 0 5%;
+        color: $white;
+        h1{
+            // font-size: 2em;
+            color: $white;
+        }
+        h3, h6{
+            text-shadow: 1px 1px 5px #000;
+        }
+        .download-button{
+            color: $white;
+            border: 1px solid rgba(0, 0, 0, 0);
+            background-color: rgba(0, 0, 0, 0);
+            border-bottom: 1px solid $white;
+            transition: 0.3s ease;
+            padding: 0.3em 0.8em;
+            &:hover{
+                border-color: $white;
+            }
+            @include mediaM(750px){
+                border: 1px solid $white;
+                background-color: $primary-blue-hover-faint3;
+                &:hover{
+                    background-color: $white;
+                    color: $primary-blue-hover;
+                }
+                &:focus{
+                    outline: none;
+                }
+            }
+        }
+        .sect90-max350{
+            width: 90%;
+            max-width: 350px;
+        }
+        .top-space{
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-around;
+            flex-direction: column;
+            width: 100%;
+            min-height: 60vh;
+            .full{
+                width: 100%;
+            }
+            .store-link{
+                cursor: pointer;
+                transition: 0.3s ease;
+                &:hover{
+                    transform: scale(1.04);
+                }
+                &:active{
+                    transform: scale(1.06) translateY(6px);
+                }
+            }
+            .coming-soon{
+                width: 60%;
+                margin: 5px auto;
+                transition: 0.3s ease;
+                max-height: 0;
+                overflow: hidden;
+            }
+            .action-buttons{
+                &:hover{
+                    .coming-soon{
+                        max-height: 100px;
+                    }
+                }
+            }
+            @include mediaM(767px) {
+                min-height: 70vh;
+            }
+        }
+        @include mediaM(750px){
+            padding: 0 2%;
+        }
+    }
+    .parter-sect{
+        @include mediaM(767px) {
+            background-color: $black-faint3;
+            border-radius: 10px;
+            padding: 10px 3.5%;
+        }
+    }
+}

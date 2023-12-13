@@ -1,0 +1,55 @@
+@import "../../../assets/styles/variables.scss";
+
+.faq{
+  background-image: url(../../../assets/images/small-angle-bg.jpg);
+    .content-body{
+        width: 100%;
+        background-position: center;
+        .cover{
+            border: 1px dashed $primary-blue;
+            border-radius: 20px;
+            background-color: $white-faint2;
+            padding: 5px 26px;
+            .item{
+              border-radius: 10px;
+              border: 1px solid $white-faint3;
+              background-color: $white;
+              box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.20);
+              transition: 0.3s ease;
+              .question{
+                padding: 10px;
+                color: $black;
+                background-color: $white;
+                border-radius: 10px;
+              }
+              .active-question{
+                padding: 10px;
+                color: $white;
+                background-color: $primary-blue-hover-faint1;
+                border-radius: 10px 10px 0 0;
+              }
+              .view-icon{
+                  width: 20px;
+                  transition: 0.3s ease;
+                  img{
+                      width: 100%;
+                  }
+              }
+              .answer{
+                transition: 0.6s ease;
+                max-height: 0;
+                overflow: hidden;
+                // background-color: $white;
+              }
+              .full{
+                max-height: 600px;
+                transition: 0.3s ease;
+                padding: 10px;
+              }
+              .full-view{
+                transform: rotate(180deg);
+              }
+            }
+        }
+    }
+}

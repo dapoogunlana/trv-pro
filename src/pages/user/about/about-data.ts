@@ -1,0 +1,117 @@
+import {
+    TeamRutherford,
+    TeamTunde,
+    TeamEtenikang,
+    TeamObinna,
+    TeamOyakhire,
+    TeamBen,
+    TeamAdeshina,
+    TeamEliko,
+    TeamDapo,
+
+    AdviserMar,
+    AdviserCosti,
+} from '../../../assets/images';
+
+export const teamList = [
+    {
+        name: 'Rutherford Atayobo',
+        image: TeamRutherford,
+        position: 'CEO',
+        linkedIn: 'https://www.linkedin.com/in/rutherford-atayobo',
+        faceBook: 'facebook',
+        twitter: 'twitter',
+    },
+    {
+        name: 'Tunde Mudashir',
+        image: TeamTunde,
+        position: 'Chief Technology Officer',
+        linkedIn: 'https://www.linkedin.com/in/mudashir-tunde-899688168',
+        faceBook: 'facebook',
+        twitter: 'twitter',
+    },
+    {
+        name: 'Etenikang David',
+        image: TeamEtenikang,
+        position: 'Compliance Executive 1',
+        linkedIn: 'https://www.linkedin.com/in/david-ushilem-etenikang-87a347116',
+        faceBook: 'facebook',
+        twitter: 'twitter',
+    },
+    {
+        name: 'Obinna Inya A.',
+        image: TeamObinna,
+        position: 'Business Development Executive 1',
+        linkedIn: 'https://www.linkedin.com/in/obinna-agha-00045b10b',
+        faceBook: 'facebook',
+        twitter: 'twitter',
+    },
+    {
+        name: 'Oyakhire Emmanuel',
+        image: TeamOyakhire,
+        position: 'Business Development Executive 2',
+        linkedIn: 'https://www.linkedin.com/in/emmanuel-oyakhire-bb5ba7104',
+        faceBook: 'facebook',
+        twitter: 'twitter',
+    },
+    {
+        name: 'Obot Ubong Benjamin',
+        image: TeamBen,
+        position: 'Art and UX Specialist',
+        linkedIn: 'https://www.linkedin.com/in/benjamin-obot-597631221/',
+        faceBook: 'facebook',
+        twitter: 'twitter',
+    },
+    {
+        name: 'Adesanya Olarewaju',
+        image: TeamAdeshina,
+        position: 'Compliance Executive 2',
+        linkedIn: 'https://www.linkedin.com/in/olarewaju-adesanya-aa273a166/',
+        faceBook: 'facebook',
+        twitter: 'twitter',
+    },
+    {
+        name: 'Eliko Blessing',
+        image: TeamEliko,
+        position: 'Media Relations',
+        linkedIn: 'https://linkedin.com/in/elikor-chisom-blessing-37424b1bb',
+        faceBook: 'facebook',
+        twitter: 'twitter',
+    },
+    // {
+    //     name: 'Muhammad Nazif',
+    //     image: TeamMohammad,
+    //     position: 'Content Strategy Lead',
+    //     linkedIn: 'https://www.linkedin.com/in/nazifma',
+    //     faceBook: 'facebook',
+    //     twitter: 'twitter',
+    // },
+    {
+        name: 'Dapo Paul Ogunlana',
+        image: TeamDapo,
+        position: 'Snr. UI/UX & Frontend Developer',
+        linkedIn: 'https://www.linkedin.com/in/dapo-paul-ogunlana-517618106',
+        faceBook: 'facebook',
+        twitter: 'twitter',
+    },
+];
+
+
+export const advisorList = [
+    {
+        name: 'Maruoane Fikri',
+        image: AdviserMar,
+        position: 'CEO Sinverse',
+        linkedIn: 'https://nl.linkedin.com/in/marouane-fikri-169a9619a',
+        faceBook: 'facebook',
+        twitter: 'twitter',
+    },
+    {
+        name: 'Constantine Ene',
+        image: AdviserCosti,
+        position: 'CEO Vanilla Network Metaverse',
+        linkedIn: 'https://www.linkedin.com/in/costi-cos',
+        faceBook: 'facebook',
+        twitter: 'twitter',
+    },
+];

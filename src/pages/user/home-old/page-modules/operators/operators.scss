@@ -1,0 +1,69 @@
+@import '../../../../../assets/styles/variables.scss';
+
+.operators{
+    background-color: $light-blue;
+
+    .operator_image {
+      width: 100%;
+      padding: 2px;
+      position: relative;
+  
+      @include mediaW(991px) {
+        position: static;
+        width: 100%;
+      }
+  
+      img {
+        width: 100%;
+      }
+    }
+
+    .operator-cat-tag{
+      margin: 0 1em 0 8em;
+      background-color: $primary-blue-active;
+      color: $white;
+      width: 200px;
+      min-height:110px;
+      border-radius: 40px 0 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1em 1.5em;
+      h6{
+        font-size: 1.7em;
+        text-align: center;
+      }
+    }
+
+    .operator-card{
+      margin: 0 1em;
+      img{
+        width: 100%;
+      }
+    }
+  
+    @include mediaM(767px) {
+      .operator-cat-tag{
+        margin: 0 1em 0 5em;
+        width: 150px;
+        min-height:75px;
+        border-radius: 20px 0 0 20px;
+        padding: 0.8em;
+        h6{
+          font-size: 1.3em;
+        }
+      }
+  
+      .operator-card{
+        margin: 0em;
+        width: 150px;
+      }
+    }
+
+  // a[title]:hover::after {
+  //   content: attr(title);
+  //   position: absolute;
+  //   top: -100%;
+  //   left: 0;
+  // }
+}

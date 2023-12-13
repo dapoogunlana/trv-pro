@@ -1,0 +1,108 @@
+@import '../../../../../assets/styles/variables.scss';
+
+.sub-hero{
+    background-image: url(../../../../../assets/images/sub-hero-bg.jpg);
+    color: $white;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    .sb-card{
+        padding: 1px;
+        border-radius: 10px;
+        display: grid;
+        grid-template-columns: 70px auto;
+        background-color: $white-faint4;
+        box-shadow: 3px 4px 5px 2px rgba(0, 0, 0, 0.25);
+        width: 94%;
+        .ich{
+            width: 100%;
+            height: 100%;
+            padding: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            p, img{
+                width: 100%;
+                font-size: 0.85em;
+            }
+        }
+    }
+    .spc-right{
+        margin-left: 6%;
+    }
+    .sb-spinner{
+        position: relative;
+        .faded{
+            opacity: 0;
+        }
+        .abs-f{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .spinner{
+            animation: rotate-chain 15s linear 0s infinite;
+        }
+        .feature-icon{
+            position: absolute;
+            width: 20%;
+            img{
+                width: 100%;
+                transition: 0.3s ease;
+                &:hover{
+                    transform: scale(1.2);
+                    cursor: pointer;
+                }
+            }
+            .name{
+                position: absolute;
+                left: 50%;
+                top: 90%;
+                transform: translate(-50%, -50%) scale(0.3);
+                opacity: 0;
+                width: 160%;
+                padding: 7px;
+                border-radius: 10px;
+                background-color: $black-faint2;
+                border: 1px solid $white-faint2;
+                box-shadow: 2px 2px 5px 1px $black-faint4;
+                text-align: center;
+                transition: 0.3s ease;
+
+                // override
+                transform: translate(-50%, 0) scale(1);
+                opacity: 1;
+                
+                @include mediaM(767px) {
+                    font-size: 0.9em;
+                    width: 180%;
+                }
+            }
+            &:hover{
+                .name{
+                    transform: translate(-50%, 0) scale(1);
+                    opacity: 1;
+                }
+            }
+        }
+        .earn{ left: 40%; top: 0; }
+        .utility{ right: 0; top: 20%; }
+        .giftcard{ right: 0; bottom: 20%; }
+        .borrow{ left: 0; bottom: 20%; }
+        .data{ left: 40%; bottom: 0; }
+        .exchange{ left: 0; top: 20%; }
+    }
+}
+
+
+
+
+@keyframes rotate-chain {
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+}

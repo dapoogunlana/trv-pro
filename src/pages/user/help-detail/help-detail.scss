@@ -1,0 +1,42 @@
+@import "../../../assets/styles/variables.scss";
+
+.help-detail{
+    width: 100%;
+    background-image: url(../../../assets/images/small-angle-bg.jpg);
+    .content-body{
+        width: 100%;
+        // background-image: url(../../../assets/images/small-angle-bg.jpg);
+        // background-size: cover;
+        background-position: center;
+        .detail-cover{
+            border: 1px dashed $primary-blue;
+            border-radius: 20px;
+            background-color: $white-faint2;
+            padding: 26px;
+            .display-img{
+                width: 100%;
+                border-radius: 10px;
+                box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.40);
+                overflow: hidden;
+                img{
+                    width: 100%;
+                    border-radius: 10px;
+                }
+            }
+            .content{
+                border-radius: 10px;
+                border: 1px solid $white-faint3;
+                background-color: $white;
+                box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.20);
+                padding: 10px;
+                transition: 0.3s ease;
+                table{
+                    td, th{
+                        border: 1px solid $black;
+                        padding: 5px;
+                    }
+                }
+            }
+        }
+    }
+}

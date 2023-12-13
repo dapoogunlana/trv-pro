@@ -1,0 +1,17 @@
+@import '../../../../../assets/styles/variables.scss';
+
+.testimonials{
+    // background-image: url(../../../../../assets/images/white-concrete-bg.jpg);
+    background-size: cover;
+    background-position: center;
+
+    .testimonial-slide {
+      width: 100%;
+      padding: 2px;
+      position: relative;
+      @include mediaW(991px) {
+        position: static;
+        width: 100%;
+      }
+    }
+}

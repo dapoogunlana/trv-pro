@@ -1,0 +1,104 @@
+@import "../../../assets/styles/variables.scss";
+
+.useful-images{
+    background-image: url(../../../assets/images/small-angle-bg.jpg);
+    .content-body{
+        width: 100%;
+        .update-sect{
+            width: 100%;
+            max-width: 700px;
+            margin-top: 1em;
+            margin-bottom: 1em;
+            .activity{
+                color: $primary-blue-hover;
+                font-size: 1.1em;
+                width: 80%;
+                max-width: 400px;
+            }
+            .progress{
+                width: 100%;
+                position: relative;
+                border-radius: 25px;
+                height: 50px;
+                overflow: hidden;
+                display: grid;
+                grid-template-columns: 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96% 1.96%;
+                background-color: $primary-bg;
+                box-shadow: 0 1px 11px 1px $black-faint4;
+                margin-top: 0.7em;
+                margin-bottom: 0.7em;
+                @include mediaM(550px){
+                    border-radius: 25px;
+                    height: 30px;
+                    margin-top: 0.4em;
+                    margin-bottom: 0.5em;
+                }
+                .level{
+                    position: absolute;
+                    height: 100%;
+                    top: 0;
+                    left: 0;
+                    border-radius: 25px;
+                }
+                .trans{
+                    height: 100%;
+                    position: relative;
+                }
+                .fill{
+                    height: 100%;
+                    position: relative;
+                    opacity: 90%;
+                    background-color: $primary-bg;
+                }
+                .r100{
+                    width: 100%;
+                }
+                .r80{
+                    width: 80%;
+                }
+                .r60{
+                    width: 60%;
+                }
+                .b_gr{
+                    background-color: $primary-green-hover;
+                }
+                .f_gr{
+                    border: 1px solid $primary-green-hover;
+                    opacity: 0.1;
+                }
+                .b_bl{
+                    background-color: $primary-blue;
+                }
+                .f_bl{
+                    border: 1px solid $primary-blue;
+                    opacity: 0.1;
+                }
+            }
+            .date{
+                color: $black-faint2;
+            }
+        }
+        .update-text-sect{
+            width: 100%;
+            max-width: 700px;
+            margin-top: 1em;
+            margin-bottom: 1em;
+            display: grid;
+            grid-template-columns: 50px auto;
+            .activity-square{
+                width: 30px;
+                height: 30px;
+                background-color: $orange;
+                background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
+                border: 1px solid rgba(0, 0, 0, 0.2);
+                border-radius: 3px;
+            }
+            .activity{
+                color: $primary-blue-hover;
+                font-size: 1.1em;
+                width: 80%;
+                max-width: 400px;
+            }
+        }
+    }
+}

@@ -1,0 +1,50 @@
+@import "../../../assets/styles/variables.scss";
+
+.register{
+    width: 100%;
+    background-image: url(../../../assets/images/faded-brick-bg.jpg);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    min-height: 100vh;
+    .slant-holder{
+        position: absolute;
+        top: 0;
+        height: 100%;
+        img{
+            height: 100%;
+        }
+        @include mediaM(991px) {
+            display: none;
+        }
+    }
+    .reg-holder{
+        width: 94%;
+        max-width: 1200px;
+        margin: auto;
+        padding: 6vh 0;
+        min-height: calc(100vh - 83px);
+        @include mediaM(885px) {
+            min-height: calc(100vh - 55px);
+        }
+        .reg-img{
+            text-align: center;
+            color: $white;
+            text-shadow: 1px 1px 7px rgba(0, 0, 0, 0.4);
+            p{
+                text-shadow: 1px 1px 7px rgba(0, 0, 0, 0.8);
+            }
+            @include mediaM(991px) {
+                display: none;
+            }
+        }
+        .reg-mobile-text{
+            text-align: center;
+            color: $white;
+            text-shadow: 1px 1px 7px rgba(0, 0, 0, 0.4);
+            @include mediaW(992px) {
+                display: none;
+            }
+        }
+    }
+}

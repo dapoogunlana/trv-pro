@@ -1,0 +1,46 @@
+@import '../../../../../assets/styles/variables.scss';
+
+.latest-news{
+    background-image: url(../../../../../assets/images/small-angle-bg.jpg);
+
+    .news-slide-holder {
+      width: 100%;
+      padding: 2px;
+      position: relative;
+      .news-slide{
+          width: 90%;
+          max-width: 360px;
+          margin: 1em auto;
+          padding: 15px;
+          border-radius: 20px;
+          background-color: $white-faint4;
+          border: 1.5px dashed $primary-blue-hover-faint3;
+          .image-holder{
+              box-shadow: 0 2px 25px 0 $black-faint4;
+              overflow: hidden;
+              border-radius: 10px 10px 5px 5px;
+              img{
+                  width: 100%;
+              }
+              margin-bottom: 15px;
+          }
+          .text-holder{
+              box-shadow: 0 2px 25px 0 $black-faint4;
+              overflow: hidden;
+              border-radius: 5px 5px 10px 10px;
+              background-color: $white;
+              padding: 15px;
+              h6{
+                  min-height: 41px;
+              }
+              .content{
+                  min-height: 92.5px;
+              }
+          }
+          @include mediaM(767px) {
+            padding: 10px;
+            border-radius: 14px;
+          }
+      }
+    }
+}

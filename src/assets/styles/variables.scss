@@ -1,0 +1,86 @@
+// Color variables
+
+$primary-blue-brighter: #3d8bff;
+$primary-blue-bright: #283FFF;
+$primary-blue: #003DDB;
+$primary-blue-hover: #000b88;
+$primary-blue-active: #00053f;
+
+$primary-card: #192E62;
+$primary-card-highlight: #95B3FF;
+
+$primary-blue-hover-faint1: rgba(13, 28, 188, 0.7);
+$primary-blue-hover-faint2: rgba(13, 28, 188, 0.45);
+$primary-blue-hover-faint3: rgba(13, 28, 188, 0.2);
+$primary-blue-hover-faint4: rgba(13, 28, 188, 0.1);
+$primary-blue-hover-faint5: rgba(13, 28, 188, 0.06);
+
+$header-blue: #E7F4FF;
+$custom-yellow: #F6C745;
+
+$primary-shade: #041926;
+$primary-shade-light: #07263a;
+
+$primary-bg: #F6F9FF;
+
+$bright-blue: #283FFF;
+$bright-blue-hover: #0315b9;
+$bright-blue-active: #000c74;
+
+$primary-green: rgb(89, 255, 167);
+$primary-green-hover: #00BE00;
+$primary-green-active: #00a700;
+
+$light-blue: #D9E8FF;
+$light-orange: #ffeed5;
+$orange: #f7a02c;
+$orange-mid-dark: #df7e00;
+$orange-dark: #ca7300;
+$orange-faint: rgba(247, 159, 44, 0.5);
+$light-cyan: #b2f0fb;
+
+$white: #ffffff;
+$white-faint1: rgba(255, 255, 255, 0.7);
+$white-faint2: rgba(255, 255, 255, 0.45);
+$white-faint3: rgba(255, 255, 255, 0.2);
+$white-faint4: rgba(255, 255, 255, 0.1);
+
+$off-white: #f1f3f6;
+$off-black: #041926;
+
+$black: #000000;
+$black-faint1: rgba(0, 0, 0, 0.7);
+$black-faint2: rgba(0, 0, 0, 0.45);
+$black-faint3: rgba(0, 0, 0, 0.2);
+$black-faint4: rgba(0, 0, 0, 0.1);
+
+$grey-lightest: #eff0f2;
+$grey-light: #cccccc;
+$grey-mid: #818181;
+$grey-dark: #4f5873;
+
+$faint-font: rgba(34, 33, 91, 0.6);
+
+$brown: #4d2e44;
+$red: #ff0101;
+$red-hover: #a10000;
+$red-active: #530000;
+$red-faded: #eb5757;
+$pink: #ff00b5;
+// $yellow: #F7A02C;
+$dirty-green: #587d71;
+
+$transparent: rgba(0, 0, 0, 0);
+
+// Mixins
+
+@mixin mediaM($value) {
+  @media all and (max-width: $value) {
+    @content;
+  }
+}
+@mixin mediaW($value) {
+  @media all and (min-width: $value) {
+    @content;
+  }
+} ;

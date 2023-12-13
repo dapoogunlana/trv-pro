@@ -1,0 +1,107 @@
+@import '../../../../../assets/styles/variables.scss';
+
+.how-to{
+    // background-image: url(../../../../../assets/images/flip-line-bg.jpg);
+    background-size: cover;
+    background-position: center;
+    .step-ring{
+        position: relative;
+        .step-card{
+            background-color: $white;
+            border-radius: 20px;
+            padding: 9px;
+            width: 350px;
+            max-width: 90%;
+            box-shadow: 0 4px 20px 0 $black-faint4;
+            margin: 1.5em;
+            .inner-liner{
+                border-radius: 16px;
+                padding: 11px;
+                border: 1.5px dashed $black-faint4;
+                .topic{
+                    display: flex;
+                    align-items: flex-end;
+                }
+            }
+            &:hover{
+                transform: scale(1.1);
+            }
+        }
+        @include mediaM(950px){
+            .outer-ring{
+                display: none;
+            }
+            .inner-ring{
+                display: none;
+            }
+            .manilla-coin{
+                display: none;
+            }
+        }
+        @include mediaW(951px){
+            padding-bottom: 80%;
+            .outer-ring{
+                position: absolute;
+                top: 50%;
+                left:50%;
+                transform: translate(-50%, -50%);
+                width:90%;
+                max-width: 800px;
+                img{
+                    width: 100%;
+                }
+                animation: rotate-ring 20s linear 0s infinite;
+                animation-direction: reverse;
+            }
+            .inner-ring{
+                position: absolute;
+                top: 50%;
+                left:50%;
+                transform: translate(-50%, -50%);
+                width:84%;
+                max-width: 750px;
+                img{
+                    width: 100%;
+                }
+                animation: rotate-ring 15s linear 0s infinite;
+            }
+            .manilla-coin{
+                position: absolute;
+                top: 50%;
+                left:50%;
+                transform: translate(-50%, -50%);
+                width:50%;
+                max-width: 350px;
+                img{
+                    width: 100%;
+                }
+                animation: scale-coin 2s linear 0s infinite;
+            }
+            .step-card{
+                position: absolute;
+            }
+            .card-1{
+                left: 0;
+                top: 20%
+            }
+            .card-2{
+                right: 0;
+                top: 0;
+            }
+            .card-3{
+                right: 20%;
+                bottom: 0;
+            }
+        }
+    }
+}
+
+@keyframes rotate-ring {
+    0% {transform: translate(-50%, -50%) rotate(0deg);}
+    100% {transform: translate(-50%, -50%) rotate(360deg);}
+}
+@keyframes scale-coin {
+    0% {transform: translate(-50%, -50%) scale(1);}
+    80% {transform: translate(-50%, -50%) scale(1.2);}
+    100% {transform: translate(-50%, -50%) scale(1);}
+}

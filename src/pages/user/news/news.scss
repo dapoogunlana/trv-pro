@@ -1,0 +1,28 @@
+@import "../../../assets/styles/variables.scss";
+
+.news{
+    background-color: $white;
+    hr{
+        background-color: $primary-blue;
+        opacity: 0.4;
+    }
+    .im-enclose{
+        height: 0;
+        padding-bottom: 64%;
+        border-radius: 10px;
+        position: relative;
+        background-image: url(./../../../assets/images/sample-news-image.jpeg);
+        // box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.40);
+        box-shadow: 0 2px 25px 0 $black-faint4;
+        background-size: cover;
+        overflow: hidden;
+        margin-bottom: 15px;
+        img{
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            transform: translateY(-50%);
+        }
+    }
+}

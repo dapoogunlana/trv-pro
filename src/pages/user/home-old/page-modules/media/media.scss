@@ -1,0 +1,39 @@
+@import '../../../../../assets/styles/variables.scss';
+
+.media-space{
+    background-image: url(../../../../../assets/images/big-angle-bg.jpg);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    .top-gradient{
+        position: absolute;
+        width: 100%;
+        height: 10vh;
+        left: 0;
+        top: 0;
+        background-image: linear-gradient( rgba(0, 24, 84, 0.32), rgba(188, 207, 255, 0));
+    }
+
+    .media-slide {
+      position: relative;
+      border: 1px solid $primary-blue;
+      box-shadow: 15px 15px 20px 0 $black-faint4;
+      border-radius: 50px 10px;
+      padding: 0 7px;
+      overflow: hidden;
+      width: 80%;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: auto;
+      background-color: $white;
+      margin-bottom: 1em;
+      @include mediaM(991px) {
+        height: 80px;
+      }
+      img{
+        width: 90%;
+      }
+    }
+}

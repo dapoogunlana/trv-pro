@@ -1,0 +1,163 @@
+@import '../../../../../assets/styles/variables.scss';
+
+.why-us-2{
+    background-image: url(../../../../../assets/images/blue-brick-bg.jpg);
+    background-size: cover;
+    background-position: center;
+    .why-spacing{
+        padding-top: calc(30vh + 4px);
+    }
+    h3,h6{
+        color: $white;
+    }
+    .why-us-card{
+        background-color: $primary-card;
+        text-align: center;
+        width: 96%;
+        margin: 1em auto;
+        max-width: 290px;
+        padding: 45px 15px 35px;
+        border-radius: 15px;
+        box-shadow: 10px 10px 2px 0 $black-faint4;
+        transition: 0.4s ease;
+        position: relative;
+        h6{
+            font-size: 1.3em;
+            min-height: 85px;
+            margin-top: 3em;
+        }
+        transition: 0.4s ease;
+        .text-sect{
+            position: absolute;
+            width: 90%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(-1, 1);
+            opacity: 0;
+            .writeup{
+                padding: 8px;
+                border-radius: 10px;
+                border: 2px dashed $black-faint2;
+                width: 100%;
+                position: relative;
+                min-height: 265px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                @include mediaM(767px) {
+                    min-height: 200px;
+                }
+            }
+        }
+        .topic{
+            z-index: 10;
+            position: relative;
+            .icon-sect{
+                width: 80%;
+                margin: auto;
+                max-width: 150px;
+                height: 150px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 25px;
+                border: 1px dashed $white-faint2;
+                box-shadow: 10px 10px 2px 0 $black-faint3;
+            }
+        }
+    }
+    .hover-flip{
+        transition: 0.4s ease;
+        &:hover{
+            background-color: $primary-card-highlight;
+            transform: scale(-1, 1);
+            .topic{
+                opacity: 0
+            }
+            .text-sect{
+                opacity: 1;
+            }
+        }
+    }
+    .flipped{
+        transition: 0.4s ease;
+        background-color: $primary-card-highlight;
+        transform: scale(-1, 1);
+        .topic{
+            opacity: 0
+        }
+        .text-sect{
+            opacity: 1;
+        }
+        .unflipped-menu{
+            pointer-events: none;
+            opacity: 0;
+        }
+    }
+    .auto-flip{
+        animation: flipper 15s ease;
+        animation-iteration-count:infinite;
+        .topic{
+            animation: flipper-topic 15s ease;
+            animation-iteration-count:infinite;
+        }
+        .text-sect{
+            animation: flipper-text 15s ease;
+            animation-iteration-count:infinite;
+        }
+    }
+    .auto-flip2{
+        animation: flipper 15s ease;
+        animation-iteration-count:infinite;
+        animation-delay: 3s;
+        .topic{
+            animation: flipper-topic 15s ease;
+            animation-iteration-count:infinite;
+            animation-delay: 3s;
+        }
+        .text-sect{
+            animation: flipper-text 15s ease;
+            animation-iteration-count:infinite;
+            animation-delay: 3s;
+        }
+    }
+}
+
+@keyframes flipper {
+    0% {
+        background-color: $primary-card;
+        transform: scale(1, 1);
+    }
+    34% {
+        background-color: $primary-card;
+        transform: scale(1, 1);
+    }
+    40% {
+        background-color: $primary-card-highlight;
+        transform: scale(-1, 1);
+    }
+    94% {
+        background-color: $primary-card-highlight;
+        transform: scale(-1, 1);
+    }
+    100% {
+        background-color: $primary-card;
+        transform: scale(1, 1);
+    }
+}
+
+@keyframes flipper-topic {
+    0% { opacity: 1 }
+    34% { opacity: 1 }
+    40% { opacity: 0 }
+    94% { opacity: 0 }
+    100% { opacity: 1 }
+}
+
+@keyframes flipper-text {
+    0% { opacity: 0 }
+    34% { opacity: 0 }
+    40% { opacity: 1 }
+    94% { opacity: 1 }
+    100% { opacity: 0 }
+}

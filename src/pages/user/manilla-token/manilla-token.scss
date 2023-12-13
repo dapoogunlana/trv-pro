@@ -1,0 +1,84 @@
+@import "../../../assets/styles/variables.scss";
+
+.manilla-token{
+    .banner{
+        width: 100%;
+        background-image: url(../../../assets/images/light-blue-brick-bg.jpg);
+        background-position: center;
+        position: relative;
+        padding: 5em 0 1em;
+    }
+    .floating-stats{
+        width: 90%;
+        max-width: 1100px;
+        border: 1px solid $primary-blue;
+        border-radius: 20px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-align: center;
+        margin: 3em auto -6em;
+        background-color: $white;
+        position: relative;
+        box-shadow: 7px 7px 0 0 $black-faint4;
+        h6{
+            color: $orange;
+            font-size: 1.4em;
+        }
+        p{
+            margin-bottom: 0;
+            font-size: 0.8em;
+        }
+        span{
+            display: block;
+            width: 5px;
+            height: 50px;
+            background-color: $primary-blue-hover-faint4;
+        }
+        @include mediaM(680px) {
+            flex-direction: column;
+            h6{
+                margin-bottom: 0;
+            }
+            span{
+                height: 5px;
+                width: 90%;
+                margin: 0.7em 0;
+            }
+        }
+    }
+    .where-to{
+        background-image: url(../../../assets/images/blue-brick-bg.jpg);
+        background-size: cover;
+        background-position: center;
+        padding: 8em 0 4em;
+        color: $white;
+        .face-images-holder{
+            img{
+                width: 100%;
+                border-radius: 15px;
+                box-shadow: 0 3px 25px 2px $white-faint3;
+            }
+            @include mediaM(767px){
+                display: none;
+            }
+        }
+    }
+    .question-space{
+        border-top: 1px solid $primary-blue-hover-faint3;
+        .answer{
+            max-height: 0;
+            overflow: hidden;
+            transition: 0.3s ease;
+        }
+        .full{
+            max-height: 1000px;
+            transition: 0.3s ease;
+        }
+        .rotated{
+            transform: rotate(180deg);
+            transition: 0.3s ease;
+        }
+    }
+}

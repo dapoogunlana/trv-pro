@@ -1,0 +1,78 @@
+@import "../../../assets/styles/variables.scss";
+
+
+.policy{
+    .top-band{
+        width: 100%;
+        background-image: url(../../../assets/images/yellow-brick-bg.jpg);
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        .topic{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40vh;
+            text-align: center;
+            h2{
+                color: $primary-blue-hover;
+            }
+        }
+        .right-holder{
+            @include mediaW(1001px){
+                width: 60%;
+                margin-left: 40%;
+            }
+        }
+        .floating-img{
+            position: absolute;
+            bottom: 0;
+            left: 8%;
+            width: 34%;
+            transform: translateY(50%);
+            z-index: 10;
+            img{
+                width: 100%;
+            }
+            @include mediaM(1000px){
+                display: none;
+            }
+        }
+    }
+    .policy-body{
+        background-image: url(../../../assets/images/small-angle-bg.jpg);
+        background-size: cover;
+        background-position: center;
+        .right-holder{
+            @include mediaW(1001px){
+                width: 60%;
+                margin-left: 40%;
+            }
+        }
+        .policy-card{
+            background-color: $white;
+            padding: 2em;
+            h5, h6, p{
+                margin-bottom: 0;
+            }
+            border-radius: 10px;
+            border: 1px solid $primary-blue;
+            box-shadow: 10px 10px 2px 0 $black-faint4;
+            .policy-heading{
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                margin-bottom: 1em; 
+                img{
+                    width: 25px;
+                    margin-right: 1em;
+                }
+            }
+            .clear::marker {
+                content: ' ';
+                font-size: 1.2em;
+            }
+            
+        }
+    }
+}

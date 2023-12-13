@@ -1,0 +1,74 @@
+@import '../../../../../assets/styles/variables.scss';
+
+.why-us{
+    background-image: url(../../../../../assets/images/blue-brick-bg.jpg);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    color: $white;
+    padding-bottom: calc(4vh + 3vw);
+    .why-spacing{
+        padding-top: calc(30vh + 4px);
+    }
+    .block-side{
+        @include mediaW(768px) {
+            border-left: 1px solid $white-faint3;
+        }
+    }
+    .why-us-card{
+        margin: 1em auto;
+        padding: 0 15px 0;
+        transition: 0.4s ease;
+        position: relative;
+        @include mediaM(767px) {
+            text-align: center;
+        }
+        h6{
+            font-size: 1.3em;
+            min-height: 25px;
+        }
+        p{
+            @include mediaW(768px) {
+                font-size: 0.85em;
+            }
+        }
+        transition: 0.4s ease;
+        .topic{
+            z-index: 10;
+            position: relative;
+            .icon{
+                width: 60%;
+                max-width: 100px;
+                @include mediaM(767px) {
+                    margin: auto;
+                }
+            }
+            .writeup{
+                @include mediaW(768px) {
+                    min-height: 170px;
+                }
+            }
+        }
+    }
+    .gt-button{
+        color: $white;
+        background-color: rgba(0, 0, 0, 0);
+        border-radius: 10px;
+        border: 1px dashed rgba(0, 0, 0, 0);
+        padding: 0.8em 2em;
+        transition: 0.3s ease;
+        i{
+            transition: 0.3s ease;
+        }
+        h6{
+            color: $orange;
+            margin-bottom: 0;
+        }
+        &:hover{
+            border-color: $orange-faint;
+            i{
+                transform: translateX(6px);
+            }
+        }
+    }
+}

@@ -1,0 +1,121 @@
+@import "../../../../../assets/styles/variables.scss";
+
+.switcher{
+  width: 80%;
+  max-width: 360px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  border: 1px solid $primary-blue-hover;
+  border-radius: 6px;
+  text-align: center;
+  margin: auto;
+  overflow: hidden;
+  p{
+    margin: 6px 0;
+  }
+  .websites{
+    border-radius: 10px 0 0 10px;
+  }
+  .prototypes{
+    border-radius: 0 10px 10px 0;
+  }
+  .active{
+    background-color: $primary-card;
+    transition: 0.3s ease;
+    box-shadow: 0 3px 10px 0 $black-faint3;
+    pointer-events: none;
+    p{
+      color: $white;
+      font-weight: 700;
+    }
+  }
+  .dormant{
+    color: $primary-card;
+    transition: 0.3s ease;
+    cursor: pointer;
+  }
+}
+
+.scroll-holder{
+  overflow: scroll;
+  width: 100%;
+}
+// .scrollable{
+//   width: 100px;
+// }
+.responsive-table{
+  min-width: 0;
+  width: 100%;
+  th{
+    padding: 5px 9px;
+  }
+  td{
+    padding: 5px 9px;
+  }
+  // tbody{
+  //   width: 100%;
+  //   :nth-child(odd){
+  //     background-color: rgb(236, 236, 236);
+  //   }
+  // }
+  tr{
+    width: 100%;
+    // &:nth-child(odd){
+    //   background-color: rgb(236, 236, 236);
+    // }
+  }
+}
+.dark-row{
+  background-color: rgb(236, 236, 236);
+}
+
+.icon-holder{
+  position: absolute;
+}
+
+.red-button, .blue-button{
+  border: none;
+  padding: 4px 9px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-weight: 500;
+  color: $white;
+  transition: 0.3s ease;
+  &:focus{
+    outline: none;
+  }
+  &:active{
+    transform: translateY(4px);
+  }
+}
+.red-button{
+  background-color: $red;
+  &:hover{
+    background-color: $red-hover;
+  }
+}
+.blue-button{
+  background-color: $primary-blue;
+  &:hover{
+    background-color: $primary-blue-hover;
+  }
+}
+
+.stats-page{
+  .description-grid-50{
+    @include mediaM(1100px) {
+      display: block;
+    }
+    @include mediaM(991px) {
+      display: grid;
+    }
+    .icon-holder{
+      @include mediaM(1100px) {
+        display: none;
+      }
+      @include mediaM(991px) {
+        display: block;
+      }
+    }
+  }
+}

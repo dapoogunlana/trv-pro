@@ -1,0 +1,42 @@
+@import "../../../assets/styles/variables.scss";
+
+.admin-login{
+    width: 100%;
+    background-color: #F4F4F4;
+    position: relative;
+    min-height: 100vh;
+    .slant-holder{
+        position: absolute;
+        top: 0;
+        height: 100%;
+        img{
+            height: 100%;
+        }
+        @include mediaM(991px) {
+            display: none;
+        }
+    }
+    .reg-holder{
+        width: 94%;
+        max-width: 1200px;
+        margin: auto;
+        padding: 3vh 0 6vh;
+        min-height: calc(100vh - 83px);
+        @include mediaM(885px) {
+            min-height: calc(100vh - 55px);
+        }
+        .reg-img{
+            text-align: center;
+            @include mediaM(991px) {
+                display: none;
+            }
+        }
+        .reg-mobile-text{
+            text-align: center;
+            // color: $white;
+            @include mediaW(992px) {
+                display: none;
+            }
+        }
+    }
+}

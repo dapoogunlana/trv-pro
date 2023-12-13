@@ -1,0 +1,60 @@
+@import '../../../../../assets/styles/variables.scss';
+
+.why-us{
+    background-color: #DBE6F0;
+    position: relative;
+    padding-bottom: calc(7vh + 7vw);
+    .why-spacing{
+        padding-top: calc(30vh + 4px);
+    }
+    .block-side{
+        @include mediaW(768px) {
+            border-left: 1px solid $black-faint4;
+        }
+    }
+    .why-us-card{
+        margin: 1em auto;
+        padding: 0 15px 0;
+        transition: 0.4s ease;
+        position: relative;
+        @include mediaM(767px) {
+            text-align: center;
+        }
+        h6{
+            font-size: 1.3em;
+            min-height: 25px;
+            color: $red-hover;
+        }
+        p{
+            @include mediaW(768px) {
+                font-size: 0.85em;
+            }
+        }
+        transition: 0.4s ease;
+        .topic{
+            z-index: 10;
+            position: relative;
+            .icon{
+                width: 60%;
+                max-width: 100px;
+                @include mediaM(767px) {
+                    margin: auto;
+                }
+            }
+            .writeup{
+                @include mediaW(768px) {
+                    min-height: 170px;
+                }
+            }
+        }
+    }
+    .bottom-arc{
+        width: 100%;
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        img{
+            width: 100%;
+        }
+    }
+}
