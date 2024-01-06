@@ -6,7 +6,7 @@ const ProctedRoutes = () => {
     const token = sessionStorage.getItem('token');
 
     return (
-        token ? <Outlet/> : <Navigate to={`/${routeConstants.admin}/${routeConstants.adminLogin}`} />
+        token ? <Outlet/> : <Navigate to={`/${routeConstants.login}`} />
     );
 
 }

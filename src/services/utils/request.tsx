@@ -28,7 +28,7 @@ export const sendRequest = (params: IrequestFormat, success: Function, failure: 
         if(errorStatus === 401 || errorStatus === 403) {
             sessionStorage.clear();
             setTimeout(() => {
-                window.location.href = `/${routeConstants.admin}/${routeConstants.adminLogin}`;
+                window.location.href = `/${routeConstants.login}`;
             }, 500);
             return
         }

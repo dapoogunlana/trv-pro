@@ -43,7 +43,7 @@ function AdminRegisterForm() {
             toast.success(res.message);
             controls.resetForm();
             sessionStorage.setItem('token', res.token);
-            navigate(`/${routeConstants.admin}`);
+            navigate(`/${routeConstants.home}`);
         }, (err: any) => {
             controls.setSubmitting(false);
             setResponse(<p className='c-red mb-0 pt-2'>{err.error?.emailError || err.message || 'Unable to complete'}</p>);
@@ -229,7 +229,7 @@ function AdminRegisterForm() {
                                 <div className=''>
                                     <span>Already registered? </span>
                                     <span className='font-weight-bold c-pr-blue'>
-                                        <Link to={`/${routeConstants.admin}/${routeConstants.adminLogin}`}>Login</Link>
+                                        <Link to={`/${routeConstants.login}`}>Login</Link>
                                     </span>
                                 </div>
                             </form>

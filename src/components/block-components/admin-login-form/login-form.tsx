@@ -34,7 +34,7 @@ function AdminLoginForm() {
             // toast.success(res.message);
             controls.resetForm();
             sessionStorage.setItem('token', res.token);
-            navigate(`/${routeConstants.admin}`);
+            navigate(`/${routeConstants.login}`);
         }, (err: any) => {
             controls.setSubmitting(false);
             setResponse(<p className='c-red mb-0 pt-2'>{err?.error?.emailError || err?.message || 'Server network Error'}</p>);
@@ -132,7 +132,7 @@ function AdminLoginForm() {
                                 <div className=''>
                                     <span>Not registered yet? </span>
                                     <span className='font-weight-bold c-pr-blue'>
-                                        <Link to={`/${routeConstants.admin}/${routeConstants.adminRegister}`}>Register</Link>
+                                        <Link to={`/${routeConstants.signup}`}>Register</Link>
                                     </span>
                                 </div>
                             </form>

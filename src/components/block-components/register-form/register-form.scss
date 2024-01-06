@@ -1,7 +1,7 @@
 @import '../../../assets/styles/variables.scss';
 
 .reg-box{
-    background-color: $primary-card;
+    background-color: $primary-blue;
     padding: 15px;
     border-radius: 15px;
     box-shadow: 10px 10px 2px 0 $black-faint3;
@@ -20,13 +20,13 @@
             border-radius: 8px;
             padding: 5px 15px;
             border: 1.5px dashed $white-faint3;
-            background-color: $primary-card;
+            background-color: $primary-blue;
             box-shadow: 10px 10px 2px 0 $black-faint3;
             width: 100%;
             transition: 0.3s ease-in-out;
             &:focus {
               outline: none;
-              border: 1.5px solid $primary-blue-brighter;
+              border: 1.5px solid $orange;
             }
         }
         select{
