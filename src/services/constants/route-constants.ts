@@ -7,7 +7,6 @@
      about: 'about',
      login: 'log-in',
      signup: 'sign-up',
-     skyflex: 'skyflex',
      offers: 'offers',
      skyflexPay: 'skyflex-pay',
      skyRewards: 'sky-rewards',
@@ -15,11 +14,10 @@
      terms: 'terms',
      privacyPolicy: 'privacy-policy',
      careers: 'careers',
-     contact: 'contact-us',
+     contact: 'contact',
 
      flights: 'flights',
      stays: 'stays',
-     industryNews: 'news',
      bookRides: 'book-rides',
      rewards: 'rewards',
      deals: 'deals',
@@ -27,5 +25,6 @@
      travelInfo: 'travel-info',
      flightTracker: 'flight-tracker',
      myBookings: 'my-bookings',
-     feedBack: 'feed-back'
+     feedBack: 'feed-back',
+     industryNews: 'news',
  };

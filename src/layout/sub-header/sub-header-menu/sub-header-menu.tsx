@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { routeConstants } from "../../../services/constants/route-constants";
@@ -22,9 +23,9 @@ function SubHeaderMenu(props: {className: string}) {
         <div className="bottom-bar"></div>
       </div>
       </NavLink>
-      <div className="sub-link">
-        <p>Hot Offers</p>
-        <div>
+      <div className={props.className + " sub-link multi-case"}>
+        <p className="multi">Hot Offers <FontAwesomeIcon icon={'sort-down'} className="offer-icon" /></p>
+        <div className="bottom-holder">
           <NavLink to={`/${routeConstants.offers}`} className={({isActive}) => `${props.className} ` + (isActive ? 'active-sublink' : '')}>
             <div className="bottom-bar"></div>
           </NavLink>
