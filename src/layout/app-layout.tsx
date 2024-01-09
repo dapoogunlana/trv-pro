@@ -13,6 +13,9 @@ function UserModule() {
   const toggleSidebarVisible = () => {
     setSidebarVisible(!sidebarVisible);
   }
+  const offSidebarVisible = () => {
+    setSidebarVisible(false);
+  }
 
   return (
     <div className='layout'>
@@ -20,7 +23,7 @@ function UserModule() {
       <div className='layout-grid'>
         <div className={'side-bar' + (sidebarVisible ? ' side-bar-active' : '')}>
           <div className='side-bg' onClick={toggleSidebarVisible}></div>
-          <Sidebar toggleSidebarVisible={toggleSidebarVisible} sidebarVisible={sidebarVisible} />
+          <Sidebar toggleSidebarVisible={toggleSidebarVisible} offSidebarVisible={offSidebarVisible} sidebarVisible={sidebarVisible} />
         </div>
         <div className='main-area'>
           <SubHeader toggleSidebarVisible={toggleSidebarVisible} />

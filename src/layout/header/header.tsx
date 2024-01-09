@@ -4,8 +4,16 @@ import { LogoBlack } from "../../assets/images";
 
 import "./header.scss";
 import SearchComponent from "./search-component/search-component";
+import { Link, useNavigate } from "react-router-dom";
+import { routeConstants } from "../../services/constants/route-constants";
 
 function Header(props: any) {
+
+  const navigate = useNavigate();
+
+  const navigateTo = (link: string) => {
+    navigate(link);
+  }
 
   useEffect(() => {}, [props]);
 
@@ -28,8 +36,8 @@ function Header(props: any) {
           <div className="icon-holder center-info m-open-sm">
             <FontAwesomeIcon icon={'search'} className="m-open-sm" />
           </div>
-          <button className="login">Login</button>
-          <button className="signup">Sign Up</button>
+          <button className="login" onClick={() => navigateTo(`/${routeConstants.login}`)}>Login</button>
+          <button className="signup" onClick={() => navigateTo(`/${routeConstants.signup}`)}>Sign Up</button>
           <select name="" id="" className="language m-close-sm">
             <option value="english">EN</option>
             <option value="french">FR</option>

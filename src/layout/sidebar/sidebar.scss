@@ -127,9 +127,16 @@
             }
             .active-sidebar-link{
                 text-decoration: none ;
-                // p{
-                    // color: cadetblue !important;
-                // }
+                .sibebar-icon{
+                    color: $orange;
+                    border: 0.6px solid $orange;
+                    i{
+                        color: $orange;
+                    }
+                }
+                p{
+                    color: $orange ;
+                }
             }
         }
         .separation-line{

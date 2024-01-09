@@ -25,7 +25,7 @@ function Sidebar(props: any) {
       <div className="m-open-sm"></div>
       <div className="lined-icons">
         <div className="sect m-open-md">
-          <SubHeaderMenu className="mobile-version" />
+          <SubHeaderMenu className="mobile-version" offSidebarVisible={props.offSidebarVisible} />
         </div>
         <div className="sect">
           <div className={"menu-grid2 m-close-md-im" + (props.sidebarVisible ? ' menu-grid-active' : '')}>
@@ -38,95 +38,113 @@ function Sidebar(props: any) {
               <p className="mb-0"></p>
             </div>
           </div>
-          <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}>
-            <div className="sibebar-icon">
-              < FontAwesomeIcon icon={'plane'} />
+          <NavLink to={`/${routeConstants.flights}`} className={({isActive}) => isActive ? 'active-sidebar-link' : ''}>
+            <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
+              <div className="sibebar-icon">
+                < FontAwesomeIcon icon={'plane'} />
+              </div>
+              <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
+                <p className="mb-0 pt-2">Flights</p>
+              </div>
             </div>
-            <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
-              <p className="mb-0 pt-2">Flights</p>
+          </NavLink>
+          <NavLink to={`/${routeConstants.stays}`} className={({isActive}) => isActive ? 'active-sidebar-link' : ''}>
+            <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
+              <div className="sibebar-icon">
+                < FontAwesomeIcon icon={'bed'} />
+              </div>
+              <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
+                <p className="mb-0 pt-2">Stays</p>
+              </div>
             </div>
-          </div>
-          <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}>
-            <div className="sibebar-icon">
-              < FontAwesomeIcon icon={'bed'} />
+          </NavLink>
+          <NavLink to={`/${routeConstants.bookRides}`} className={({isActive}) => isActive ? 'active-sidebar-link' : ''}>
+            <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
+              <div className="sibebar-icon">
+                < FontAwesomeIcon icon={'car'} />
+              </div>
+              <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
+                <p className="mb-0 pt-2">Book&nbsp;Ride</p>
+              </div>
             </div>
-            <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
-              <p className="mb-0 pt-2">Stays</p>
+          </NavLink>
+          <NavLink to={`/${routeConstants.rewards}`} className={({isActive}) => isActive ? 'active-sidebar-link' : ''}>
+            <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
+              <div className="sibebar-icon">
+                < FontAwesomeIcon icon={'gift'} />
+              </div>
+              <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
+                <p className="mb-0 pt-2">Rewards</p>
+              </div>
             </div>
-          </div>
-          <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}>
-            <div className="sibebar-icon">
-              < FontAwesomeIcon icon={'car'} />
+          </NavLink>
+          <NavLink to={`/${routeConstants.deals}`} className={({isActive}) => isActive ? 'active-sidebar-link' : ''}>
+            <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
+              <div className="sibebar-icon">
+                < FontAwesomeIcon icon={'handshake-angle'} />
+              </div>
+              <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
+                <p className="mb-0 pt-2">Deals</p>
+              </div>
             </div>
-            <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
-              <p className="mb-0 pt-2">Book&nbsp;Ride</p>
-            </div>
-          </div>
-          <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}>
-            <div className="sibebar-icon">
-              < FontAwesomeIcon icon={'gift'} />
-            </div>
-            <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
-              <p className="mb-0 pt-2">Rewards</p>
-            </div>
-          </div>
-          <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}>
-            <div className="sibebar-icon">
-              < FontAwesomeIcon icon={'handshake-angle'} />
-            </div>
-            <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
-              <p className="mb-0 pt-2">Deals</p>
-            </div>
-          </div>
+          </NavLink>
         </div>
 
         <hr className="separation-line" />
 
         <div className="sect">
-          <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}>
-            <div className="sibebar-icon">
-              < FontAwesomeIcon icon={'globe'} />
+          <NavLink to={`/${routeConstants.explore}`} className={({isActive}) => isActive ? 'active-sidebar-link' : ''}>
+            <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
+              <div className="sibebar-icon">
+                < FontAwesomeIcon icon={'globe'} />
+              </div>
+              <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
+                <p className="mb-0 pt-2">Explore</p>
+              </div>
             </div>
-            <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
-              <p className="mb-0 pt-2">Explore</p>
+          </NavLink>
+          <NavLink to={`/${routeConstants.travelInfo}`} className={({isActive}) => isActive ? 'active-sidebar-link' : ''}>
+            <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
+              <div className="sibebar-icon">
+                < FontAwesomeIcon icon={'info'} />
+              </div>
+              <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
+                <p className="mb-0 pt-2">Travel&nbsp;Info</p>
+              </div>
             </div>
-          </div>
-          <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}>
-            <div className="sibebar-icon">
-              < FontAwesomeIcon icon={'info'} />
+          </NavLink>
+          <NavLink to={`/${routeConstants.flightTracker}`} className={({isActive}) => isActive ? 'active-sidebar-link' : ''}>
+            <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
+              <div className="sibebar-icon">
+                < FontAwesomeIcon icon={'map-location-dot'} />
+              </div>
+              <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
+                <p className="mb-0 pt-2">Flight&nbsp;Tracker</p>
+              </div>
             </div>
-            <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
-              <p className="mb-0 pt-2">Travel&nbsp;Info</p>
-            </div>
-          </div>
-          <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}>
-            <div className="sibebar-icon">
-              < FontAwesomeIcon icon={'map-location-dot'} />
-            </div>
-            <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
-              <p className="mb-0 pt-2">Flight&nbsp;Tracker</p>
-            </div>
-          </div>
+          </NavLink>
         </div>
 
         <hr className="separation-line" />
 
         <div className="sect">
-          <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}>
-            <div className="sibebar-icon">
-              < FontAwesomeIcon icon={'suitcase-rolling'} />
+          <NavLink to={`/${routeConstants.myBookings}`} className={({isActive}) => isActive ? 'active-sidebar-link' : ''}>
+            <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
+              <div className="sibebar-icon">
+                < FontAwesomeIcon icon={'suitcase-rolling'} />
+              </div>
+              <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
+                <p className="mb-0 pt-2">My&nbsp;Bookings</p>
+              </div>
             </div>
-            <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
-              <p className="mb-0 pt-2">My&nbsp;Bookings</p>
-            </div>
-          </div>
+          </NavLink>
         </div>
 
         <hr className="separation-line" />
 
         <div className="sect">
-          <NavLink to={`/${routeConstants.feedBack}`} className={active => active ? 'active-sidebar-link' : ''}>
-            <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}>
+          <NavLink to={`/${routeConstants.feedBack}`} className={({isActive}) => isActive ? 'active-sidebar-link' : ''}>
+            <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
               <div className="sibebar-icon">
                 < FontAwesomeIcon icon={'message'} />
               </div>

@@ -8,7 +8,7 @@ function SignupPage() {
   });
   
   return (
-    <div className='signup'>
+    <div className='signup-page'>
       <h1>Signup Page</h1>
       <h1>Signup Page</h1>
       <h1>Signup Page</h1>

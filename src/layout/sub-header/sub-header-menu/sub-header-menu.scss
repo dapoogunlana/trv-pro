@@ -87,6 +87,12 @@
         }
     }
 }
+.active-multilink{
+    .bottom-bar{
+        width: 30px;
+        background-color: $orange;
+    }
+}
 
 .web-version{
     .sub-link{
@@ -138,12 +144,6 @@
         .bottom-bar{
             margin-bottom: 1.1em;
             margin: 0.2em 0 0 6px;
-        }
-        .active-sublink{
-            .bottom-bar{
-                width: 30px;
-                background-color: $orange;
-            }
         }
     }
 }
