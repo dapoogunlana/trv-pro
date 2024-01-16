@@ -26,6 +26,9 @@ const TravelInfoPage = lazy(() => import("../pages/user/travel-info/travel-info"
 const FlightTrackerPage = lazy(() => import("../pages/user/flight-tracker/flight-tracker"));
 const MyBookingsPage = lazy(() => import("../pages/user/my-bookings/my-bookings"));
 const FeedbackPage = lazy(() => import("../pages/user/feedback/feedback"));
+const PartnersPage = lazy(() => import("../pages/user/partners/partners"));
+const HelpPage = lazy(() => import("../pages/user/help/help"));
+const FaqPage = lazy(() => import("../pages/user/faq/faq"));
 
 function UserRoute() {
   return (
@@ -53,6 +56,9 @@ function UserRoute() {
           <Route path={routeConstants.flightTracker} element={<FlightTrackerPage/>}></Route>
           <Route path={routeConstants.myBookings} element={<MyBookingsPage/>}></Route>
           <Route path={routeConstants.feedBack} element={<FeedbackPage/>}></Route>
+          <Route path={routeConstants.partners} element={<PartnersPage/>}></Route>
+          <Route path={routeConstants.help} element={<HelpPage/>}></Route>
+          <Route path={routeConstants.faq} element={<FaqPage/>}></Route>
           <Route path={routeConstants.all} element={<Navigate to={routeConstants.home2}/>}></Route>
         </Route>
       </Routes>

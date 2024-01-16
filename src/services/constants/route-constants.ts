@@ -15,6 +15,9 @@
      privacyPolicy: 'privacy-policy',
      careers: 'careers',
      contact: 'contact',
+     help: 'help',
+     partners: 'partners',
+     faq: 'faq',
 
      flights: 'flights',
      stays: 'stays',
