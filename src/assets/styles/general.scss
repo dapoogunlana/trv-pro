@@ -166,6 +166,9 @@
   .yellow-tx{
     color: $yellow;
   }
+  .yellow-bright-tx{
+    color: $yellow-bright;
+  }
   .purple-tx{
     color: $purple-bg;
   }
@@ -357,4 +360,21 @@
   &:hover{
     transform: scale(1.06);
   }
+}
+
+.number-light{
+  font-family: 'Poppins';
+  font-weight: 300;
+}
+.number-medium{
+  font-family: 'Poppins';
+  font-weight: 500;
+}
+.number-bold{
+  font-family: 'Poppins';
+  font-weight: 700;
+}
+
+.relative{
+  position: relative;
 }

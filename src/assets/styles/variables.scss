@@ -9,9 +9,11 @@ $secondary-blue: #0079BF;
 $faint-blue-bg: #F5F3FF;
 $faint-blue-border: rgba(104, 48, 195, 0.3);
 $purple-bg: #660476;
+$purple-bg-hover: #450050;
 
 $primary-bg: #F6F9FF;
 
+$yellow-bright: #FFB60A;
 $yellow: #DD9A00;
 $yellow-dark: #9c6d00;
 $yellow-faint: rgba(221, 155, 0, 0.4);
@@ -38,6 +40,7 @@ $grey-lightest: #eff0f2;
 $grey-light: #cccccc;
 $grey-mid: #818181;
 $grey-dark: #4f5873;
+$off-black: #4E4E4E;
 
 $faint-font: rgba(34, 33, 91, 0.6);
 
@@ -55,3 +58,20 @@ $transparent: rgba(0, 0, 0, 0);
     @content;
   }
 } ;
+
+
+
+@mixin base-button ($bg, $hover-bg) {
+  background-color: $bg;
+  color: $white;
+  border: none;
+  transition: 0.3s ease;
+  border-radius: 6px;
+  padding: 6px 9px;
+  &:hover{
+      background-color: $hover-bg;
+  }
+  &:active{
+      transform: scale(1.06);
+  }
+}
