@@ -2,11 +2,11 @@ import LogoWhite from './logo_white.png';
 import LogoBlack from './logo_black.png';
 import LogoGold from './logo_gold.png';
 
-import HeroImage from './hero-image.png';
-import DealImage1 from './deal-mage-1.jpg';
-import DealImage2 from './deal-mage-2.jpg';
-import DealImage3 from './deal-mage-3.jpg';
-import DealImage4 from './deal-mage-4.jpg';
+import HomeHeroImage from './home-hero-image.png';
+import HomeDealImage1 from './home-deal-mage-1.jpg';
+import HomeDealImage2 from './home-deal-mage-2.jpg';
+import HomeDealImage3 from './home-deal-mage-3.jpg';
+import HomeDealImage4 from './home-deal-mage-4.jpg';
 import FooterImg from './footer-img.jpg';
 import HomeBookHotelDots from './home-book-hotel-dots.svg';
 import HomeDestinations1 from './home-destinations-1.jpg';
@@ -30,12 +30,31 @@ import HomeShortlet4 from './home-shortlet-4.jpg';
 import HomeTravelOnCredit1 from './home-travel-on-credit-1.jpg';
 import HomeTravelOnCredit2 from './home-travel-on-credit-2.jpg';
 import HomeTravelOnCredit3 from './home-travel-on-credit-3.jpg';
-import MobilePhone from './mobile-phone.png';
-import PlanePath from './plane-path.svg';
-import WhyChooseImage from './why-choose-image.png';
-import TestimonyDots from './testimony-dots.svg';
+import HomeMobilePhone from './home-mobile-phone.png';
+import HomePlanePath from './home-plane-path.svg';
+import HomeWhyChooseImage from './home-why-choose-image.png';
+import HomeTestimonyDots from './home-testimony-dots.svg';
 import HomeDownloadTopic from './home-download-topic.svg';
 import HomeDownloadCustomers from './home-download-customers.png';
+
+import AboutBgCurve from './about-bg-curve.svg';
+import AboutJoinJourney from './about-join-journey.png';
+import AboutWhyChooseImage from './about-why-choose-image.png';
+import AboutWhyChooseShell from './about-why-choose-shell.png';
+
+import SkyflexBannerDecore from './skyflex-banner-decore.svg';
+import SkyflexBannerTraveller from './skyflex-banner-traveller.png';
+import SkyflexBggPlane from './skyflex-bg-plane.svg';
+import SkyflexDreamTripImg1 from './skyflex-dream-trip-img1.jpg';
+import SkyflexDreamTripImg2 from './skyflex-dream-trip-img2.jpg';
+import SkyflexDreamTripImg3 from './skyflex-dream-trip-img3.jpg';
+import SkyflexDreamTripImg4 from './skyflex-dream-trip-img4.jpg';
+import SkyflexDreamTripBigImg from './skyflex-dream-trip-big-img.png';
+import SkyflexHolidayBand from './skyflex-holiday-band.jpg';
+import SkyflexHowItWorks from './skyflex-how-it-works.png';
+import SkyflexWhatIs from './skyflex-what-is.png';
+import SkyflexWhyChoose from './skyflex-why-choose.jpg';
+import SkyflexWhyChooseMobile from './skyflex-why-choose-mobile.jpg';
 
 import DownloadPlaystoreHero from './icons/download-playstore-hero.svg';
 import DownloadAppstoreHero from './icons/download-appstore-hero.svg';
@@ -45,15 +64,20 @@ import WhyTravelIconCustomer from './icons/why-travel-icon-customer.svg';
 import WhyTravelIconExpertise from './icons/why-travel-icon-expertise.svg';
 import WhyTravelIconInnovation from './icons/why-travel-icon-innovation.svg';
 
+import SkyflexWorksIcon1 from './icons/skyflex-works-icon-1.svg';
+import SkyflexWorksIcon2 from './icons/skyflex-works-icon-2.svg';
+import SkyflexWorksIcon3 from './icons/skyflex-works-icon-3.svg';
+import SkyflexWorksIcon4 from './icons/skyflex-works-icon-4.svg';
+
 export {
     LogoWhite,
     LogoBlack,
     LogoGold,
-    HeroImage,
-    DealImage1,
-    DealImage2,
-    DealImage3,
-    DealImage4,
+    HomeHeroImage,
+    HomeDealImage1,
+    HomeDealImage2,
+    HomeDealImage3,
+    HomeDealImage4,
     FooterImg,
     HomeBookHotelDots,
     HomeDestinations1,
@@ -77,12 +101,31 @@ export {
     HomeTravelOnCredit1,
     HomeTravelOnCredit2,
     HomeTravelOnCredit3,
-    MobilePhone,
-    PlanePath,
-    WhyChooseImage,
-    TestimonyDots,
+    HomeMobilePhone,
+    HomePlanePath,
+    HomeWhyChooseImage,
+    HomeTestimonyDots,
     HomeDownloadTopic,
     HomeDownloadCustomers,
+
+    AboutBgCurve,
+    AboutJoinJourney,
+    AboutWhyChooseImage,
+    AboutWhyChooseShell,
+
+    SkyflexBannerDecore,
+    SkyflexBannerTraveller,
+    SkyflexBggPlane,
+    SkyflexDreamTripImg1,
+    SkyflexDreamTripImg2,
+    SkyflexDreamTripImg3,
+    SkyflexDreamTripImg4,
+    SkyflexDreamTripBigImg,
+    SkyflexHolidayBand,
+    SkyflexHowItWorks,
+    SkyflexWhatIs,
+    SkyflexWhyChoose,
+    SkyflexWhyChooseMobile,
 
     DownloadPlaystoreHero,
     DownloadAppstoreHero,
@@ -91,4 +134,9 @@ export {
     WhyTravelIconCustomer,
     WhyTravelIconExpertise,
     WhyTravelIconInnovation,
+
+    SkyflexWorksIcon1,
+    SkyflexWorksIcon2,
+    SkyflexWorksIcon3,
+    SkyflexWorksIcon4,
 }

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { HomeHappyClientMultiImage, TestimonyDots } from '../../../../../assets/images';
+import { HomeHappyClientMultiImage, HomeTestimonyDots } from '../../../../../assets/images';
 import { Carousel } from '../../../../../components/block-components/carousel';
 import { newsList, testimonyList } from './latest-data';
 import './latest.scss';
@@ -11,7 +11,7 @@ function LatestSect() {
         <div className='img-sect'>
           <div className='circle'></div>
           <div className='dotted-image'>
-            <img src={TestimonyDots} alt="" />
+            <img src={HomeTestimonyDots} alt="" />
           </div>
           <div className='user-image'>
             <img src={data.image} alt="" />

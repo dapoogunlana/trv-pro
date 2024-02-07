@@ -9,11 +9,9 @@ function SkyRewardsPage() {
   
   return (
     <div className='sky-rewards'>
-      <h1>SkyRewards Page</h1>
-      <h1>SkyRewards Page</h1>
-      <h1>SkyRewards Page</h1>
-      <h1>SkyRewards Page</h1>
-      <h1>SkyRewards Page</h1>
+      <div className='banner'>
+        <h1>SkyRewards Page</h1>
+      </div>
     </div>
   );
 }

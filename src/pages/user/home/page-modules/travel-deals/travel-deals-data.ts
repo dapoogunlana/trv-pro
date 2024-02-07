@@ -1,4 +1,4 @@
-import { DealImage1, DealImage2, DealImage3, DealImage4 } from "../../../../../assets/images";
+import { HomeDealImage1, HomeDealImage2, HomeDealImage3, HomeDealImage4 } from "../../../../../assets/images";
 
 
 export const travelDealsData = [
@@ -8,7 +8,7 @@ export const travelDealsData = [
         rating: 4.8,
         oldPrice: 850,
         currentPrice: 750,
-        image: DealImage1
+        image: HomeDealImage1
     },
     {
         location: 'Ferinze',
@@ -16,7 +16,7 @@ export const travelDealsData = [
         rating: 4.8,
         oldPrice: 850,
         currentPrice: 750,
-        image: DealImage2
+        image: HomeDealImage2
     },
     {
         location: 'Paris',
@@ -24,7 +24,7 @@ export const travelDealsData = [
         rating: 4.8,
         oldPrice: 850,
         currentPrice: 750,
-        image: DealImage3
+        image: HomeDealImage3
     },
     {
         location: 'London',
@@ -32,6 +32,6 @@ export const travelDealsData = [
         rating: 4.8,
         oldPrice: 850,
         currentPrice: 750,
-        image: DealImage4
+        image: HomeDealImage4
     },
 ];

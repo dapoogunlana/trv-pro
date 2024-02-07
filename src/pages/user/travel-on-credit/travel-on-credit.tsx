@@ -9,11 +9,9 @@ function TravelOnCreditPage() {
   
   return (
     <div className='travel-on-credit'>
-      <h1>TravelOnCredit Page</h1>
-      <h1>TravelOnCredit Page</h1>
-      <h1>TravelOnCredit Page</h1>
-      <h1>TravelOnCredit Page</h1>
-      <h1>TravelOnCredit Page</h1>
+      <div className='banner'>
+        <h1>TravelOnCredit Page</h1>
+      </div>
     </div>
   );
 }

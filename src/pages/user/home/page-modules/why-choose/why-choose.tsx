@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { WhyChooseImage, WhyTravelIconCustomer, WhyTravelIconExpertise, WhyTravelIconInnovation } from '../../../../../assets/images';
+import { HomeWhyChooseImage, WhyTravelIconCustomer, WhyTravelIconExpertise, WhyTravelIconInnovation } from '../../../../../assets/images';
 import './why-choose.scss';
 
 function WhyChooseSect() {
@@ -13,7 +13,7 @@ function WhyChooseSect() {
       <div className='row holder-1200'>
         <div className='col-md-6 center-info'>
           <div className='imh' data-aos='zoom-out'>
-            <img src={WhyChooseImage} alt="" />
+            <img src={HomeWhyChooseImage} alt="" />
           </div>
         </div>
         <div className='col-md-6 center-info'>

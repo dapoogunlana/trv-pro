@@ -38,6 +38,18 @@ h3{
     font-size: 2.1rem;
   }
 }
+.h1b{
+    font-weight: 900;
+    @include mediaW(550px) {
+        font-size: calc(1.5rem + 2.5vw)
+    }
+}
+.h1b2{
+    font-weight: 700;
+    @include mediaW(550px) {
+        font-size: calc(1.4rem + 1.9vw)
+    }
+}
 
 #root {
   width: 100%;

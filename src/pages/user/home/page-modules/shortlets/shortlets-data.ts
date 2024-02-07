@@ -1,4 +1,4 @@
-import { DealImage1, DealImage2, DealImage3, DealImage4, HomeShortlet1, HomeShortlet2, HomeShortlet3, HomeShortlet4 } from "../../../../../assets/images";
+import { HomeDealImage1, HomeDealImage2, HomeDealImage3, HomeDealImage4, HomeShortlet1, HomeShortlet2, HomeShortlet3, HomeShortlet4 } from "../../../../../assets/images";
 
 
 export const shortletsData = [

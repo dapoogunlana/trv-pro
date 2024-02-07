@@ -3,7 +3,7 @@ export const apiLinks = {
     coinGeco: 'https://www.coingecko.com/en/api/coins/list',
     cryptoCompare: `https://min-api.cryptocompare.com/data/top/totalvolfull?limit=100&tsym=USD&api_key=7c4c789b0b6c160099497bdfca52a1e941a04d982a37159634689f409ee2e1bd`,
     url: (window.location.href.indexOf('localhost') === -1) ?
-     'https://manilla-backend.herokuapp.com/api/v4/' : 'http://localhost:3500/api/v4/',
+     'http://18.234.208.203:2023/api/v1/' : 'http://18.234.208.203:2023/api/v1/',
     next: ``,
 }
 
@@ -14,7 +14,8 @@ export const externalLinkConstants = {
 }
  
 export const socialLinks = {
-    telegram: 'http://t.me/manilla_finance',
-    twitter: 'https://twitter.com/manilla_finance',
-    linkedin: 'https://www.linkedin.com/company/manilla-technologies/',
+    facebook: '',
+    instagram: '',
+    twitter: '',
+    youtube: '',
 };

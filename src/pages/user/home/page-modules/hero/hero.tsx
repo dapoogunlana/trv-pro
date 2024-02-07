@@ -1,19 +1,15 @@
-import React, { useEffect } from 'react';
-import { DownloadAppstoreHero, DownloadPlaystoreHero, HeroImage, PlanePath } from '../../../../../assets/images';
+import React from 'react';
+import { DownloadAppstoreHero, DownloadPlaystoreHero, HomeHeroImage, HomePlanePath } from '../../../../../assets/images';
 import BookingComp from '../../../../../components/block-components/booking-comp/booking-comp';
 import './hero.scss';
 
 function HeroSect() {
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  });
   
   return (
     <div className='hero'>
       <div className='holder-1100 hero-spread'>
         <div className='plane-path' data-aos='fade-in' data-aos-delay='1600'>
-          <img src={PlanePath} alt="" />
+          <img src={HomePlanePath} alt="" />
         </div>
         <div className='text-sect' data-aos='fade-right'>
           <h1>Borderless</h1>
@@ -35,8 +31,10 @@ function HeroSect() {
           </div>
         </div>
         <div className='img-sect' data-aos='zoom-out' data-aos-delay='800'>
-          <img src={HeroImage} alt="" />
+          <img src={HomeHeroImage} alt="" />
         </div>
+      </div>
+      <div>
       </div>
       <div className='booking-sect'>
         <BookingComp/>

@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect } from 'react';
-import { DownloadAppstoreFooter, DownloadPlaystoreFooter, HomeDownloadCustomers, HomeDownloadTopic, MobilePhone } from '../../../../../assets/images';
+import { DownloadAppstoreFooter, DownloadPlaystoreFooter, HomeDownloadCustomers, HomeDownloadTopic, HomeMobilePhone } from '../../../../../assets/images';
 import './downloads.scss';
 
 function DownloadsSect() {
@@ -28,7 +28,7 @@ function DownloadsSect() {
             </div>
             <div className='phone-img' data-aos="zoom-in" data-aos-delay="600">
               <div>
-                <img src={MobilePhone} alt="" />
+                <img src={HomeMobilePhone} alt="" />
               </div>
             </div>
             <div className='mobile-grid'>
