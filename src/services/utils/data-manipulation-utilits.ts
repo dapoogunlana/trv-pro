@@ -68,7 +68,7 @@
     }
   }
 
-export function formatDate(date: any) {
+export function formatDate(date: any, returnValue?: string) {
   try{
     if (date) {
       const convertedDate =  new Date(date).toDateString();
@@ -76,13 +76,31 @@ export function formatDate(date: any) {
       if (convertedDate) {
         return convertedDate;
       } else {
-        return '-';
+        return returnValue || '-';
       }
     } else {
-      return '-';
+      return returnValue || '-';
     }
   } catch(e) {
-    return '-';
+    return returnValue || '-';
+  }
+}
+export function formatDateMini(date: any, returnValue?: string) {
+  try{
+    if (date) {
+      const convertedDate =  new Date(date).toLocaleDateString();
+      
+      if (convertedDate) {
+        const dateList = convertedDate.split('/');
+        return `${dateList[1]}-${dateList[0]}-${dateList[2].substring(2)}`;
+      } else {
+        return returnValue || '-';
+      }
+    } else {
+      return returnValue || '-';
+    }
+  } catch(e) {
+    return returnValue || '-';
   }
 }
 

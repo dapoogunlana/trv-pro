@@ -178,6 +178,9 @@
   .faint-tx{
     opacity: 0.7;
   }
+  .fainter-tx{
+    opacity: 0.45;
+  }
   /*End colors*/
 
 
@@ -635,6 +638,11 @@
 .reduced-web {
   @include mediaW(768px){
     font-size: 0.8.5em;
+  }
+}
+.reduced-web-im {
+  @include mediaW(768px){
+    font-size: 0.8.5em !important;
   }
 }
 .reduced-soft-im {

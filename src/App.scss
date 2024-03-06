@@ -71,3 +71,7 @@ h3{
     color: $black;
   }
 }
+
+.rdrDefinedRangesWrapper{
+  display: none !important; // to hide excesses on daterange picker.
+}

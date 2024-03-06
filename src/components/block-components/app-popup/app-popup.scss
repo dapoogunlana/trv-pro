@@ -69,13 +69,13 @@
 .anchor-partly-right{
     @include mediaW(751px) {
         right: 0%;
-        transform: translateX(13%);
+        transform: translateX(12%);
     }
 }
 .anchor-part-right{
     @include mediaW(751px) {
         right: 0%;
-        transform: translateX(25%);
+        transform: translateX(20%);
     }
 }
 .anchor-full-left{
@@ -86,13 +86,13 @@
 .anchor-partly-left{
     @include mediaW(751px) {
         left: 0%;
-        transform: translateX(-13%);
+        transform: translateX(-12%);
     }
 }
 .anchor-part-left{
     @include mediaW(751px) {
         left: 0%;
-        transform: translateX(-25%);
+        transform: translateX(-20%);
     }
 }
 .anchor-center{

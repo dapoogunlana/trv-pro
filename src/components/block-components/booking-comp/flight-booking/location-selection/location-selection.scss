@@ -1,54 +1,17 @@
 @import '../../../../../assets/styles/variables.scss';
 
-.location-selection{
+.location-case{
     width: 100%;
-    .flight-type-selector{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-weight: 500;
-        color: $black-faint1;
-        max-width: 300px;
-        padding-bottom: 0.6em;
-        span{
-            font-size: 0.9em;
-            font-weight: 600;
-        }
-        input{
-            font-size: 1.1em;
-            margin: 0 10px 0 6px;
-            transform: scale(1.5);
-        }
-        @include mediaW(701px){
-            position: absolute;
-            top: 6px;
-            right: 0;
-            width: 300px;
-            span{
-                font-size: 0.8em;
-            }
-        }
+    @include mediaW(750px){
+        width: 500px;
     }
-    .selector{
-        border-radius: 7px;
-        border: 1px solid $black-faint3;
+    @include mediaW(1000px){
+        width: 750px;
+    }
+    .location-selection{
         width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0.6em 0.9em;
-        cursor: pointer;
-        transition: 0.3s ease;
-        .label{
-            position: absolute;
-            padding: 0 0.3em;
-            background: $white;
-            left: 5%;
-            top: -0.8em;
-            font-size: 0.7em;
-        }
-        &:hover{
-            box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.15);
-        }
+    }
+    .confirm-location-button{
+        @include base-button($purple-bg, $purple-bg-hover);
     }
 }
