@@ -4,15 +4,27 @@ import { LogoBlack } from "../../assets/images";
 
 import "./header.scss";
 import SearchComponent from "./search-component/search-component";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { routeConstants } from "../../services/constants/route-constants";
+import { useSelector } from "react-redux";
+import { IStateData } from "../../services/constants/interfaces/data-schemas";
+import { useDispatch } from "react-redux";
+import { userLogout } from "../../services/actions-reducers/user-data";
 
 function Header(props: any) {
 
   const navigate = useNavigate();
+  const userDetails = useSelector((state: IStateData) => state?.user || {});
+  console.log({userDetails})
+  const dispatch = useDispatch();
 
   const navigateTo = (link: string) => {
     navigate(link);
+  }
+
+  const logOut = () => {
+    dispatch(userLogout());
+    navigateTo(`${routeConstants.home}`);
   }
 
   useEffect(() => {}, [props]);
@@ -36,8 +48,14 @@ function Header(props: any) {
           <div className="icon-holder center-info m-open-sm">
             <FontAwesomeIcon icon={'search'} className="m-open-sm" />
           </div>
-          <button className="login" onClick={() => navigateTo(`/${routeConstants.login}`)}>Login</button>
-          <button className="signup" onClick={() => navigateTo(`/${routeConstants.signup}`)}>Sign Up</button>
+          {
+            !userDetails.email ?
+            <>
+              <button className="login" onClick={() => navigateTo(`/${routeConstants.login}`)}>Login</button>
+              <button className="signup" onClick={() => navigateTo(`/${routeConstants.signup}`)}>Sign Up</button>
+            </> :
+            <button className="signup" onClick={logOut}>Log Out</button>
+          }
           <select name="" id="" className="language m-close-sm">
             <option value="english">EN</option>
             <option value="french">FR</option>

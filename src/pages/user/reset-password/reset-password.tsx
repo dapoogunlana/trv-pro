@@ -1,19 +1,15 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { routeConstants } from '../../../services/constants/route-constants';
-import AdminLoginForm from './login-form/login-form';
-import './login.scss';
+import AdminResetPasswordForm from './reset-password-form/reset-password-form';
+import './reset-password.scss';
 
-function LoginPage() {
+function ResetPasswordPage() {
 
   const navigate = useNavigate();
 
-  const poceedToVerify = () => {
-    navigate(`/${routeConstants.verfyEmail}`);
-  }
-
-  const logUserIn = () => {
-    navigate(`${routeConstants.home}`);
+  const resetComplete = () => {
+    navigate(`/${routeConstants.login}`);
   }
 
   useEffect(() => {
@@ -21,11 +17,11 @@ function LoginPage() {
   });
   
   return (
-    <div className='login-page'>
+    <div className='reset-password-page'>
       <div className='hold-grid'>
         <div className='content-sect'>
           <div className='content-holder'>
-            <AdminLoginForm poceedToVerify={poceedToVerify} logUserIn={logUserIn} />
+            <AdminResetPasswordForm resetComplete={resetComplete} />
           </div>
         </div>
         <div className='image-sect'></div>
@@ -34,4 +30,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default ResetPasswordPage;

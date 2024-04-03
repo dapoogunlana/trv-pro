@@ -2,13 +2,16 @@ import React, { Suspense, lazy } from 'react';
 import {  Routes, Route, Navigate  } from 'react-router-dom';
 import { routeConstants } from '../services/constants/route-constants';
 import Loader from '../components/block-components/loader/loader';
-
+import ProctedRoutes from './protected-routes';
 
 const UserModule = lazy(() => import("../layout/app-layout"));
 const HomePage = lazy(() => import("../pages/user/home/home"));
 const AboutPage = lazy(() => import("../pages/user/about/about"));
 const LoginPage = lazy(() => import("../pages/user/login/login"));
 const SignupPage = lazy(() => import("../pages/user/signup/signup"));
+const VerifyEmail = lazy(() => import("../pages/user/verify-email/verify-email"));
+const RequestPassword = lazy(() => import("../pages/user/retrieve-password/retrieve-password"));
+const UpdatePassword = lazy(() => import("../pages/user/reset-password/reset-password"));
 const SkyflexPayPage = lazy(() => import("../pages/user/skyflex-pay/skyflex-pay"));
 const SkyRewardsPage = lazy(() => import("../pages/user/sky-rewards/sky-rewards"));
 const TravelOnCreditPage = lazy(() => import("../pages/user/travel-on-credit/travel-on-credit"));
@@ -16,6 +19,7 @@ const TermsPage = lazy(() => import("../pages/user/terms/terms"));
 const PrivacyPolicyPage = lazy(() => import("../pages/user/privacy-policy/privacy-policy"));
 const CareersPage = lazy(() => import("../pages/user/careers/careers"));
 const ContactPage = lazy(() => import("../pages/user/contact/contact"));
+const ProfilePage = lazy(() => import("../pages/user/profile/profile"));
 const FlightsPage = lazy(() => import("../pages/user/flights/flights"));
 const StaysPage = lazy(() => import("../pages/user/stays/stays"));
 const BookRidesPage = lazy(() => import("../pages/user/book-rides/book-rides"));
@@ -39,6 +43,9 @@ function UserRoute() {
           <Route path={routeConstants.about} element={<AboutPage/>}></Route>
           <Route path={routeConstants.login} element={<LoginPage/>}></Route>
           <Route path={routeConstants.signup} element={<SignupPage/>}></Route>
+          <Route path={routeConstants.verfyEmail} element={<VerifyEmail/>}></Route>
+          <Route path={routeConstants.requestPassword} element={<RequestPassword/>}></Route>
+          <Route path={routeConstants.updatePassword} element={<UpdatePassword/>}></Route>
           <Route path={`${routeConstants.offers}/${routeConstants.skyflexPay}`} element={<SkyflexPayPage/>}></Route>
           <Route path={`${routeConstants.offers}/${routeConstants.skyRewards}`} element={<SkyRewardsPage/>}></Route>
           <Route path={`${routeConstants.offers}/${routeConstants.travelOnCredit}`} element={<TravelOnCreditPage/>}></Route>
@@ -59,6 +66,9 @@ function UserRoute() {
           <Route path={routeConstants.partners} element={<PartnersPage/>}></Route>
           <Route path={routeConstants.help} element={<HelpPage/>}></Route>
           <Route path={routeConstants.faq} element={<FaqPage/>}></Route>
+          <Route element={<ProctedRoutes/>}>
+            <Route path={routeConstants.profile} element={<ProfilePage/>}></Route>
+          </Route>
           <Route path={routeConstants.all} element={<Navigate to={routeConstants.home2}/>}></Route>
         </Route>
       </Routes>

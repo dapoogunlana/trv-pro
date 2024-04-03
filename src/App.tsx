@@ -8,6 +8,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { iconList, fontAwesomeLibrary as library } from './libraries/fontawesome';
 import './assets/styles/general.scss';
 import './App.scss';
+import { Provider } from 'react-redux';
+import { store } from './services/store';
 
 library.add(...iconList)
 
@@ -16,10 +18,12 @@ function App() {
     duration: 1200,
   });
   return (
-    <div className="App">
-      <BaseRoute></BaseRoute>
-      <ToastContainer />
-    </div>
+    <Provider store={store}>
+        <div className="App">
+          <BaseRoute></BaseRoute>
+          <ToastContainer />
+        </div>
+    </Provider>
   );
 }
 

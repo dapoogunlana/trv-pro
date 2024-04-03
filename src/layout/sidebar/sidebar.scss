@@ -23,7 +23,7 @@
         align-items: center;
         justify-content: space-between;
         flex-direction: column;
-        .sect{
+        .sect, .c-sect{
             width: 100%;
             padding: 3px 5px;
             .menu-grid, .menu-grid2{
@@ -138,6 +138,12 @@
                     color: $orange ;
                 }
             }
+        }
+        .c-sect{
+            width: 100%;
+            padding: 0;
+            height: 20px;
+            // overflow: hidden;
         }
         .separation-line{
             width: 100%;

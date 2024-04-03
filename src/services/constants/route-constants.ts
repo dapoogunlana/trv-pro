@@ -7,6 +7,9 @@
      about: 'about',
      login: 'log-in',
      signup: 'sign-up',
+     verfyEmail: 'verfy-email',
+     requestPassword: 'request-password',
+     updatePassword: 'update-password',
      offers: 'offers',
      skyflexPay: 'skyflex-pay',
      skyRewards: 'sky-rewards',
@@ -19,6 +22,7 @@
      partners: 'partners',
      faq: 'faq',
 
+     profile: 'profile',
      flights: 'flights',
      stays: 'stays',
      bookRides: 'book-rides',

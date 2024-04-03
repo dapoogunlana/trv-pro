@@ -1,14 +1,18 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { LogoWhite } from "../../assets/images";
+import { IStateData } from "../../services/constants/interfaces/data-schemas";
 import { routeConstants } from "../../services/constants/route-constants";
 import SubHeaderMenu from "../sub-header/sub-header-menu/sub-header-menu";
 
 import "./sidebar.scss";
 
 function Sidebar(props: any) {
+
+  const userDetails = useSelector((state: IStateData) => state?.user || {});
 
   useEffect(() => {
     console.log({props})
@@ -27,7 +31,8 @@ function Sidebar(props: any) {
         <div className="sect m-open-md">
           <SubHeaderMenu className="mobile-version" offSidebarVisible={props.offSidebarVisible} />
         </div>
-        <div className="sect">
+
+        <div className="c-sect">
           <div className={"menu-grid2 m-close-md-im" + (props.sidebarVisible ? ' menu-grid-active' : '')}>
             <div className="circles">
               <div className="blue"></div>
@@ -38,6 +43,29 @@ function Sidebar(props: any) {
               <p className="mb-0"></p>
             </div>
           </div>
+        </div>
+
+        {
+          userDetails.email_verified &&
+          <>
+            <div className="sect">
+              <NavLink to={`/${routeConstants.profile}`} className={({isActive}) => isActive ? 'active-sidebar-link' : ''}>
+                <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
+                  <div className="sibebar-icon">
+                    < FontAwesomeIcon icon={'user'} />
+                  </div>
+                  <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
+                    <p className="mb-0 pt-2">My&nbsp;Profile</p>
+                  </div>
+                </div>
+              </NavLink>
+            </div>
+
+            <hr className="separation-line" />
+          </>
+        }
+
+        <div className="sect">
           <NavLink to={`/${routeConstants.flights}`} className={({isActive}) => isActive ? 'active-sidebar-link' : ''}>
             <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
               <div className="sibebar-icon">

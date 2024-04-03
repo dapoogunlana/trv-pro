@@ -1,7 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Formik, FormikValues } from 'formik';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import { getAirport } from '../../../../../services/actions-reducers/airport-list';
+import { iStoreState } from '../../../../../services/store';
 import { clipToLength } from '../../../../../services/utils/data-manipulation-utilits';
 import { sendRequest } from '../../../../../services/utils/request';
 import TypeSuggestComponent from '../../../../base-components/type-suggest/type-suggest';
@@ -16,9 +20,11 @@ interface iLocationProps {
 function LocationSelectionComp(props: iLocationProps) {
 
   const [showPopup, setShowPopup] = useState<0 | 1 | 2>(0);
-  const [airportList, setAirportList] = useState<any[]>([]);
+  // const [airportList, setAirportList] = useState<any[]>([]);
   const [location, setLocation] = useState<{from: any, to: any}>({from: undefined, to: undefined});
   const [confirmedLocation, setConfirmedLocation] = useState<{from: any, to: any}>({from: undefined, to: undefined});
+
+  const airportList = useSelector((state: iStoreState) => state.airportList);
 
   const toggleShowPopup = (status?: 0 | 1 | 2) => {
     setShowPopup(status || 0);
@@ -28,14 +34,14 @@ function LocationSelectionComp(props: iLocationProps) {
 
   const submitLocations = (values: FormikValues, controls: any) => {}
 
-  const getAirportList = () => {
-      sendRequest({
-          url: 'flight/fetch-airports',
-          method: 'GET',
-      }, (res: any) => {
-          setAirportList(res.data);
-      }, (err: any) => {});
-  }
+  // const getAirportList = () => {
+  //     sendRequest({
+  //         url: 'flight/fetch-airports',
+  //         method: 'GET',
+  //     }, (res: any) => {
+  //         setAirportList(res.data);
+  //     }, (err: any) => {});
+  // }
 
   const updateSelection = (data: any, type: 'from' | 'to') => {
     const currentLocation = {...location};
@@ -54,7 +60,8 @@ function LocationSelectionComp(props: iLocationProps) {
   }
 
   useEffect(() => {
-    getAirportList();
+    console.log('juju', airportList)
+    // getAirportList();
   }, [props.componentState])
 
   useEffect(() => {

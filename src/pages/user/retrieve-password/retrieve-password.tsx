@@ -1,19 +1,16 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { routeConstants } from '../../../services/constants/route-constants';
-import AdminLoginForm from './login-form/login-form';
-import './login.scss';
+import AdminLoginForm from './retrieve-password/retrieve-password-form';
+import './retrieve-password.scss';
 
 function LoginPage() {
 
   const navigate = useNavigate();
 
-  const poceedToVerify = () => {
-    navigate(`/${routeConstants.verfyEmail}`);
-  }
-
-  const logUserIn = () => {
-    navigate(`${routeConstants.home}`);
+  const retrievalInitiated = () => {
+    console.log('Initiated');
+    navigate(`/${routeConstants.updatePassword}`);
   }
 
   useEffect(() => {
@@ -21,11 +18,11 @@ function LoginPage() {
   });
   
   return (
-    <div className='login-page'>
+    <div className='retrieve-password-page'>
       <div className='hold-grid'>
         <div className='content-sect'>
           <div className='content-holder'>
-            <AdminLoginForm poceedToVerify={poceedToVerify} logUserIn={logUserIn} />
+            <AdminLoginForm retrievalInitiated={retrievalInitiated} />
           </div>
         </div>
         <div className='image-sect'></div>

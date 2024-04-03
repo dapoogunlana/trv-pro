@@ -20,14 +20,12 @@ function FlightBookingComp() {
     setFlightType(type);
   }
 
-  const updateLocation = (type: {takeoff: string, destination: string}) => {
-    console.log({type});
-    setLocation(type);
+  const updateLocation = (locationObj: {takeoff: string, destination: string}) => {
+    setLocation(locationObj);
   }
 
-  const updateDate = (type: Date | undefined | { startDate: Date | undefined, endDate: Date| undefined, key: string }) => {
-    console.log({type})
-    setDate(type);
+  const updateDate = (dateObj: Date | undefined | { startDate: Date | undefined, endDate: Date| undefined, key: string }) => {
+    setDate(dateObj);
   }
   const updateLuggageCounts = (counts: {checkedInCount: number, handLuggageCounts: number}) => {
     console.log({counts})
