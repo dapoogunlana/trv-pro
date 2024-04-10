@@ -7,10 +7,8 @@ import { toast } from "react-toastify";
 import { regexConstants } from "../../../../services/constants/validation-regex";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./signup-form.scss";
-import { Link } from "react-router-dom";
-import { routeConstants } from "../../../../services/constants/route-constants";
 
-function AdminSignupForm({poceedToVerify}: {poceedToVerify?: Function}) {
+function AdminSignupForm({poceedToVerify, switchToLogin}: {poceedToVerify?: Function, switchToLogin?: Function}) {
   const [response, setResponse] = useState<any>();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -72,9 +70,11 @@ function AdminSignupForm({poceedToVerify}: {poceedToVerify?: Function}) {
     setShowPassword(!showPassword);
   };
 
-  const clearResponse = () => {
-    setResponse(undefined);
-  };
+  const goToLogin = () => {
+    if(switchToLogin){
+      switchToLogin();
+    }
+  }
 
   const validate = (values: FormikValues) => {
     const errors: any = {};
@@ -300,7 +300,7 @@ function AdminSignupForm({poceedToVerify}: {poceedToVerify?: Function}) {
         <div className="col-md-12 py-2">
             <p className="mb-0 alternate-action">
               Already have an account? 
-              <Link to={`/${routeConstants.login}`}><span> Sign in</span></Link>
+              <span onClick={goToLogin}> Sign in</span>
             </p>
         </div>
       </div>

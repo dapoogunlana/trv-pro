@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { routeConstants } from '../../../services/constants/route-constants';
-import AdminResetPasswordForm from './reset-password-form/reset-password-form';
+import ResetPasswordForm from './reset-password-form/reset-password-form';
 import './reset-password.scss';
 
 function ResetPasswordPage() {
@@ -9,6 +9,10 @@ function ResetPasswordPage() {
   const navigate = useNavigate();
 
   const resetComplete = () => {
+    navigate(`/${routeConstants.login}`);
+  }
+
+  const goToLogin = () => {
     navigate(`/${routeConstants.login}`);
   }
 
@@ -21,7 +25,7 @@ function ResetPasswordPage() {
       <div className='hold-grid'>
         <div className='content-sect'>
           <div className='content-holder'>
-            <AdminResetPasswordForm resetComplete={resetComplete} />
+            <ResetPasswordForm resetComplete={resetComplete} switchToLogin={goToLogin} />
           </div>
         </div>
         <div className='image-sect'></div>

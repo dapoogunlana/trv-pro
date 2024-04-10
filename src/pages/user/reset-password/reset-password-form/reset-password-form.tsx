@@ -4,15 +4,18 @@ import { Formik, FormikProps, FormikValues } from "formik";
 // import * as Yup from 'yup';
 import { sendRequest } from "../../../../services/utils/request";
 import { toast } from "react-toastify";
-import { regexConstants } from "../../../../services/constants/validation-regex";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./reset-password-form.scss";
-import { Link } from "react-router-dom";
-import { routeConstants } from "../../../../services/constants/route-constants";
 
-function AdminResetPasswordForm({resetComplete}: {resetComplete?: Function}) {
+function ResetPasswordForm({resetComplete, switchToLogin}: {resetComplete?: Function, switchToLogin?: Function}) {
   const [response, setResponse] = useState<any>();
   const [showPassword, setShowPassword] = useState(false);
+
+  const goToLogin = () => {
+    if(switchToLogin){
+      switchToLogin();
+    }
+  }
 
   const submitRequest = (values: any, controls: any) => {
     sendRequest(
@@ -35,16 +38,13 @@ function AdminResetPasswordForm({resetComplete}: {resetComplete?: Function}) {
       (err: any) => {
         controls.setSubmitting(false);
         toast.error(err?.error || err?.message || 'Request Failed');
+        setResponse(err?.error || err?.message || 'Request Failed');
       }
     );
   };
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
-  };
-
-  const clearResponse = () => {
-    setResponse(undefined);
   };
 
   const validate = (values: FormikValues) => {
@@ -104,7 +104,7 @@ function AdminResetPasswordForm({resetComplete}: {resetComplete?: Function}) {
                     id="password"
                     value={values.password}
                     onBlur={handleBlur}
-                    onFocus={() => (errors.password = "")}
+                    onFocus={() => setResponse('')}
                     onChange={handleChange}
                     className={
                       errors.password && touched.password ? "im-error" : ""
@@ -133,7 +133,7 @@ function AdminResetPasswordForm({resetComplete}: {resetComplete?: Function}) {
                     id="confirm_password"
                     value={values.confirm_password}
                     onBlur={handleBlur}
-                    onFocus={() => (errors.confirm_password = "")}
+                    onFocus={() => setResponse('')}
                     onChange={handleChange}
                     className={
                       errors.confirm_password && touched.confirm_password ? "im-error" : ""
@@ -166,8 +166,16 @@ function AdminResetPasswordForm({resetComplete}: {resetComplete?: Function}) {
           );
         }}
       </Formik>
+      <div className="row pt-3 pb-2">
+        <div className="col-md-12 py-2">
+            <p className="mb-0 alternate-action">
+              Return to
+              <span onClick={goToLogin}> Login</span>
+            </p>
+        </div>
+      </div>
     </div>
   );
 }
 
-export default AdminResetPasswordForm;
+export default ResetPasswordForm;

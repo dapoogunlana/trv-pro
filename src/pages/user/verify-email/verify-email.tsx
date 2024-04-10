@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { routeConstants } from '../../../services/constants/route-constants';
-import AdminLoginForm from './verify-email-form/verify-email-form';
+import VerifyEmailForm from './verify-email-form/verify-email-form';
 import './verify-email.scss';
 
 function LoginPage() {
@@ -22,7 +22,7 @@ function LoginPage() {
       <div className='hold-grid'>
         <div className='content-sect'>
           <div className='content-holder'>
-            <AdminLoginForm userVerified={userVerified} />
+            <VerifyEmailForm userVerified={userVerified} />
           </div>
         </div>
         <div className='image-sect'></div>

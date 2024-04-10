@@ -6,9 +6,14 @@ import { toast } from "react-toastify";
 import "./retrieve-password-form.scss";
 import { regexConstants } from "../../../../services/constants/validation-regex";
 
-function VerifyEmailForm({retrievalInitiated}: {retrievalInitiated?: Function}) {
+function RetrievePasswordForm({retrievalInitiated, switchToLogin}: {retrievalInitiated?: Function, switchToLogin?: Function}) {
   const [response, setResponse] = useState<any>();
-  const [showPassword, setShowPassword] = useState(false);
+
+  const goToLogin = () => {
+    if(switchToLogin){
+      switchToLogin();
+    }
+  }
 
   const submitRequest = (values: any, controls: any) => {
     sendRequest(
@@ -113,8 +118,16 @@ function VerifyEmailForm({retrievalInitiated}: {retrievalInitiated?: Function}) 
           );
         }}
       </Formik>
+      <div className="row pt-3 pb-2">
+        <div className="col-md-12 py-2">
+            <p className="mb-0 alternate-action">
+              Return to
+              <span onClick={goToLogin}> Login</span>
+            </p>
+        </div>
+      </div>
     </div>
   );
 }
 
-export default VerifyEmailForm;
+export default RetrievePasswordForm;

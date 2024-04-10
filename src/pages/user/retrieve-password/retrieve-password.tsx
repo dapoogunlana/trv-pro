@@ -1,16 +1,20 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { routeConstants } from '../../../services/constants/route-constants';
-import AdminLoginForm from './retrieve-password/retrieve-password-form';
+import RetrievePasswordForm from './retrieve-password/retrieve-password-form';
 import './retrieve-password.scss';
 
-function LoginPage() {
+function RetrievePasswordPage() {
 
   const navigate = useNavigate();
 
   const retrievalInitiated = () => {
     console.log('Initiated');
     navigate(`/${routeConstants.updatePassword}`);
+  }
+
+  const goToLogin = () => {
+    navigate(`/${routeConstants.login}`);
   }
 
   useEffect(() => {
@@ -22,7 +26,7 @@ function LoginPage() {
       <div className='hold-grid'>
         <div className='content-sect'>
           <div className='content-holder'>
-            <AdminLoginForm retrievalInitiated={retrievalInitiated} />
+            <RetrievePasswordForm retrievalInitiated={retrievalInitiated} switchToLogin={goToLogin} />
           </div>
         </div>
         <div className='image-sect'></div>
@@ -31,4 +35,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default RetrievePasswordPage;

@@ -1,7 +1,13 @@
+export interface IOpenModal{
+  query?: string;
+  skipHide?: boolean
+}
 
-export const closeAppModal = (callback: Function) => {
-    document.body.style.overflow = '';
-    const appModal: any = document.querySelector('.app-data-modal');
+export const closeAppModal = (callback: Function, {query, skipHide}: IOpenModal = {}) => {
+    if(!skipHide) {
+      document.body.style.overflow = '';
+    }
+    const appModal: any = document.querySelector(query || '.app-data-modal');
     const modalContent: any = document.querySelector('.modal-container');
     if (appModal && modalContent) {
       appModal.style.opacity = '';
@@ -13,9 +19,11 @@ export const closeAppModal = (callback: Function) => {
     }, 500);
   };
 
-  export const openModal = () => {
-    document.body.style.overflow = 'hidden';
-    const appModal: any = document.querySelector('.app-data-modal');
+  export const openModal = ({query, skipHide}: IOpenModal = {}) => {
+    if(!skipHide) {
+      document.body.style.overflow = 'hidden';
+    }
+    const appModal: any = document.querySelector(query || '.app-data-modal');
     const modalContent: any = document.querySelector('.modal-container');
     setTimeout(() => {
       if (appModal && modalContent) {

@@ -12,6 +12,10 @@ function SignupPage() {
     navigate(`/${routeConstants.verfyEmail}`);
   }
 
+  const goToLogin = () => {
+    navigate(`/${routeConstants.login}`);
+  }
+
   useEffect(() => {
     window.scrollTo(0, 0);
   });
@@ -21,7 +25,7 @@ function SignupPage() {
       <div className='hold-grid'>
         <div className='content-sect'>
           <div className='content-holder'>
-            <AdminSignupForm poceedToVerify={poceedToVerify} />
+            <AdminSignupForm poceedToVerify={poceedToVerify} switchToLogin={goToLogin} />
           </div>
         </div>
         <div className='image-sect'></div>

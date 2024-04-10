@@ -13,13 +13,26 @@ import "./login-form.scss";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../../../services/actions-reducers/user-data";
 
-function AdminLoginForm({poceedToVerify, logUserIn}: {poceedToVerify?: Function, logUserIn?: Function}) {
+interface ILoginForm {
+  poceedToVerify?: Function;
+  logUserIn?: Function;
+  switchToRegister?: Function;
+  passwordReset?: Function;
+}
+
+function LoginForm({poceedToVerify, logUserIn, switchToRegister, passwordReset}: ILoginForm) {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [response, setResponse] = useState<any>();
   const [showPassword, setShowPassword] = useState(false);
+
+  const goToRegister = () => {
+    if(switchToRegister){
+      switchToRegister();
+    }
+  }
 
   const submitRequest = (values: any, controls: any) => {
     sendRequest(
@@ -106,8 +119,10 @@ function AdminLoginForm({poceedToVerify, logUserIn}: {poceedToVerify?: Function,
     toast('Facebook login under development')
   }
 
-  const requestPasswordOTP = () => {
-    navigate(`/${routeConstants.requestPassword}`);
+  const requestPasswordReset = () => {
+    if(passwordReset){
+      passwordReset();
+    }
   }
 
   useEffect(() => {});
@@ -226,13 +241,13 @@ function AdminLoginForm({poceedToVerify, logUserIn}: {poceedToVerify?: Function,
         <div className="col-md-12 py-2">
             <p className="mb-0 alternate-action">
               Don't yet have an account? 
-              <Link to={`/${routeConstants.signup}`}><span> Sign Up</span></Link>
+              <span onClick={goToRegister}> Sign Up</span>
             </p>
         </div>
         <div className="col-md-12 py-2">
             <p className="mb-0 alternate-action">
               Forgotten your password?
-              <span onClick={requestPasswordOTP}> Recover password</span>
+              <span onClick={requestPasswordReset}> Recover password</span>
             </p>
         </div>
       </div>
@@ -240,4 +255,4 @@ function AdminLoginForm({poceedToVerify, logUserIn}: {poceedToVerify?: Function,
   );
 }
 
-export default AdminLoginForm;
+export default LoginForm;
