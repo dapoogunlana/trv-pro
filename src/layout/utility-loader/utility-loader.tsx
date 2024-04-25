@@ -1,7 +1,7 @@
 
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getAirport } from "../../services/actions-reducers/airport-list";
+import { getAirport, setAirport } from "../../services/actions-reducers/airport-list";
 import { userLogin } from "../../services/actions-reducers/user-data";
 
 function UtilityDatALoader(props: any) {
@@ -10,6 +10,7 @@ function UtilityDatALoader(props: any) {
 
   useEffect(() => {
     dispatch(getAirport());
+    setTimeout(() => dispatch(setAirport([{name: 'agric'}, {name: 'industry'}])), 60000)
     setTimeout(() => {
       dispatch(userLogin({
         email: "dapo@gmail2.com",

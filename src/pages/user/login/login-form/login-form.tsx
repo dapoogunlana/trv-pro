@@ -49,7 +49,6 @@ function LoginForm({poceedToVerify, logUserIn, switchToRegister, passwordReset}:
         if(res.user) {
           // sessionStorage.setItem("userId", res.user?.id);
           // sessionStorage.setItem("userInfo", JSON.stringify(res.user));
-          console.log({uuu: res.user})
             dispatch(userLogin(res.user));
           if(logUserIn) {
             logUserIn();

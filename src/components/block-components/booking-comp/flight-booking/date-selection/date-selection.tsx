@@ -10,17 +10,19 @@ import { DateRangePicker, Calendar } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import './date-selection.scss';
+import { IDateData } from '../../../../../services/utils/flight-booking-service';
 
 interface iDateProps {
   setDate: Function;
   multiple?: boolean;
+  date?: IDateData
 }
 
 function DateSelectionComp(props: iDateProps) {
 
   const [showPopup, setShowPopup] = useState<0 | 1 | 2>(0);
-  const [selectionRange, setSelectionRange] = useState({ startDate: new Date(), endDate: new Date(), key: 'selection' });
-  const [confirmedSelectionRange, setConfirmedSelectionRange] = useState({ startDate: undefined, endDate: undefined, key: 'selection' });
+  const [selectionRange, setSelectionRange] = useState<IDateData>(props.date || { startDate: new Date(), endDate: new Date(), key: 'selection' });
+  const [confirmedSelectionRange, setConfirmedSelectionRange] = useState<IDateData>(props.date || { startDate: undefined, endDate: undefined, key: 'selection' });
   const [selectionDate, setSelectionDate] = useState();
   const [activeDate, setActiveDate] = useState(false);
 
@@ -55,7 +57,7 @@ function DateSelectionComp(props: iDateProps) {
     if(props.multiple) {
       props.setDate(confirmedSelectionRange);
     } else {
-      props.setDate(selectionDate);
+      props.setDate({startDate: selectionDate});
     }
   }, [confirmedSelectionRange, selectionDate])
 

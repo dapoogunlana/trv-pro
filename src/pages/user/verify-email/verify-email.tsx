@@ -9,7 +9,6 @@ function LoginPage() {
   const navigate = useNavigate();
 
   const userVerified = () => {
-    console.log('Verified');
     navigate(`${routeConstants.home}`);
   }
 

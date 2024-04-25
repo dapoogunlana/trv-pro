@@ -14,9 +14,7 @@ function Sidebar(props: any) {
 
   const userDetails = useSelector((state: IStateData) => state?.user || {});
 
-  useEffect(() => {
-    console.log({props})
-  }, [props]);
+  useEffect(() => {}, [props]);
 
   return (
     <div className="bar">

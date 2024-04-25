@@ -37,7 +37,7 @@ function HeroSect() {
       <div>
       </div>
       <div className='booking-sect'>
-        <BookingComp/>
+        <BookingComp />
       </div>
     </div>
   );

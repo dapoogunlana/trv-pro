@@ -9,7 +9,6 @@ function RetrievePasswordPage() {
   const navigate = useNavigate();
 
   const retrievalInitiated = () => {
-    console.log('Initiated');
     navigate(`/${routeConstants.updatePassword}`);
   }
 

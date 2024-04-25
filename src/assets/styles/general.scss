@@ -727,3 +727,14 @@
 .relative{
   position: relative;
 }
+
+.deactivated{
+  pointer-events: none;
+  opacity: 0.7;
+  filter: grayscale(0.8);
+}
+
+.deactivated-view{
+  opacity: 0.7;
+  filter: grayscale(0.8);
+}

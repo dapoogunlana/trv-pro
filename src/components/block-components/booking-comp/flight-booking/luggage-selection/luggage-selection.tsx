@@ -1,18 +1,20 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
+import { ILaugageData } from '../../../../../services/utils/flight-booking-service';
 import IncrementalCountComponent from '../../../../base-components/incremental-count/incremental-count';
 import AppPopup from '../../../app-popup/app-popup';
 import './luggage-selection.scss';
 
 interface iLuggageProps {
   setLuggageCounts: Function;
+  luggageCounts?: ILaugageData;
 }
 
 function LuggageSelectionComp(props: iLuggageProps) {
 
   const [showPopup, setShowPopup] = useState<0 | 1 | 2>(0);
-  const [checkedInCount, setCheckedInCount] = useState(0);
-  const [handLuggageCount, setHandLuggageCount] = useState(0);
+  const [checkedInCount, setCheckedInCount] = useState(props.luggageCounts?.checkedInCount || 0);
+  const [handLuggageCount, setHandLuggageCount] = useState(props.luggageCounts?.handLuggageCount || 0);
 
   const toggleShowPopup = (status?: 0 | 1 | 2) => {
     setShowPopup(status || 0);
@@ -31,7 +33,8 @@ function LuggageSelectionComp(props: iLuggageProps) {
   }
 
   useEffect(() => {
-  }, [props])
+    updateLuggageCounts();
+  }, [checkedInCount, handLuggageCount])
 
   return (
     <div className='pt-3 pb-2'>

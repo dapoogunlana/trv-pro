@@ -7,7 +7,8 @@ import StaysBookingComp from './stays-booking/stays-booking';
 
 interface iProps {
   mode?: 'FLIGHTS' | 'STAYS' |'RIDES';
-  inActive?: boolean;
+  hidecategories?: boolean;
+  cleanSelection?: boolean;
 }
 
 function BookingComp(props: iProps) {
@@ -23,23 +24,26 @@ function BookingComp(props: iProps) {
   return (
     <div className='booking-comp'>
       <div className='booking-tab-space'>
-        <div className='tabs'>
-          <div className={'tab' + (mode === 'FLIGHTS' ? ' active-tab' : '')} onClick={() => switchMode('FLIGHTS')}>
-            <FontAwesomeIcon icon={'plane'}/> <span>Flights</span>
+        {
+          !props.hidecategories &&
+          <div className='tabs'>
+            <div className={'tab' + (mode === 'FLIGHTS' ? ' active-tab' : '')} onClick={() => switchMode('FLIGHTS')}>
+              <FontAwesomeIcon icon={'plane'}/> <span>Flights</span>
+            </div>
+            <div className='separator'></div>
+            <div className={'tab' + (mode === 'STAYS' ? ' active-tab' : '')} onClick={() => switchMode('STAYS')}>
+              <FontAwesomeIcon icon={'bed'}/> <span>Stays</span>
+            </div>
+            <div className='separator'></div>
+            <div className={'tab' + (mode === 'RIDES' ? ' active-tab' : '')} onClick={() => switchMode('RIDES')}>
+              <FontAwesomeIcon icon={'car'}/> <span>Rides</span>
+            </div>
           </div>
-          <div className='separator'></div>
-          <div className={'tab' + (mode === 'STAYS' ? ' active-tab' : '')} onClick={() => switchMode('STAYS')}>
-            <FontAwesomeIcon icon={'bed'}/> <span>Stays</span>
-          </div>
-          <div className='separator'></div>
-          <div className={'tab' + (mode === 'RIDES' ? ' active-tab' : '')} onClick={() => switchMode('RIDES')}>
-            <FontAwesomeIcon icon={'car'}/> <span>Rides</span>
-          </div>
-        </div>
+        }
         <div className='main-content'>
-          {mode === 'FLIGHTS' && <FlightBookingComp/>}
-          {mode === 'STAYS' && <StaysBookingComp/>}
-          {mode === 'RIDES' && <RideBookingComp/>}
+          {mode === 'FLIGHTS' && <FlightBookingComp cleanSelection={props.cleanSelection} />}
+          {mode === 'STAYS' && <StaysBookingComp cleanSelection={props.cleanSelection} />}
+          {mode === 'RIDES' && <RideBookingComp cleanSelection={props.cleanSelection} />}
         </div>
       </div>
     </div>

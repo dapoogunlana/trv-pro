@@ -15,7 +15,6 @@ function Header(props: any) {
 
   const navigate = useNavigate();
   const userDetails = useSelector((state: IStateData) => state?.user || {});
-  console.log({userDetails})
   const dispatch = useDispatch();
 
   const navigateTo = (link: string) => {

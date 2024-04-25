@@ -32,7 +32,6 @@ const TypeSuggestComponent = (props: iTypeSuggestProp) => {
   }
 
   const hideSuggestions = (event: any) => {
-    console.log({secondArea: selectionInArea});
     if(!selectionInArea) {
       setShowSuggestions(false);
     }
@@ -40,7 +39,6 @@ const TypeSuggestComponent = (props: iTypeSuggestProp) => {
 
   const toggleSelectionArea = (type: boolean) => {
     setSelectionInArea(type);
-    console.log({selectionInArea, aka: 'all'});
   }
 
   const selectListItem = (item: any) => {

@@ -73,7 +73,6 @@ const EditPostModal = (props: any) => {
   };
 
   useEffect(() => {
-    console.log({postMod: post});
     openModal();
   }, []);
 

@@ -12,17 +12,22 @@ import TypeSuggestComponent from '../../../../base-components/type-suggest/type-
 import AppPopup from '../../../app-popup/app-popup';
 import './location-selection.scss';
 
+interface ILocationSelection {
+  from: any,
+  to: any
+}
 interface iLocationProps {
-  setLocation: Function
+  setLocation: Function;
   componentState?: any;
+  location?: ILocationSelection;
 }
 
 function LocationSelectionComp(props: iLocationProps) {
 
   const [showPopup, setShowPopup] = useState<0 | 1 | 2>(0);
   // const [airportList, setAirportList] = useState<any[]>([]);
-  const [location, setLocation] = useState<{from: any, to: any}>({from: undefined, to: undefined});
-  const [confirmedLocation, setConfirmedLocation] = useState<{from: any, to: any}>({from: undefined, to: undefined});
+  const [location, setLocation] = useState<ILocationSelection>(props.location || {from: undefined, to: undefined});
+  const [confirmedLocation, setConfirmedLocation] = useState<ILocationSelection>(props.location || {from: undefined, to: undefined});
 
   const airportList = useSelector((state: iStoreState) => state.airportList);
 
@@ -60,7 +65,6 @@ function LocationSelectionComp(props: iLocationProps) {
   }
 
   useEffect(() => {
-    console.log('juju', airportList)
     // getAirportList();
   }, [props.componentState])
 

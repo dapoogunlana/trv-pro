@@ -1,25 +1,27 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { clipToLength } from '../../../../../services/utils/data-manipulation-utilits';
+import { IFlightClassData } from '../../../../../services/utils/flight-booking-service';
 import IncrementalCountComponent from '../../../../base-components/incremental-count/incremental-count';
 import AppPopup from '../../../app-popup/app-popup';
 import './flight-class-selection.scss';
 
 interface iFlightClassProps {
   setFlightClass: Function;
+  flightClass?: IFlightClassData;
 }
 
 function FlightClassSelectionComp(props: iFlightClassProps) {
 
   const [showPopup, setShowPopup] = useState<0 | 1 | 2>(0);
-  const [adults18_64Count, setAdults18_64Count] = useState(0);
-  const [studentsOver18Count, setStudentsOver18Count] = useState(0);
-  const [seniorsOver65Count, setSeniorsOver65Count] = useState(0);
-  const [youths12_17Count, setYouths12_17Count] = useState(0);
-  const [children2_11Count, setChildren2_11Count] = useState(0);
-  const [toddlersInOwnSeatUnder2Count, setToddlersInOwnSeatUnder2Count] = useState(0);
-  const [infantsOnLapUnder2Count, setInfantsOnLapUnder2Count] = useState(0);
-  const [allPassengerCount, setAllPassengerCount] = useState(0);
+  const [adults18_64Count, setAdults18_64Count] = useState(props.flightClass?.adults18_64Count || 0);
+  const [studentsOver18Count, setStudentsOver18Count] = useState(props.flightClass?.studentsOver18Count || 0);
+  const [seniorsOver65Count, setSeniorsOver65Count] = useState(props.flightClass?.seniorsOver65Count || 0);
+  const [youths12_17Count, setYouths12_17Count] = useState(props.flightClass?.youths12_17Count || 0);
+  const [children2_11Count, setChildren2_11Count] = useState(props.flightClass?.children2_11Count || 0);
+  const [toddlersInOwnSeatUnder2Count, setToddlersInOwnSeatUnder2Count] = useState(props.flightClass?.toddlersInOwnSeatUnder2Count || 0);
+  const [infantsOnLapUnder2Count, setInfantsOnLapUnder2Count] = useState(props.flightClass?.infantsOnLapUnder2Count || 0);
+  const [allPassengerCount, setAllPassengerCount] = useState(props.flightClass?.allPassengerCount || 0);
   const [flightClass, setFlightClass] = useState<'Economy' | 'Premium Economy' | 'Business' | 'First Class'>('Economy');
 
   const toggleShowPopup = (status?: 0 | 1 | 2) => {
@@ -74,6 +76,7 @@ function FlightClassSelectionComp(props: iFlightClassProps) {
       toddlersInOwnSeatUnder2Count,
       infantsOnLapUnder2Count,
       flightClass,
+      allPassengerCount,
     });
   }
 
