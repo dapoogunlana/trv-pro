@@ -6,10 +6,14 @@ import AdminSignupForm from "../../../pages/user/signup/signup-form/signup-form"
 import VerifyEmailForm from "../../../pages/user/verify-email/verify-email-form/verify-email-form";
 import RetrievePasswordForm from "../../../pages/user/retrieve-password/retrieve-password/retrieve-password-form";
 import ResetPasswordForm from "../../../pages/user/reset-password/reset-password-form/reset-password-form";
+import { useNavigate } from "react-router";
+import { routeConstants } from "../../../services/constants/route-constants";
 
 const AuthEnforcerModal = (props: { overlayMode: number, updateOverlayMode: Function, init: boolean, proceed?: Function }) => {
 
   const [authPage, setAuthPage] = useState<'login' | 'register' | 'verify' | 'forgot_password' | 'reset_password'>('login');
+  const [closeClass, setCloseClass] = useState<'close-false' | 'close-true'>('close-false');
+  const navigate = useNavigate();
 
   const logUserIn = () => {
     setAuthPage('login');
@@ -40,11 +44,22 @@ const AuthEnforcerModal = (props: { overlayMode: number, updateOverlayMode: Func
     setAuthPage('forgot_password');
   }
 
+  const hideCloser = (ev: any) => {
+    setCloseClass('close-false');
+  }
+  const showCloser = (ev: any) => {
+    setCloseClass('close-true');
+  }
+
   const closeModal = () => {
     closeAppModal(()=> {
       // props.closeModal({skipHide: true, query: '.auth-enforcer-modal'})
     }, {skipHide: true, query: '.auth-enforcer-modal'});
   };
+
+  const returnHome = () => {
+    navigate(routeConstants.home)
+  }
 
   useEffect(() => {
     openModal({skipHide: true, query: '.auth-enforcer-modal'});
@@ -62,7 +77,7 @@ const AuthEnforcerModal = (props: { overlayMode: number, updateOverlayMode: Func
       <div className="modal-bg"></div>
       <div className="modal-container">
         <div className="modal-content">
-            <div className="space-control">
+            <div className="space-control" onClick={hideCloser}>
               {/* <h1 className="text-center">Content Starts Here</h1> */}
               {authPage === 'login' && <LoginForm poceedToVerify={poceedToVerify} logUserIn={logUserIn} switchToRegister={goToRegister} passwordReset={forgotPassword} />}
               {authPage === 'register' && <AdminSignupForm poceedToVerify={poceedToVerify} switchToLogin={goToLogin} />}
@@ -70,6 +85,18 @@ const AuthEnforcerModal = (props: { overlayMode: number, updateOverlayMode: Func
               {authPage === 'forgot_password' && <RetrievePasswordForm retrievalInitiated={retrievalInitiated} switchToLogin={goToLogin} />}
               {authPage === 'reset_password' && <ResetPasswordForm resetComplete={goToLogin} switchToLogin={goToLogin} />}
               {/* <h1 className="text-center">Content Ends Here</h1> */}
+            </div>
+            <div className="close-holder">
+              <div className="close-button" onClick={showCloser}></div>
+              <div className={"confirmation " + closeClass}>
+                <p>
+                  Are you sure you want to close the login process and return to home page? (any unsaved progress will be lost)
+                </p>
+                <div className="text-center">
+                  <button onClick={hideCloser} className="cancel mx-2">Cancel</button>
+                  <button onClick={returnHome} className="confirmation-button mx-2">Close</button>
+                </div>
+              </div>
             </div>
         </div>
       </div>

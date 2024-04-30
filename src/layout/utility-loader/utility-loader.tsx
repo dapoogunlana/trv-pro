@@ -10,7 +10,7 @@ function UtilityDatALoader(props: any) {
 
   useEffect(() => {
     dispatch(getAirport());
-    setTimeout(() => dispatch(setAirport([{name: 'agric'}, {name: 'industry'}])), 60000)
+    setTimeout(() => dispatch(setAirport([{name: 'agric'}, {name: 'industry'}])), 6000)
     setTimeout(() => {
       dispatch(userLogin({
         email: "dapo@gmail2.com",
@@ -19,7 +19,7 @@ function UtilityDatALoader(props: any) {
         id: "660c7198416cb352ca010e40",
         last_name: "Ogunlana",
       }))
-    }, 30000);
+    }, 3000000);
   }, [props]);
 
   return (

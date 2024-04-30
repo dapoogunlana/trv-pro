@@ -47,6 +47,7 @@ function FlightBookingComp({cleanSelection}: IFlightBooking) {
   }
 
   const updateDate = (dateObj: { startDate: Date | undefined, endDate: Date | undefined, key: string| undefined }) => {
+    console.log('Sakroog');
     setDate(dateObj);
   }
   const updateLuggageCounts = (counts: {checkedInCount: number, handLuggageCount: number}) => {
@@ -88,9 +89,13 @@ function FlightBookingComp({cleanSelection}: IFlightBooking) {
       updateCombinedFlightData(tempCombination);
     } else {
       setCanProceed(false);
-      updateCombinedFlightData(generateNewCombinedFlightData());
+      // updateCombinedFlightData(generateNewCombinedFlightData());
     }
   }
+
+  useEffect(() => {
+    console.log({date});
+  })
 
   useEffect(() => {
     compileCombinedData();

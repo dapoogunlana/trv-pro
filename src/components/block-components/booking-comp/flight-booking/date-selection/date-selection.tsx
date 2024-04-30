@@ -10,7 +10,7 @@ import { DateRangePicker, Calendar } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import './date-selection.scss';
-import { IDateData } from '../../../../../services/utils/flight-booking-service';
+import { IDateData, storedCombinedFlightData } from '../../../../../services/utils/flight-booking-service';
 
 interface iDateProps {
   setDate: Function;
@@ -21,7 +21,8 @@ interface iDateProps {
 function DateSelectionComp(props: iDateProps) {
 
   const [showPopup, setShowPopup] = useState<0 | 1 | 2>(0);
-  const [selectionRange, setSelectionRange] = useState<IDateData>(props.date || { startDate: new Date(), endDate: new Date(), key: 'selection' });
+  const [initialized, setInitialized] = useState(false)
+  const [selectionRange, setSelectionRange] = useState<IDateData>(props.date?.startDate ? props.date : { startDate: new Date(), endDate: new Date(), key: 'selection' });
   const [confirmedSelectionRange, setConfirmedSelectionRange] = useState<IDateData>(props.date || { startDate: undefined, endDate: undefined, key: 'selection' });
   const [selectionDate, setSelectionDate] = useState();
   const [activeDate, setActiveDate] = useState(false);
@@ -44,20 +45,33 @@ function DateSelectionComp(props: iDateProps) {
     }
   }
   const resetDates = () => {
+    console.log('resetting');
     setSelectionRange({ startDate: new Date(), endDate: new Date(), key: 'selection' });
     setConfirmedSelectionRange({ startDate: undefined, endDate: undefined, key: 'selection' });
     setSelectionDate(undefined);
   }
 
   useEffect(() => {
-    resetDates();
+    setTimeout(() => {
+      setInitialized(true);
+    }, 1000);
+    // console.log({...storedCombinedFlightData});
+    console.log({pp: props.date});
+    // console.log({selectionRange, confirmedSelectionRange});
+  })
+  useEffect(() => {
+    if(initialized){
+      resetDates();
+    }
   }, [props.multiple])
 
   useEffect(() => {
-    if(props.multiple) {
-      props.setDate(confirmedSelectionRange);
-    } else {
-      props.setDate({startDate: selectionDate});
+    if(initialized){
+      if(props.multiple) {
+        props.setDate(confirmedSelectionRange);
+      } else {
+        props.setDate({startDate: selectionDate});
+      }
     }
   }, [confirmedSelectionRange, selectionDate])
 
@@ -114,6 +128,13 @@ function DateSelectionComp(props: iDateProps) {
           }
           <div className='text-center'>
             <button className='reset-button' onClick={resetDates}>Reset Date</button>
+            {
+              selectionRange.startDate && selectionRange.endDate &&
+              <>
+                &nbsp; &nbsp; 
+                <button className='reset-button' onClick={resetDates}>Ok</button>
+              </>
+            }
           </div>
         </div>
       </AppPopup>
