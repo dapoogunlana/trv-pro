@@ -12,9 +12,7 @@ function FlightsPage() {
   return (
     <div className='flights'>
       <BannerSect/>
-      <h1>Flights Page</h1>
-      <h1>Flights Page</h1>
-      <h1>Flights Page</h1>
+      <div className='flight-listout'></div>
       <SubscribeSect/>
     </div>
   );
