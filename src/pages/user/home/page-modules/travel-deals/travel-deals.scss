@@ -22,8 +22,8 @@
         // max-width: 250px;
         margin: 1em;
         .deal-card{
-            width: 90%;
-            max-width: 220px;
+            width: 94%;
+            max-width: 280px;
             margin: auto;
             background-color: $white;
             // border: 1px solid $black-faint4;
@@ -31,8 +31,14 @@
             border-radius: 10px;
             overflow: hidden;
     
-            .img-sect{
+            .img-sect-display{
                 position: relative;
+                background-size: cover;
+                background-position: center;
+                background-image: url(../../../../../assets/images/home-deal-mage-1.jpg);
+                .imh{
+                    opacity: 0;
+                }
                 .overlay{
                     position: absolute;
                     left: 0;

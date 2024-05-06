@@ -1,9 +1,17 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
 import { DownloadAppstoreHero, DownloadPlaystoreHero, HomeHeroImage, HomePlanePath } from '../../../../../assets/images';
 import BookingComp from '../../../../../components/block-components/booking-comp/booking-comp';
+import { routeConstants } from '../../../../../services/constants/route-constants';
 import './hero.scss';
 
 function HeroSect() {
+
+  const navigate = useNavigate();
+
+  const goToFlights = () => {
+    navigate(`/${routeConstants.flights}`)
+  }
   
   return (
     <div className='hero'>
@@ -37,7 +45,7 @@ function HeroSect() {
       <div>
       </div>
       <div className='booking-sect'>
-        <BookingComp />
+        <BookingComp searchFlights={goToFlights} />
       </div>
     </div>
   );

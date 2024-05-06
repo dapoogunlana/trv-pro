@@ -10,16 +10,16 @@ function UtilityDatALoader(props: any) {
 
   useEffect(() => {
     dispatch(getAirport());
-    setTimeout(() => dispatch(setAirport([{name: 'agric'}, {name: 'industry'}])), 6000)
-    setTimeout(() => {
-      dispatch(userLogin({
-        email: "dapo@gmail2.com",
-        email_verified: true,
-        first_name: "Dapo",
-        id: "660c7198416cb352ca010e40",
-        last_name: "Ogunlana",
-      }))
-    }, 3000000);
+    // setTimeout(() => dispatch(setAirport([{name: 'agric'}, {name: 'industry'}])), 6000)
+    // setTimeout(() => {
+    //   dispatch(userLogin({
+    //     email: "dapo@gmail2.com",
+    //     email_verified: true,
+    //     first_name: "Dapo",
+    //     id: "660c7198416cb352ca010e40",
+    //     last_name: "Ogunlana",
+    //   }))
+    // }, 3000000);
   }, [props]);
 
   return (

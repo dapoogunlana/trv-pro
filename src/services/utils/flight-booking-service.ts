@@ -31,13 +31,15 @@ export interface ICombinedFlightSearchData {
     date: IDateData | undefined;
     luggageCounts: ILaugageData | undefined;
     flightClass: IFlightClassData | undefined;
+    flightType: 'return' | 'one-way';
 }
 
 export let storedCombinedFlightData: ICombinedFlightSearchData = {
     location: {from: undefined, to: undefined},
     date: { startDate: undefined, endDate: undefined, key: 'selection' },
     luggageCounts: {checkedInCount: 0, handLuggageCount: 0},
-    flightClass: undefined
+    flightClass: undefined,
+    flightType: 'return',
 }
 
 export const generateNewCombinedFlightData = (): ICombinedFlightSearchData => {
@@ -45,7 +47,8 @@ export const generateNewCombinedFlightData = (): ICombinedFlightSearchData => {
         location: {from: undefined, to: undefined},
         date: { startDate: undefined, endDate: undefined, key: 'selection' },
         luggageCounts: {checkedInCount: 0, handLuggageCount: 0},
-        flightClass: undefined
+        flightClass: undefined,
+        flightType: 'return',
     }
 }
 

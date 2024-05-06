@@ -24,6 +24,9 @@
 
      profile: 'profile',
      flights: 'flights',
+     flightPreview: 'flight-Preview',
+     flightBooking: 'flight-booking',
+     flightDetails: 'flight-details',
      stays: 'stays',
      bookRides: 'book-rides',
      rewards: 'rewards',

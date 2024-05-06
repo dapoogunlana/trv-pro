@@ -56,7 +56,7 @@ function DateSelectionComp(props: iDateProps) {
       setInitialized(true);
     }, 1000);
     // console.log({...storedCombinedFlightData});
-    console.log({pp: props.date});
+    // console.log({pp: props.date});
     // console.log({selectionRange, confirmedSelectionRange});
   })
   useEffect(() => {

@@ -9,6 +9,9 @@ interface iProps {
   mode?: 'FLIGHTS' | 'STAYS' |'RIDES';
   hidecategories?: boolean;
   cleanSelection?: boolean;
+  searchFlights?: Function;
+  searchStays?: Function;
+  searchRides?: Function;
 }
 
 function BookingComp(props: iProps) {
@@ -41,7 +44,7 @@ function BookingComp(props: iProps) {
           </div>
         }
         <div className='main-content'>
-          {mode === 'FLIGHTS' && <FlightBookingComp cleanSelection={props.cleanSelection} />}
+          {mode === 'FLIGHTS' && <FlightBookingComp hidecategories={props.hidecategories} searchFlights={props.searchFlights} cleanSelection={props.cleanSelection} />}
           {mode === 'STAYS' && <StaysBookingComp cleanSelection={props.cleanSelection} />}
           {mode === 'RIDES' && <RideBookingComp cleanSelection={props.cleanSelection} />}
         </div>

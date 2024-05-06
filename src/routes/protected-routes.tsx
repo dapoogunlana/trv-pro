@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet, Navigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import AuthEnforcerModal from '../components/block-components/auth-enforcer-modal/auth-enforcer-modal';
+import { apiLinks } from '../config/environment';
 import { IStateData } from '../services/constants/interfaces/data-schemas';
 import { routeConstants } from '../services/constants/route-constants';
+import { sendRequest } from '../services/utils/request';
 
 const ProctedRoutes = () => {
     
@@ -16,8 +19,24 @@ const ProctedRoutes = () => {
         setOverlayMode(count);
     }
 
+    const getUser = () => {
+      sendRequest(
+        {
+          url: "user-profile/user",
+          method: "GET",
+        },
+        (res: any) => {
+          console.log({rask: res});
+        },
+        (err: any) => {
+          toast.error(err?.error || err?.message || 'Request Failed');
+        }
+      );
+    };
+
     useEffect(() => {
         setTimeout(() => setInitialized(true), 600);
+        getUser()
     }, [verified]);
 
     useEffect(() => {

@@ -1,9 +1,8 @@
 import React from 'react';
-import { DownloadAppstoreHero, DownloadPlaystoreHero, HomeHeroImage, HomePlanePath } from '../../../../assets/images';
-import BookingComp from '../../../../components/block-components/booking-comp/booking-comp';
+import BookingComp from '../../../../../components/block-components/booking-comp/booking-comp';
 import './banner.scss';
 
-function BannerSect() {
+function BannerSect(props: {searchFlights: Function}) {
   
   return (
     <div className='banner'>
@@ -13,7 +12,7 @@ function BannerSect() {
         <h3><span className='orange-tx'>boundless </span>adventures</h3>
       </div>
       <div className='booking-sect'>
-        <BookingComp />
+        <BookingComp hidecategories mode='FLIGHTS' searchFlights={props.searchFlights} />
       </div>
     </div>
   );

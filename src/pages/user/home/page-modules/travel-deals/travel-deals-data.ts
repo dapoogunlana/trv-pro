@@ -1,5 +1,11 @@
 import { HomeDealImage1, HomeDealImage2, HomeDealImage3, HomeDealImage4 } from "../../../../../assets/images";
 
+export const flightDummyImages = [
+    HomeDealImage1,
+    HomeDealImage2,
+    HomeDealImage3,
+    HomeDealImage4,
+]
 
 export const travelDealsData = [
     {

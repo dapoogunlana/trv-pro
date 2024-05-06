@@ -20,13 +20,17 @@
             transform: scale(1.5);
         }
         @include mediaW(701px){
-            position: absolute;
-            top: 6px;
-            right: 0;
             width: 300px;
             span{
                 font-size: 0.8em;
             }
+        }
+    }
+    .floated-type{
+        @include mediaW(701px){
+            position: absolute;
+            top: 6px;
+            right: 0;
         }
     }
     .selector{

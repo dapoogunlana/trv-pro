@@ -1,9 +1,9 @@
 export const apiLinks = {
     binance: `https://api.binance.com/api/v3/ticker/24hr`,
-    coinGeco: 'https://www.coingecko.com/en/api/coins/list',
-    cryptoCompare: `https://min-api.cryptocompare.com/data/top/totalvolfull?limit=100&tsym=USD&api_key=7c4c789b0b6c160099497bdfca52a1e941a04d982a37159634689f409ee2e1bd`,
     url: (window.location.href.indexOf('localhost') === -1) ?
-     'http://18.234.208.203:2023/api/v1/' : 'http://18.234.208.203:2023/api/v1/',
+     'https://borderless-travel-backend-v1.onrender.com/api/v1/' : 'https://borderless-travel-backend-v1.onrender.com/api/v1/',
+    bareurl: (window.location.href.indexOf('localhost') === -1) ?
+     'https://borderless-travel-backend-v1.onrender.com/' : 'https://borderless-travel-backend-v1.onrender.com/',
     next: ``,
 }
 

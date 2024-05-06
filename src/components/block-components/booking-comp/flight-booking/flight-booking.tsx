@@ -21,15 +21,18 @@ import { toast } from 'react-toastify';
 
 interface IFlightBooking {
   cleanSelection?: boolean;
+  hidecategories?: boolean;
+  searchFlights?: Function;
 }
 
-function FlightBookingComp({cleanSelection}: IFlightBooking) {
+function FlightBookingComp({cleanSelection, hidecategories, searchFlights}: IFlightBooking) {
 
   const [combinedFlightData, setCombinedFlightData] = useState<ICombinedFlightSearchData>(
     cleanSelection ? generateNewCombinedFlightData() : storedCombinedFlightData
   );
 
-  const [flightType, setFlightType] = useState<'return' | 'one-way'>('return');
+  const [initialized, setInitialized] = useState(false);
+  const [flightType, setFlightType] = useState<'return' | 'one-way'>(combinedFlightData.flightType);
   const [location, setLocation] = useState<ILocationData | undefined>(combinedFlightData.location);
   const [date, setDate] = useState<IDateData | undefined>(combinedFlightData.date);
   const [luggageCounts, setLuggageCounts] = useState<ILaugageData | undefined>(combinedFlightData.luggageCounts);
@@ -57,11 +60,13 @@ function FlightBookingComp({cleanSelection}: IFlightBooking) {
     setFlightClass(counts);
   }
 
-  const searchFlights = (values: FormikValues, controls: any) => {
+  const searchForFlights = (values: FormikValues, controls: any) => {
     if(!canProceed) {
       toast.error('Please fill all flight details before proceeding');
     }
-    setCanProceed(false);
+    if (searchFlights){
+      searchFlights(false);
+    }
   }
 
   const validate = (values: FormikValues) => {
@@ -82,6 +87,7 @@ function FlightBookingComp({cleanSelection}: IFlightBooking) {
       date: date?.startDate ? date : undefined,
       luggageCounts: (luggageCounts?.checkedInCount || luggageCounts?.handLuggageCount) ? luggageCounts : undefined,
       flightClass: flightClass?.allPassengerCount ? flightClass: undefined,
+      flightType: flightType,
     }
     setCombinedFlightData(tempCombination);
     if (tempCombination.location && tempCombination.date && tempCombination.flightClass && tempCombination.luggageCounts) {
@@ -89,13 +95,13 @@ function FlightBookingComp({cleanSelection}: IFlightBooking) {
       updateCombinedFlightData(tempCombination);
     } else {
       setCanProceed(false);
-      // updateCombinedFlightData(generateNewCombinedFlightData());
+      updateCombinedFlightData(generateNewCombinedFlightData());
     }
   }
 
   useEffect(() => {
-    console.log({date});
-  })
+    setTimeout(() => setInitialized(true), 1000);
+  }, [cleanSelection, hidecategories])
 
   useEffect(() => {
     compileCombinedData();
@@ -103,7 +109,7 @@ function FlightBookingComp({cleanSelection}: IFlightBooking) {
 
   return (
     <div className='flight-booking'>
-      <div className='flight-type-selector'>
+      <div className={'flight-type-selector' + (hidecategories ? '' : ' floated-type')}>
         {/* <div onClick={() => updateFlightType('multi')}>
           <input
             type="radio"
@@ -153,7 +159,7 @@ function FlightBookingComp({cleanSelection}: IFlightBooking) {
       <Formik
         initialValues={{code: ''}}
         validate={validate}
-        onSubmit={(values, controls) => searchFlights(values, controls)}
+        onSubmit={(values, controls) => searchForFlights(values, controls)}
       >
         {
           (formProps: FormikProps<{code: string}>) => {

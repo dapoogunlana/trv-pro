@@ -20,7 +20,10 @@ const PrivacyPolicyPage = lazy(() => import("../pages/user/privacy-policy/privac
 const CareersPage = lazy(() => import("../pages/user/careers/careers"));
 const ContactPage = lazy(() => import("../pages/user/contact/contact"));
 const ProfilePage = lazy(() => import("../pages/user/profile/profile"));
-const FlightsPage = lazy(() => import("../pages/user/flights/flights"));
+const FlightSearchPage = lazy(() => import("../pages/user/flights/flight-search/flight-search"));
+const FlightPreviewPage = lazy(() => import("../pages/user/flights/flight-search/flight-search"));
+const FlightBookingPage = lazy(() => import("../pages/user/flights/flight-search/flight-search"));
+const FlightDetailsPage = lazy(() => import("../pages/user/flights/flight-search/flight-search"));
 const StaysPage = lazy(() => import("../pages/user/stays/stays"));
 const BookRidesPage = lazy(() => import("../pages/user/book-rides/book-rides"));
 const RewardsPage = lazy(() => import("../pages/user/rewards/rewards"));
@@ -53,7 +56,10 @@ function UserRoute() {
           <Route path={routeConstants.privacyPolicy} element={<PrivacyPolicyPage/>}></Route>
           <Route path={routeConstants.careers} element={<CareersPage/>}></Route>
           <Route path={routeConstants.contact} element={<ContactPage/>}></Route>
-          <Route path={routeConstants.flights} element={<FlightsPage/>}></Route>
+          <Route path={routeConstants.flights} element={<FlightSearchPage/>}></Route>
+          <Route path={`${routeConstants.flightPreview}/:id`} element={<FlightPreviewPage/>}></Route>
+          <Route path={`${routeConstants.flightBooking}/:id`} element={<FlightBookingPage/>}></Route>
+          <Route path={`${routeConstants.flightDetails}/:id`} element={<FlightDetailsPage/>}></Route>
           <Route path={routeConstants.stays} element={<StaysPage/>}></Route>
           <Route path={routeConstants.bookRides} element={<BookRidesPage/>}></Route>
           <Route path={routeConstants.rewards} element={<RewardsPage/>}></Route>
