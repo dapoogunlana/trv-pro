@@ -21,8 +21,8 @@ const CareersPage = lazy(() => import("../pages/user/careers/careers"));
 const ContactPage = lazy(() => import("../pages/user/contact/contact"));
 const ProfilePage = lazy(() => import("../pages/user/profile/profile"));
 const FlightSearchPage = lazy(() => import("../pages/user/flights/flight-search/flight-search"));
-const FlightPreviewPage = lazy(() => import("../pages/user/flights/flight-search/flight-search"));
-const FlightBookingPage = lazy(() => import("../pages/user/flights/flight-search/flight-search"));
+const FlightPreviewPage = lazy(() => import("../pages/user/flights/flight-preview/flight-preview"));
+const FlightBookingPage = lazy(() => import("../pages/user/flights/flight-booking/flight-booking"));
 const FlightDetailsPage = lazy(() => import("../pages/user/flights/flight-search/flight-search"));
 const StaysPage = lazy(() => import("../pages/user/stays/stays"));
 const BookRidesPage = lazy(() => import("../pages/user/book-rides/book-rides"));
@@ -58,8 +58,6 @@ function UserRoute() {
           <Route path={routeConstants.contact} element={<ContactPage/>}></Route>
           <Route path={routeConstants.flights} element={<FlightSearchPage/>}></Route>
           <Route path={`${routeConstants.flightPreview}/:id`} element={<FlightPreviewPage/>}></Route>
-          <Route path={`${routeConstants.flightBooking}/:id`} element={<FlightBookingPage/>}></Route>
-          <Route path={`${routeConstants.flightDetails}/:id`} element={<FlightDetailsPage/>}></Route>
           <Route path={routeConstants.stays} element={<StaysPage/>}></Route>
           <Route path={routeConstants.bookRides} element={<BookRidesPage/>}></Route>
           <Route path={routeConstants.rewards} element={<RewardsPage/>}></Route>
@@ -73,6 +71,8 @@ function UserRoute() {
           <Route path={routeConstants.help} element={<HelpPage/>}></Route>
           <Route path={routeConstants.faq} element={<FaqPage/>}></Route>
           <Route element={<ProctedRoutes/>}>
+            <Route path={`${routeConstants.flightBooking}/:id`} element={<FlightBookingPage/>}></Route>
+            <Route path={`${routeConstants.flightDetails}/:id`} element={<FlightDetailsPage/>}></Route>
             <Route path={routeConstants.profile} element={<ProfilePage/>}></Route>
           </Route>
           <Route path={routeConstants.all} element={<Navigate to={routeConstants.home2}/>}></Route>

@@ -19,8 +19,8 @@ $yellow: #DD9A00;
 $yellow-dark: #9c6d00;
 $yellow-faint: rgba(221, 155, 0, 0.4);
 $orange: #ED6300;
-$orange-mid-dark: #c05000;
-$orange-dark: #8d3b00;
+$orange-hover: #c05000;
+$orange-active: #8d3b00;
 $red: #ff0101;
 $red-hover: #a10000;
 $red-active: #530000;
@@ -75,6 +75,6 @@ $transparent: rgba(0, 0, 0, 0);
       background-color: $hover-bg;
   }
   &:active{
-      transform: scale(1.06);
+      transform: scale(1.03) translateY(5px);
   }
 }

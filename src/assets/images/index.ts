@@ -69,6 +69,8 @@ import SkyflexWorksIcon2 from './icons/skyflex-works-icon-2.svg';
 import SkyflexWorksIcon3 from './icons/skyflex-works-icon-3.svg';
 import SkyflexWorksIcon4 from './icons/skyflex-works-icon-4.svg';
 
+import ContactBannerImg from './contact-banner-img.png';
+
 export {
     LogoWhite,
     LogoBlack,
@@ -139,4 +141,6 @@ export {
     SkyflexWorksIcon2,
     SkyflexWorksIcon3,
     SkyflexWorksIcon4,
+
+    ContactBannerImg,
 }

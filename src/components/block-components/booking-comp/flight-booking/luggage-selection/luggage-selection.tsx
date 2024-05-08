@@ -42,7 +42,7 @@ function LuggageSelectionComp(props: iLuggageProps) {
         switch={
           <div className='selector' onClick={() => toggleShowPopup(2)} >
             <div className='label'>Luggage</div>
-            <p className='mb-0'>{checkedInCount} Checked</p>
+            <p className='mb-0'>{checkedInCount + handLuggageCount} Luggages</p>
             <FontAwesomeIcon icon={'chevron-down'} className='fainter-tx' />
           </div>
         }

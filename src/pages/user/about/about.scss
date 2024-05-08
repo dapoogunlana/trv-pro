@@ -104,7 +104,7 @@
         
     }
     .orange-button{
-        @include base-button($orange, $orange-mid-dark);
+        @include base-button($orange, $orange-hover);
     }
     .purple-button{
         @include base-button($purple-bg, $purple-bg-hover);
