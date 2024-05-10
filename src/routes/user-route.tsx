@@ -19,7 +19,7 @@ const TermsPage = lazy(() => import("../pages/user/terms/terms"));
 const PrivacyPolicyPage = lazy(() => import("../pages/user/privacy-policy/privacy-policy"));
 const CareersPage = lazy(() => import("../pages/user/careers/careers"));
 const ContactPage = lazy(() => import("../pages/user/contact/contact"));
-const ProfilePage = lazy(() => import("../pages/user/profile/profile"));
+const ProfilePage = lazy(() => import("../pages/user/profile/profile-tab"));
 const FlightSearchPage = lazy(() => import("../pages/user/flights/flight-search/flight-search"));
 const FlightPreviewPage = lazy(() => import("../pages/user/flights/flight-preview/flight-preview"));
 const FlightBookingPage = lazy(() => import("../pages/user/flights/flight-booking/flight-booking"));

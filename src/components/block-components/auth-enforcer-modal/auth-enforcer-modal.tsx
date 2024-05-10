@@ -8,6 +8,7 @@ import RetrievePasswordForm from "../../../pages/user/retrieve-password/retrieve
 import ResetPasswordForm from "../../../pages/user/reset-password/reset-password-form/reset-password-form";
 import { useNavigate } from "react-router";
 import { routeConstants } from "../../../services/constants/route-constants";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const AuthEnforcerModal = (props: { overlayMode: number, updateOverlayMode: Function, init: boolean, proceed?: Function }) => {
 
@@ -87,7 +88,9 @@ const AuthEnforcerModal = (props: { overlayMode: number, updateOverlayMode: Func
               {/* <h1 className="text-center">Content Ends Here</h1> */}
             </div>
             <div className="close-holder">
-              <div className="close-button" onClick={showCloser}></div>
+              <div className="close-button" onClick={showCloser}>
+                <FontAwesomeIcon icon={'times'} />
+              </div>
               <div className={"confirmation " + closeClass}>
                 <p>
                   Are you sure you want to close the login process and return to home page? (any unsaved progress will be lost)
