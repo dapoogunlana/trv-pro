@@ -70,6 +70,14 @@ import SkyflexWorksIcon3 from './icons/skyflex-works-icon-3.svg';
 import SkyflexWorksIcon4 from './icons/skyflex-works-icon-4.svg';
 
 import ContactBannerImg from './contact-banner-img.png';
+import ProfilePicture from './profile-picture.png';
+import FlightTrackerBg from './flight-tracker-bg.jpg';
+import DealsHeroImage from './deals-hero-image.png';
+
+import location1 from './location-1.jpg';
+import location2 from './location-2.jpg';
+import location3 from './location-3.jpg';
+import location4 from './location-4.jpg';
 
 export {
     LogoWhite,
@@ -143,4 +151,12 @@ export {
     SkyflexWorksIcon4,
 
     ContactBannerImg,
+    ProfilePicture,
+    FlightTrackerBg,
+    DealsHeroImage,
+
+    location1,
+    location2,
+    location3,
+    location4,
 }
