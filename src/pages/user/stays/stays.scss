@@ -4,7 +4,11 @@
 .stays{
     background-color: $white;
     width: 100%;
-    h1{
-        min-height: 50vh;
+    span{
+        font-size: 1em;
+    }
+    .stay-info{
+        padding: 18vh 0 5vh;
+        position: relative;
     }
 }

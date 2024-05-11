@@ -1,4 +1,5 @@
 import React, {  } from 'react';
+import { BookingWidgetStays } from '../../../../assets/images';
 import './stays-booking.scss';
 
 interface IFlightBooking {
@@ -8,7 +9,9 @@ interface IFlightBooking {
 function StaysBookingComp({cleanSelection}: IFlightBooking) {
   return (
     <div className='stays-booking'>
-      <div className=''>Stays</div>
+      <div className='imh'>
+        <img src={BookingWidgetStays} alt="" />
+      </div>
     </div>
   );
 }

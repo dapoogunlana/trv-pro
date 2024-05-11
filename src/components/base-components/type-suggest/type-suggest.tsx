@@ -5,6 +5,7 @@ interface iTypeSuggestProp {
   data: any[];
   selected: Function;
   subKey?: string;
+  subKey2?: string;
   floatOption?: boolean;
   typePlaceholder?: string;
   listLength?: number;
@@ -60,7 +61,8 @@ const TypeSuggestComponent = (props: iTypeSuggestProp) => {
     const selection: any[] = [];
     for(let i = 0; (i < props.data.length && selection.length <= (props.listLength || 10)); i++) {
       const controlValue: string = props.subKey ? props.data[i][props.subKey || ''] : props.data[i];
-      if(controlValue.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())){
+      const controlValue2: string = props.subKey2 ? props.data[i][props.subKey2 || ''] : props.data[i];
+      if(controlValue.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase()) || controlValue2.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())){
         selection.push(props.data[i]);
       }
     }
@@ -88,7 +90,7 @@ const TypeSuggestComponent = (props: iTypeSuggestProp) => {
             {
               suggestionList.map((item, index) => (
                 <div key={index} className="list-item" onClick={() => selectListItem(item)}>
-                  <p className="mb-0">{props.subKey ? item[props.subKey] : item}</p>
+                  <p className="mb-0">{props.subKey ? item[props.subKey] : item}{props.subKey2 ? ` (${item[props.subKey2]})` : ''}</p>
                 </div>
               ))
             }

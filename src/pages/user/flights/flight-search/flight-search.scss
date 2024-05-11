@@ -20,9 +20,44 @@
             padding: 4vh 0 4vh;
             background-color: #fff;
             position: relative;
+            .filter{
+                hr{
+                    color: $black-faint2;
+                }
+            }
+            .category-tabs{
+                display: grid;
+                grid-template-columns: 32% 2% 33% 2% 33%;
+                box-shadow: 0 1px 5px 0 $black-faint4;
+                border-radius: 3px;
+                padding: 0 4px;
+                margin-bottom: 1.5em;
+                .splitter{
+                    width: 1px;
+                    height: 30px;
+                    background-color: #E8D7EE;
+                }
+                .category-tab{
+                    padding: 10px;
+                    text-align: center;
+                    cursor: pointer;
+                    p{
+                        font-size: 0.75em;
+                        opacity: 0.6;
+                    }
+                }
+                .active{
+                    border-bottom: 5px solid $purple-bg;
+                }
+            }
+            .pad-web{
+                @include mediaW(992px){
+                    padding-left: 0.7em;
+                }
+            }
             .flight-card, .flight-card2{
                 box-shadow: 0 2px 7px 1px $black-faint4;
-                padding: 10px;
+                padding: 15px 12px;
                 border-radius: 12px;
                 display: grid;
                 grid-template-columns: 25% 75%;
@@ -62,6 +97,7 @@
                         padding: 7px 10px;
                         width: 100%;
                         border-radius: 4.5px;
+                        box-shadow: 0 7px 12px 0 rgba(103, 4, 118, 0.25);
                         .icon{
                             font-size: 0.9em;
                         }

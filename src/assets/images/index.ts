@@ -74,10 +74,28 @@ import ProfilePicture from './profile-picture.png';
 import FlightTrackerBg from './flight-tracker-bg.jpg';
 import DealsHeroImage from './deals-hero-image.png';
 
-import location1 from './location-1.jpg';
-import location2 from './location-2.jpg';
-import location3 from './location-3.jpg';
-import location4 from './location-4.jpg';
+import Location1 from './location-1.jpg';
+import Location2 from './location-2.jpg';
+import Location3 from './location-3.jpg';
+import Location4 from './location-4.jpg';
+import FlightPreviwImg from './flight-previw-img.jpg';
+import FlightFeatureImage1 from './flight-feature-image-1.jpg';
+import FlightFeatureImage2 from './flight-feature-image-2.jpg';
+import FlightFeatureImage3 from './flight-feature-image-3.jpg';
+import FlightFeatureImage4 from './flight-feature-image-4.jpg'; 
+import PlaneTripIcon from './plane-trip-icon.svg';
+import BookingWidgetStays from './Booking-widget-Stays.svg';
+
+import PropertyRecentSearch1 from './property-recent-search-1.jpg'; 
+import PropertyRecentSearch2 from './property-recent-search-2.jpg'; 
+import PropertyRecentSearch3 from './property-recent-search-3.jpg'; 
+import PropertyRecentSearch4 from './property-recent-search-4.jpg'; 
+import PropertyTypeHotels from './property-type-hotels.jpg'; 
+import PropertyTypeResorts from './property-type-resorts.jpg'; 
+import PropertyTypeShortlets from './property-type-shortlets.jpg'; 
+import PropertyTypeVillas from './property-type-villas.jpg'; 
+import PropertyOffer1 from './propery-offer-1.jpg'; 
+import PropertyOffer2 from './propery-offer-1.jpg'; 
 
 export {
     LogoWhite,
@@ -155,8 +173,26 @@ export {
     FlightTrackerBg,
     DealsHeroImage,
 
-    location1,
-    location2,
-    location3,
-    location4,
+    Location1,
+    Location2,
+    Location3,
+    Location4,
+    FlightPreviwImg,
+    FlightFeatureImage1,
+    FlightFeatureImage2,
+    FlightFeatureImage3,
+    FlightFeatureImage4,
+    PlaneTripIcon,
+    BookingWidgetStays,
+    
+    PropertyRecentSearch1,
+    PropertyRecentSearch2,
+    PropertyRecentSearch3,
+    PropertyRecentSearch4,
+    PropertyTypeHotels,
+    PropertyTypeResorts,
+    PropertyTypeShortlets,
+    PropertyTypeVillas,
+    PropertyOffer1,
+    PropertyOffer2,
 }

@@ -99,6 +99,7 @@ function LocationSelectionComp(props: iLocationProps) {
                   floatOption initialValue={location.from?.name}
                   selected={(data: any) => updateSelection(data, 'from')}
                   subKey='name'
+                  subKey2='city'
                   listLength={20}
                 />
               </div>
@@ -112,6 +113,7 @@ function LocationSelectionComp(props: iLocationProps) {
                   floatOption initialValue={location.to?.name}
                   selected={(data: any) => updateSelection(data, 'to')}
                   subKey='name'
+                  subKey2='city'
                   listLength={20}
                 />
               </div>

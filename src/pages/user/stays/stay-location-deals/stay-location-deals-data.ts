@@ -1,10 +1,10 @@
-import { location1, location2, location3, location4 } from "../../../../assets/images";
+import { Location1, Location2, Location3, Location4 } from "../../../../assets/images";
 
 export const stayDummyImages = [
-    location1,
-    location2,
-    location3,
-    location4,
+    Location1,
+    Location2,
+    Location3,
+    Location4,
 ]
 
 export const stayLocationDealsData = [
@@ -14,7 +14,7 @@ export const stayLocationDealsData = [
         description: 'Spain is the best',
         rating: 4.8,
         price: 1200,
-        image: location1
+        image: Location1
     },
     {
         id: 233434354562,
@@ -22,7 +22,7 @@ export const stayLocationDealsData = [
         description: 'Italy is the best',
         rating: 4.8,
         price: 850,
-        image: location2
+        image: Location2
     },
     {
         id: 233434354563,
@@ -30,7 +30,7 @@ export const stayLocationDealsData = [
         description: 'France is the best',
         rating: 4.8,
         price: 530,
-        image: location3
+        image: Location3
     },
     {
         id: 233434354564,
@@ -38,6 +38,6 @@ export const stayLocationDealsData = [
         description: 'UK is the best',
         rating: 4.8,
         price: 1400,
-        image: location4
+        image: Location4
     },
 ];
