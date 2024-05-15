@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Formik, FormikProps, FormikValues } from "formik";
 import AppPopup from '../../app-popup/app-popup';
 import DateSelectionComp from './date-selection/date-selection';
-import './flight-booking.scss';
+import './flight-booking-comp.scss';
 import FlightClassSelectionComp from './flight-class-selection/flight-class-selection';
 import LocationSelectionComp from './location-selection/location-selection';
 import LuggageSelectionComp from './luggage-selection/luggage-selection';
@@ -108,7 +108,7 @@ function FlightBookingComp({cleanSelection, hidecategories, searchFlights}: IFli
   }, [location, date, luggageCounts, flightClass]);
 
   return (
-    <div className='flight-booking'>
+    <div className='flight-booking-comp'>
       <div className={'flight-type-selector' + (hidecategories ? '' : ' floated-type')}>
         {/* <div onClick={() => updateFlightType('multi')}>
           <input

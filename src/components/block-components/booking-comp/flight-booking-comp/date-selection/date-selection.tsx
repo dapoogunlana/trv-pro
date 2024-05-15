@@ -24,7 +24,7 @@ function DateSelectionComp(props: iDateProps) {
   const [initialized, setInitialized] = useState(false)
   const [selectionRange, setSelectionRange] = useState<IDateData>(props.date?.startDate ? props.date : { startDate: new Date(), endDate: new Date(), key: 'selection' });
   const [confirmedSelectionRange, setConfirmedSelectionRange] = useState<IDateData>(props.date || { startDate: undefined, endDate: undefined, key: 'selection' });
-  const [selectionDate, setSelectionDate] = useState();
+  const [selectionDate, setSelectionDate] = useState(props.date?.startDate || undefined);
   const [activeDate, setActiveDate] = useState(false);
 
   const toggleShowPopup = (status?: 0 | 1 | 2) => {

@@ -20,7 +20,7 @@ function BannerSect(props: {searchFlights: Function}) {
   }, [props]);
   
   return (
-    <div className='banner'>
+    <div className='flight-page-banner'>
       {
         !flightsSearched &&
         <div className='text'>

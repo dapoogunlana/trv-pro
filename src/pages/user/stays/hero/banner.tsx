@@ -14,7 +14,7 @@ function BannerSect(props: {searchStays: Function}) {
   useEffect(() => {}, [props]);
   
   return (
-    <div className='stay-banner'>
+    <div className='stay-page-banner'>
       {
         !staysSearched &&
         <div className='text'>

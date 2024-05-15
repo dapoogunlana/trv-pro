@@ -1,5 +1,5 @@
 import React, {  } from 'react';
-import './ride-booking.scss';
+import './ride-booking-comp.scss';
 
 interface IFlightBooking {
   cleanSelection?: boolean;
@@ -7,7 +7,7 @@ interface IFlightBooking {
 
 function RideBookingComp({cleanSelection}: IFlightBooking) {
   return (
-    <div className='ride-booking'>
+    <div className='ride-booking-comp'>
       <div className=''>Ride</div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import MiniLoader from '../../../../components/block-components/mini-loader/mini-loader';
-import './flight-booking.scss';
+import './flight-booking-page.scss';
 
 function FlightBookingPage(props: any) {
 

@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import './booking-comp.scss';
-import FlightBookingComp from './flight-booking/flight-booking';
-import RideBookingComp from './ride-booking/ride-booking';
-import StaysBookingComp from './stays-booking/stays-booking';
+import FlightBookingComp from './flight-booking-comp/flight-booking-comp';
+import RideBookingComp from './ride-booking-comp/ride-booking-comp';
+import StaysBookingComp from './stays-booking-comp/stays-booking-comp';
 
 interface iProps {
   mode?: 'FLIGHTS' | 'STAYS' |'RIDES';

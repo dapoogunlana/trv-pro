@@ -43,6 +43,10 @@ function LoginForm({poceedToVerify, logUserIn, switchToRegister, passwordReset}:
           loginId: values.email,
           password: values.password,
         },
+        header:{
+          'with-credentials': 'true',
+          'Access-Control-Allow-Credentials': 'true',
+        },
       },
       (res: any, headers: any) => {
         console.log({headers})
