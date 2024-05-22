@@ -98,7 +98,6 @@ function TravelDealsSect(props: any) {
   }
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     getTrendingFlights();
   }, [props]);
   

@@ -15,6 +15,7 @@ import { formatTime, getFlightToAndFrom, sampleFlights } from './flight-search-s
 function FlightSearchPage(props: any) {
 
   const navigate = useNavigate();
+  const init = true;
 
   const [loading, setLoading] = useState(false);
   const [flightsSearched, setFlightsSearched] = useState(false);
@@ -92,7 +93,9 @@ function FlightSearchPage(props: any) {
   }
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
+  }, [init]);
+  useEffect(() => {
     if (fData.location && fData.date && fData.flightClass && fData.luggageCounts) {
       fetchFlights(fData);
     }

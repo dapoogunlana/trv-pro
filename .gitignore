@@ -9,6 +9,7 @@ package-lock.json
 # testing
 /coverage
 /src/assessment
+/src/pages/user/login-test-page
 
 # production
 /build

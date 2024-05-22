@@ -12,6 +12,8 @@ import { routeConstants } from "../../../../services/constants/route-constants";
 import "./login-form.scss";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../../../services/actions-reducers/user-data";
+import axios from "axios";
+import { apiLinks } from "../../../../config/environment";
 
 interface ILoginForm {
   poceedToVerify?: Function;
@@ -44,8 +46,7 @@ function LoginForm({poceedToVerify, logUserIn, switchToRegister, passwordReset}:
           password: values.password,
         },
         header:{
-          'with-credentials': 'true',
-          'Access-Control-Allow-Credentials': 'true',
+          withCredentials: true,
         },
       },
       (res: any, headers: any) => {

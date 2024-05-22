@@ -1,12 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect } from 'react';
-import { DownloadAppstoreFooter, DownloadPlaystoreFooter, HomeDownloadCustomers, HomeDownloadTopic, HomeMobilePhone } from '../../../../../assets/images';
 import './subscribe.scss';
 
 function SubscribeSect() {
 
   useEffect(() => {
-    window.scrollTo(0, 0);
   });
   
   return (

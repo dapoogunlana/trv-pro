@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
-// import persistStore from "redux-persist/es/persistStore";
-// import storage from "redux-persist/lib/storage";
+import {persistStore, persistReducer} from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import createSagaMiddleware from  "redux-saga";
 import rootSaga from "./sagas/root-saga";
 import userReducer from "./actions-reducers/user-data";
@@ -18,24 +18,29 @@ export interface iStoreState {
     }[];
 }
 
-const combinedReducers = combineReducers({
+const combinedReducers: any = combineReducers({
     user: userReducer,
     airportList: airportListReducer,
 });
 
-// const config = {
-//     storage,
-//     whitelist: combinedReducers,
-//     key: 'root',
-// }
+const config = {
+    whitelist: ['user'],
+    key: 'root',
+    version: 1,
+    storage,
+}
+
+const persistedReducer = persistReducer(config, combinedReducers);
 
 const saggaMiddleware = createSagaMiddleware();
 const middlewares = [saggaMiddleware];
 
 export const store = configureStore({
-    reducer: combinedReducers,
+    reducer: persistedReducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(...middlewares),
 });
+
+export const persistor = persistStore(store)
 
 // export const persistor = persistStore(store);
 

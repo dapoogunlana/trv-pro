@@ -9,7 +9,8 @@ import { iconList, fontAwesomeLibrary as library } from './libraries/fontawesome
 import './assets/styles/general.scss';
 import './App.scss';
 import { Provider } from 'react-redux';
-import { store } from './services/store';
+import { persistor, store } from './services/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 library.add(...iconList)
 
@@ -19,10 +20,12 @@ function App() {
   });
   return (
     <Provider store={store}>
+      <PersistGate persistor={persistor}>
         <div className="App">
           <BaseRoute></BaseRoute>
           <ToastContainer />
         </div>
+      </PersistGate>
     </Provider>
   );
 }

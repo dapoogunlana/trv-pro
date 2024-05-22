@@ -6,6 +6,7 @@
      home2: 'home',
      about: 'about',
      login: 'log-in',
+     loginTest: 'log-in-test',
      signup: 'sign-up',
      verfyEmail: 'verfy-email',
      requestPassword: 'request-password',

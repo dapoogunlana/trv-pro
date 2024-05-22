@@ -18,12 +18,15 @@ export const sendRequest = (params: IrequestFormat, success: Function, failure: 
     })
     return request(params.url,{
         method: params.method || 'GET',
-        data: params.body
+        data: params.body,
+        withCredentials: true,
     })
     .then((result) => success(result?.data))
     .catch(error => {
 
-        const errorStatus = error.request?.status;
+        // const errorStatus = error.request?.status;
+        // const errorResponse = error?.response?.data?.error || '';
+        // console.log({errorResponse: errorResponse === 'No cookie found'})
 
         // if((errorStatus === 401 || errorStatus === 403) && !params.ignoreAuthError) {
         //     sessionStorage.clear();

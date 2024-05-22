@@ -13,7 +13,6 @@ function BannerSect(props: {searchFlights: Function}) {
   }
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     if (fData.location && fData.date && fData.flightClass && fData.luggageCounts) {
       setFlightsSearched(true);
     }
@@ -30,6 +29,7 @@ function BannerSect(props: {searchFlights: Function}) {
         </div>
       }
       <div className='booking-sect'>
+        <div className='back-paint'></div>
         <BookingComp hidecategories mode='FLIGHTS' searchFlights={searchFlights} />
       </div>
     </div>

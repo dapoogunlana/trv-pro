@@ -21,7 +21,6 @@
     "@types/react-redux": "^7.1.33",
     "@types/react-router-dom": "^5.3.3",
     "@types/redux": "^3.6.0",
-    "@types/redux-persist": "^4.3.1",
     "@types/redux-saga": "^0.10.5",
     "@types/yup": "^0.29.14",
     "aos": "^2.3.4",
@@ -77,6 +76,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-date-range": "^1.4.9"
+    "@types/react-date-range": "^1.4.9",
+    "@types/redux-persist": "^4.3.1"
   }
 }

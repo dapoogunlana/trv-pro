@@ -14,7 +14,7 @@ function FlightPreviewPage(props: any) {
 
   const navigate = useNavigate();
   const flightId = useParams().id || '';
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(0);
   const [flightDetails, setFlightDetails] = useState<any>(
     {outbound: []}
     // sampleFlights[0]
@@ -24,7 +24,7 @@ function FlightPreviewPage(props: any) {
 
 
   const getFlightDetails = () => {
-    setLoading(true);
+    setLoading(0);
     
     sendRequest(
       {
@@ -33,11 +33,20 @@ function FlightPreviewPage(props: any) {
       },
       (res: any) => {
         setFlightDetails(res.data);
-        setLoading(false);
+        setLoading(1);
       },
-      (err: any) => {}
+      (err: any) => {
+        setLoading(2);
+      }
     );
   };
+
+  const reloadData = () => {
+    getFlightDetails();
+  }
+
+  const exitPage = () => {
+    navigate(`/${routeConstants.flights}`)}
 
   const bookFlight = (id: string) => {
     navigate(`/${routeConstants.flightBooking}/${id}`)
@@ -50,11 +59,23 @@ function FlightPreviewPage(props: any) {
   return (
     <>
       {
-        loading ?
+        loading === 0 &&
         <div className='loader-holder'>
           <MiniLoader />
         </div>
-        :
+      }
+      {
+        loading === 2 &&
+        <div className='loader-holder'>
+          <div className='error-box'>
+            <h3>An error occured while loading</h3>
+            <button className='my-2 mx-2 confirmation-button' onClick={reloadData}>Reload</button>
+            <button className='my-2 mx-2 cancel' onClick={exitPage}>Exit</button>
+          </div>
+        </div>
+      }
+      {
+        loading === 1 &&
         <div className='flight-preview'>
           <div className='preview-sect'>
             <h5>

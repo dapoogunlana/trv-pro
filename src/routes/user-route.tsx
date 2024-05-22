@@ -8,6 +8,7 @@ const UserModule = lazy(() => import("../layout/app-layout"));
 const HomePage = lazy(() => import("../pages/user/home/home"));
 const AboutPage = lazy(() => import("../pages/user/about/about"));
 const LoginPage = lazy(() => import("../pages/user/login/login"));
+const LoginTestPage = lazy(() => import("../pages/user/login-test-page/login-test-page"));
 const SignupPage = lazy(() => import("../pages/user/signup/signup"));
 const VerifyEmail = lazy(() => import("../pages/user/verify-email/verify-email"));
 const RequestPassword = lazy(() => import("../pages/user/retrieve-password/retrieve-password"));
@@ -48,6 +49,7 @@ function UserRoute() {
           <Route path={routeConstants.home2} element={<HomePage/>}></Route>
           <Route path={routeConstants.about} element={<AboutPage/>}></Route>
           <Route path={routeConstants.login} element={<LoginPage/>}></Route>
+          <Route path={routeConstants.loginTest} element={<LoginTestPage/>}></Route>
           <Route path={routeConstants.signup} element={<SignupPage/>}></Route>
           <Route path={routeConstants.verfyEmail} element={<VerifyEmail/>}></Route>
           <Route path={routeConstants.requestPassword} element={<RequestPassword/>}></Route>

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet, Navigate } from 'react-router-dom';
@@ -20,6 +21,13 @@ const ProctedRoutes = () => {
     }
 
     const getUser = () => {
+        // const request = axios.create({ baseURL: apiLinks.url });
+        // request.get("user-profile/user", {withCredentials: true}).then(res => {
+        //   toast.success(res.data.message);
+        // }).catch((err: any) => {
+        //   toast.error(err?.error || err?.message || 'Request Failed');
+        // })
+        // return
       sendRequest(
         {
           url: "user-profile/user",
