@@ -5,6 +5,7 @@ export const apiLinks = {
     bareurl: (window.location.href.indexOf('localhost') === -1) ?
      'https://borderless-travel-backend-v1.onrender.com/' : 'https://borderless-travel-backend-v1.onrender.com/',
     next: ``,
+    paystackPublicKey: 'pk_test_89b7ee900a6ef49829da1e85de9cbc9129ece4a8',
 }
 
 export const externalLinkConstants = {

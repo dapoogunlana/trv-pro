@@ -50,7 +50,6 @@ function LoginForm({poceedToVerify, logUserIn, switchToRegister, passwordReset}:
         },
       },
       (res: any, headers: any) => {
-        console.log({headers})
         toast.success(res.message);
         if(res.user) {
           // sessionStorage.setItem("userId", res.user?.id);

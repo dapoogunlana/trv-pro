@@ -1,3 +1,4 @@
+import { ICombinedFlightSearchData, IFlightClassData } from "../../../../services/utils/flight-booking-service"
 
 
 
@@ -16,6 +17,33 @@
     const section = parseFloat(timeArray[0]) > 11 ? 'pm' : 'am'
     let hour = parseFloat(timeArray[0]) > 12 ? (parseFloat(timeArray[0]) - 12) : parseFloat(timeArray[0]) === 0 ? 12 : timeArray[0]
     return `${hour} : ${timeArray[0]} ${section}`;
+  }
+
+  export const calculateAdult = (fData: any, digit = false) => {
+    let count = 0;
+    count += (fData?.allPassengerCount || 0)
+    - (fData?.children2_11Count || 0)
+    - (fData?.toddlersInOwnSeatUnder2Count || 0)
+    - (fData?.infantsOnLapUnder2Count || 0)
+    let result = digit ? count : count + '';
+    return result;
+  }
+
+  export const calculateMinors = (fData: any, digit = false) => {
+    let count = 0;
+    count +=  (fData?.toddlersInOwnSeatUnder2Count || 0)
+    + (fData?.infantsOnLapUnder2Count || 0)
+    + (fData?.children2_11Count || 0)
+    let result = digit ? count : count + '';
+    return result;
+  }
+
+  export const calculateInfant = (fData: any, digit = false) => {
+    let count = 0;
+    count +=  (fData?.toddlersInOwnSeatUnder2Count || 0)
+    + (fData?.infantsOnLapUnder2Count || 0)
+    let result = digit ? count : count + '';
+    return result;
   }
 
 

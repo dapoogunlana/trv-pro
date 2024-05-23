@@ -33,10 +33,10 @@ function DateSelectionComp(props: iDateProps) {
   const monthDisplayCount = window.innerWidth > 991 ? 2 : 1;
   const handleSelect = (date: any) => {
     setSelectionDate(date);
+    setActiveDate(date ? true : false);
   }
   const handleRangeSelect = (ranges: any) => {
     setSelectionRange(ranges.selection)
-    // console.log({range: ranges.selection?.endDate?.toISOString()?.split('T')[0]});
     setActiveDate(ranges.selection.startDate !== ranges.selection.endDate);
     if(ranges.selection.startDate !== ranges.selection.endDate) {
       setConfirmedSelectionRange(ranges.selection);
@@ -45,23 +45,25 @@ function DateSelectionComp(props: iDateProps) {
     }
   }
   const resetDates = () => {
-    console.log('resetting');
     setSelectionRange({ startDate: new Date(), endDate: new Date(), key: 'selection' });
     setConfirmedSelectionRange({ startDate: undefined, endDate: undefined, key: 'selection' });
     setSelectionDate(undefined);
+    setActiveDate(false);
+  }
+  
+  const confirmDate = () => {
+    toggleShowPopup(1);
   }
 
   useEffect(() => {
     setTimeout(() => {
       setInitialized(true);
     }, 1000);
-    // console.log({...storedCombinedFlightData});
-    // console.log({pp: props.date});
-    // console.log({selectionRange, confirmedSelectionRange});
   })
   useEffect(() => {
     if(initialized){
       resetDates();
+      setActiveDate(false);
     }
   }, [props.multiple])
 
@@ -129,10 +131,10 @@ function DateSelectionComp(props: iDateProps) {
           <div className='text-center'>
             <button className='reset-button' onClick={resetDates}>Reset Date</button>
             {
-              selectionRange.startDate && selectionRange.endDate &&
+              activeDate &&
               <>
                 &nbsp; &nbsp; 
-                <button className='reset-button' onClick={resetDates}>Ok</button>
+                <button className='reset-button' onClick={confirmDate}>Ok</button>
               </>
             }
           </div>

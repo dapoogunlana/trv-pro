@@ -31,6 +31,10 @@ function LuggageSelectionComp(props: iLuggageProps) {
   const updateLuggageCounts = () => {
     props.setLuggageCounts({checkedInCount, handLuggageCount});
   }
+  
+  const confirmLuggageCounts = () => {
+    toggleShowPopup(1);
+  }
 
   useEffect(() => {
     updateLuggageCounts();
@@ -66,6 +70,10 @@ function LuggageSelectionComp(props: iLuggageProps) {
             <IncrementalCountComponent updateCount={updateCheckedInCount} count={checkedInCount} />
           </div>
           <p className='orange-tx reduced-x mb-2 mt-1'>Luggage per passenger</p>
+          {
+            (checkedInCount + handLuggageCount) > 0 &&
+            <button className='flight-button py-1 px-3' onClick={confirmLuggageCounts}>OK</button>
+          }
         </div>
       </AppPopup>
     </div>

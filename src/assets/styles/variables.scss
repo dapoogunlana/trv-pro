@@ -64,15 +64,17 @@ $transparent: rgba(0, 0, 0, 0);
 
 
 
-@mixin base-button ($bg, $hover-bg) {
+@mixin base-button ($bg, $hover-bg, $bg-shadow: rgba(0, 0, 0, 0), $hover-bg-shadow: rgba(0, 0, 0, 0)) {
   background-color: $bg;
   color: $white;
   border: none;
   transition: 0.3s ease;
   border-radius: 6px;
   padding: 6px 9px;
+  box-shadow: 0 1px 10px 0 $bg-shadow;
   &:hover{
       background-color: $hover-bg;
+      box-shadow: 0 1px 12px 0 $bg-shadow;
   }
   &:active{
       transform: scale(1.03) translateY(5px);

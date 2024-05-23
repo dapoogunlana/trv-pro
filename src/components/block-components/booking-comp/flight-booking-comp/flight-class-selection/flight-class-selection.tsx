@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
+import { calculateAdult, calculateMinors } from '../../../../../pages/user/flights/flight-search/flight-search-service';
 import { clipToLength } from '../../../../../services/utils/data-manipulation-utilits';
 import { IFlightClassData } from '../../../../../services/utils/flight-booking-service';
 import IncrementalCountComponent from '../../../../base-components/incremental-count/incremental-count';
@@ -79,6 +80,18 @@ function FlightClassSelectionComp(props: iFlightClassProps) {
       allPassengerCount,
     });
   }
+  
+  const confirmPassangerCounts = () => {
+    toggleShowPopup(1);
+  }
+
+  const sendAdults = () => {
+    return calculateAdult({allPassengerCount, children2_11Count, toddlersInOwnSeatUnder2Count, infantsOnLapUnder2Count}, true);
+  }
+
+  const sendMinors = () => {
+    return calculateMinors({allPassengerCount, children2_11Count, toddlersInOwnSeatUnder2Count, infantsOnLapUnder2Count}, true);
+  }
 
   useEffect(() => {
     calculateAllPassengerCount();
@@ -99,7 +112,12 @@ function FlightClassSelectionComp(props: iFlightClassProps) {
     <div className='pt-3 pb-2'>
       <AppPopup
         switch={
-          <div className='selector' onClick={() => toggleShowPopup(2)} title={`${allPassengerCount} Passenger${allPassengerCount === 1 ? '' : 's'}, ${flightClass}`}>
+          <div className='selector' onClick={() => toggleShowPopup(2)} 
+            title={
+              `${sendAdults()} Adult${sendAdults() === 1 ? '' : 's'}, ` +
+              `${sendMinors()} Minor${sendMinors() === 1 ? '' : 's'}, ${flightClass}`
+            }
+          >
             <div className='label'>Passanger - Class</div>
             <p className='mb-0 reduced-info'>{allPassengerCount} Passenger{allPassengerCount === 1 ? '' : 's'}, {clipToLength(flightClass, 19)}</p>
             <FontAwesomeIcon icon={'chevron-down'} className='fainter-tx' />
@@ -184,7 +202,7 @@ function FlightClassSelectionComp(props: iFlightClassProps) {
               <span className=''>Business</span>
             </div>
             <div 
-              className={'flight-class-sect' + (flightClass === 'First Class' ? ' selected' : '')}
+              className={'flight-class-sect mb-2' + (flightClass === 'First Class' ? ' selected' : '')}
               onClick={() => updateFlightClass('First Class')}
             >
               <input
@@ -196,6 +214,11 @@ function FlightClassSelectionComp(props: iFlightClassProps) {
               />
               <span className=''>First Class</span>
             </div>
+            {
+              (allPassengerCount - children2_11Count - toddlersInOwnSeatUnder2Count - infantsOnLapUnder2Count) > 0 ?
+              <button className='flight-button py-1 px-3' onClick={confirmPassangerCounts}>OK</button> :
+              <p className='reduced red-tx italic'>You need an adult present to book a flight</p>
+            }
           </div>
         </div>
       </AppPopup>

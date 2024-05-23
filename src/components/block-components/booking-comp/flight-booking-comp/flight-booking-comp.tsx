@@ -18,6 +18,7 @@ import {
   updateCombinedFlightData,
 } from '../../../../services/utils/flight-booking-service';
 import { toast } from 'react-toastify';
+import { calculateAdult } from '../../../../pages/user/flights/flight-search/flight-search-service';
 
 interface IFlightBooking {
   cleanSelection?: boolean;
@@ -39,6 +40,7 @@ function FlightBookingComp({cleanSelection, hidecategories, searchFlights}: IFli
   const [flightClass, setFlightClass] = useState<IFlightClassData | undefined>(combinedFlightData.flightClass);
 
   const [canProceed, setCanProceed] = useState(true);
+  const [errorListString, setErrorListString] = useState('');
   const [showPromoCode, setShowPromoCode] = useState(false);
 
   const updateFlightType = (type: 'return' | 'one-way') => {
@@ -50,7 +52,6 @@ function FlightBookingComp({cleanSelection, hidecategories, searchFlights}: IFli
   }
 
   const updateDate = (dateObj: { startDate: Date | undefined, endDate: Date | undefined, key: string| undefined }) => {
-    console.log('Sakroog');
     setDate(dateObj);
   }
   const updateLuggageCounts = (counts: {checkedInCount: number, handLuggageCount: number}) => {
@@ -62,7 +63,8 @@ function FlightBookingComp({cleanSelection, hidecategories, searchFlights}: IFli
 
   const searchForFlights = (values: FormikValues, controls: any) => {
     if(!canProceed) {
-      toast.error('Please fill all flight details before proceeding');
+      toast.error('Please complete flight details: ' + errorListString);
+      return;
     }
     if (searchFlights){
       searchFlights(false);
@@ -89,14 +91,28 @@ function FlightBookingComp({cleanSelection, hidecategories, searchFlights}: IFli
       flightClass: flightClass?.allPassengerCount ? flightClass: undefined,
       flightType: flightType,
     }
+    const errors: string[] = [];
     setCombinedFlightData(tempCombination);
-    if (tempCombination.location && tempCombination.date && tempCombination.flightClass && tempCombination.luggageCounts) {
+    if (tempCombination.location && tempCombination.date && calculateAdult(tempCombination.flightClass, true) && tempCombination.luggageCounts) {
       setCanProceed(true);
       updateCombinedFlightData(tempCombination);
     } else {
+      if(!tempCombination.location) {
+        errors.push('Location Information')
+      }
+      if(!tempCombination.date) {
+        errors.push('Date Information')
+      }
+      if(!calculateAdult(tempCombination.flightClass, true)) {
+        errors.push('Passanger Information')
+      }
+      if(!tempCombination.luggageCounts) {
+        errors.push('Luggage Information')
+      }
       setCanProceed(false);
       updateCombinedFlightData(generateNewCombinedFlightData());
     }
+    setErrorListString(errors.join(', '))
   }
 
   useEffect(() => {

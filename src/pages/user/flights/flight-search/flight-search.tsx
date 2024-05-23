@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router';
 import { routeConstants } from '../../../../services/constants/route-constants';
 import { formatNumber } from '../../../../services/utils/data-manipulation-utilits';
-import { formatTime, getFlightToAndFrom, sampleFlights } from './flight-search-service';
+import { calculateAdult, calculateInfant, formatTime, getFlightToAndFrom, sampleFlights } from './flight-search-service';
 
 function FlightSearchPage(props: any) {
 
@@ -36,10 +36,10 @@ function FlightSearchPage(props: any) {
           origin: fData.location?.from?.iata_code,
           destination: fData.location?.to?.iata_code,
           departure_date: fData.date?.startDate?.toISOString().split('T')[0],
-          adults: calculateAdult(),
+          adults: fData.flightClass ? calculateAdult(fData.flightClass) : 0,
           cabin: fData.flightClass?.flightClass.toLocaleLowerCase(),
-          children: calculateChildren(),
-          infants: calculateInfant(),
+          children: `${fData.flightClass?.children2_11Count || 0}`,
+          infants: fData.flightClass ? calculateInfant(fData.flightClass) : 0,
           return_date: fData.date?.endDate ? fData.date?.endDate?.toISOString().split('T')[0] : ""
         },
       },
@@ -58,28 +58,6 @@ function FlightSearchPage(props: any) {
       setFlightList(sampleFlights);
     }, 2000);
     callback();
-  }
-
-  const calculateAdult = () => {
-    let count = 0;
-    count += (fData.flightClass?.allPassengerCount || 0)
-    - (fData.flightClass?.children2_11Count || 0)
-    - (fData.flightClass?.toddlersInOwnSeatUnder2Count || 0)
-    - (fData.flightClass?.infantsOnLapUnder2Count || 0)
-    return count + '';
-  }
-
-  const calculateChildren = () => {
-    let count = 0;
-    count += (fData.flightClass?.children2_11Count || 0)
-    return count + '';
-  }
-
-  const calculateInfant = () => {
-    let count = 0;
-    count +=  (fData.flightClass?.toddlersInOwnSeatUnder2Count || 0)
-    + (fData.flightClass?.infantsOnLapUnder2Count || 0)
-    return count + '';
   }
   
   const updateSelectedTab = (tab: 'cheapest' | 'best' | 'quickest') => {

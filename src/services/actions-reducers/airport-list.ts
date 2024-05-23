@@ -17,7 +17,6 @@ export const setAirport = (payload: any) => {
 const airportListReducer = (state = [], action: any) => {
     switch(action.type) {
         case SET_AIRPORTS:
-            console.log({action})
             return [...action.payload];
         default:
             return state;

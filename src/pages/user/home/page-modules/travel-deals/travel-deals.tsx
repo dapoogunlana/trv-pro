@@ -94,7 +94,6 @@ function TravelDealsSect(props: any) {
     if(id) {
       navigate(`/${routeConstants.flightPreview}/${id}`)
     }
-    console.log({deal_id: id});
   }
 
   useEffect(() => {
