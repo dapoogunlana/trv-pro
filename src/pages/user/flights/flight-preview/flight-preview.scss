@@ -67,7 +67,7 @@
             padding: 0.7em 1.1em;
             border-radius: 8px;
         }
-        .trip-card{
+        .trip-card, .summary-card{
             box-shadow: 0 10px 20px 0 rgba(103, 4, 118, 0.25);
             padding: 1.1em;
             border-radius: 12px;
@@ -101,6 +101,17 @@
                         display: none;
                     }
                 }
+            }
+        }
+        .summary-card{
+            position: relative;
+            .hanger{
+                position: absolute;
+                left: 0;
+                top: -20vh;
+                width: 3px;
+                height: 3px;
+                background-color: chartreuse;
             }
         }
     }

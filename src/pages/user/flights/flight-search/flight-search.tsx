@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router';
 import { routeConstants } from '../../../../services/constants/route-constants';
 import { formatNumber } from '../../../../services/utils/data-manipulation-utilits';
 import { calculateAdult, calculateInfant, formatTime, getFlightToAndFrom, sampleFlights } from './flight-search-service';
+import FlightSearchFilter from './flight-search-filter/flight-search-filter';
 
 function FlightSearchPage(props: any) {
 
@@ -45,7 +46,11 @@ function FlightSearchPage(props: any) {
       },
       (res: any) => {
         setLoading(false);
-        setFlightList(res.data);
+        if(Array.isArray(res.data)) {
+          setFlightList(res.data);
+        } else {
+          setFlightList([]);
+        }
       },
       (err: any) => {}
     );
@@ -86,93 +91,7 @@ function FlightSearchPage(props: any) {
         {
           flightsSearched ?
           <div className='flight-listout'>
-            <div className='row'>
-              <div className='col-lg-3'>
-                <h3 className='f700 blue-tx pb-3'>Filters</h3>
-                <div className='filter'>
-                  <div className='spread-info'>
-                    <p className='mb-0 f600'>Price</p>
-                    <FontAwesomeIcon icon={'chevron-up'} className='faint-tx reduced' />
-                  </div>
-                  <div className='info-grid py-2'>
-                    <input type="number" name="" id="" className='simple-input' placeholder='Minimum' />
-                    <input type="number" name="" id="" className='simple-input' placeholder='Maximum' />
-                  </div>
-                  <hr className='' />
-                  <div className='spread-info'>
-                    <p className='mb-0 f600'>Depature Time</p>
-                    <FontAwesomeIcon icon={'chevron-up'} className='faint-tx reduced' />
-                  </div>
-                  <div className='info-grid py-2'>
-                    <input type="text" name="" id="" className='simple-input' placeholder='Earliest' />
-                    <input type="text" name="" id="" className='simple-input' placeholder='Latest' />
-                  </div>
-                  <hr />
-                  <div className='spread-info'>
-                    <p className='mb-0 f600'>Airlines</p>
-                    <FontAwesomeIcon icon={'chevron-up'} className='faint-tx reduced' />
-                  </div>
-                  <div className='py-2'>
-                    <input type="checkbox" name="" id="" />
-                    <span className='reduced-soft-im f500 px-2'>Emirates</span>
-                  </div>
-                  <div className='pb-2'>
-                    <input type="checkbox" name="" id="" />
-                    <span className='reduced-soft-im f500 px-2'>Fly Dubai</span>
-                  </div>
-                  <div className='pb-2'>
-                    <input type="checkbox" name="" id="" />
-                    <span className='reduced-soft-im f500 px-2'>Qatar Airways</span>
-                  </div>
-                  <div className='pb-2'>
-                    <input type="checkbox" name="" id="" />
-                    <span className='reduced-soft-im f500 px-2'>Air Peace</span>
-                  </div>
-                  <div className='pb-2'>
-                    <input type="checkbox" name="" id="" />
-                    <span className='reduced-soft-im f500 px-2'>Etihad</span>
-                  </div>
-                  <hr />
-                  <div className='spread-info'>
-                    <p className='mb-0 f600'>Trips</p>
-                    <FontAwesomeIcon icon={'chevron-up'} className='faint-tx reduced' />
-                  </div>
-                  <div className='py-2'>
-                    <input type="checkbox" name="" id="" />
-                    <span className='reduced-soft-im f500 px-2'>Round trip</span>
-                  </div>
-                  <div className='pb-2'>
-                    <input type="checkbox" name="" id="" />
-                    <span className='reduced-soft-im f500 px-2'>One Way</span>
-                  </div>
-                  <div className='pb-2'>
-                    <input type="checkbox" name="" id="" />
-                    <span className='reduced-soft-im f500 px-2'>Multi-City</span>
-                  </div>
-                </div>
-              </div>
-              <div className='col-lg-9'>
-                <div className='pad-web'>
-                  <div className='category-tabs'>
-                    <div className={'category-tab' + (selectedTab ==='cheapest' ? ' active' : '')} onClick={() => updateSelectedTab('cheapest')}>
-                      <h6 className='mb-0'>Cheapest</h6>
-                      <p className='mb-0 number-light'>$99. 2h 18m</p>
-                    </div>
-                    <div className='center-info py-2'>
-                      <div className='splitter'></div>
-                    </div>
-                    <div className={'category-tab' + (selectedTab ==='best' ? ' active' : '')} onClick={() => updateSelectedTab('best')}>
-                      <h6 className='mb-0'>Best</h6>
-                      <p className='mb-0 number-light'>$99. 2h 18m</p>
-                    </div>
-                    <div className='center-info py-2'>
-                      <div className='splitter'></div>
-                    </div>
-                    <div className={'category-tab' + (selectedTab ==='quickest' ? ' active' : '')} onClick={() => updateSelectedTab('quickest')}>
-                      <h6 className='mb-0'>Quickest</h6>
-                      <p className='mb-0 number-light'>$99. 2h 18m</p>
-                    </div>
-                  </div>
+            <FlightSearchFilter>
                 {
                     !loading &&
                     <p className='reduced-x'>
@@ -230,9 +149,7 @@ function FlightSearchPage(props: any) {
                       <h5 className=''>No Flight matches your search</h5>
                     </div>
                   }
-                </div>
-              </div>
-            </div>
+            </FlightSearchFilter>
           </div>
           :
           <TravelDealsSect/>

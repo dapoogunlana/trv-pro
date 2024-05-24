@@ -46,7 +46,12 @@ function FlightPreviewPage(props: any) {
   }
 
   const exitPage = () => {
-    navigate(`/${routeConstants.flights}`)}
+    navigate(`/${routeConstants.flights}`)
+  }
+
+  const viewDetails = () => {
+    document.getElementById('summary-card')?.scrollIntoView({behavior: 'smooth'});
+  }
 
   const bookFlight = (id: string) => {
     navigate(`/${routeConstants.flightBooking}/${id}`)
@@ -100,7 +105,7 @@ function FlightPreviewPage(props: any) {
                   <FontAwesomeIcon icon={'heart'} className='save-icon' />
                 </div>
                 <div className='pl-3'>
-                  <button className='flight-button' onClick={() => bookFlight(flightDetails.id)}>Book Flight</button>
+                  <button className='flight-button' onClick={viewDetails}>Proceed</button>
                 </div>
               </div>
             </div>
@@ -203,6 +208,35 @@ function FlightPreviewPage(props: any) {
                 </div>
               ))
             }
+            <div className='mb-4 summary-card'>
+              <div className='hanger' id='summary-card'></div>
+              <div className='row'>
+                <div className='col-md-6'>
+                  <div className='py-2'>
+                    <h6>Price Details</h6>
+                    {flightDetails?.price_summary?.map((price: any, index: number) => (
+                      <div className='spread-info' key={index}>
+                        <h6 className='sentence-case f300'>{price.passenger_type}</h6>
+                        <h6 className='number-light'>{formatNumber(price.total_price)}</h6>
+                      </div>
+                    ))}
+                    <div className='spread-info'>
+                      <h6>Total</h6>
+                      <h6 className='number-medium'>{formatNumber(flightDetails?.amount)}</h6>
+                    </div>
+                  </div>
+                </div>
+                <div className='col-md-6'>
+                  <div className='py-2'>
+                    <h6>Special Information</h6>
+                    <p className='faint-tx reduced-soft mb-0'>No special information</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className=''>
+              <button className='flight-button' onClick={() => bookFlight(flightDetails.id)}>Book Flight</button>
+            </div>
           </div>
         </div>
       }
