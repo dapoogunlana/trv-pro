@@ -1,7 +1,3 @@
-import { ICombinedFlightSearchData, IFlightClassData } from "../../../../services/utils/flight-booking-service"
-
-
-
 
   export const getFlightToAndFrom = (flight: any) => {
     let from = flight.outbound[0]?.airport_from_details?.city || flight.outbound[0]?.airport_from

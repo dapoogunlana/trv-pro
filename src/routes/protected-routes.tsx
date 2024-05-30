@@ -1,17 +1,16 @@
-import axios from 'axios';
+
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Outlet, Navigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import AuthEnforcerModal from '../components/block-components/auth-enforcer-modal/auth-enforcer-modal';
-import { apiLinks } from '../config/environment';
 import { iStoreState } from '../services/constants/interfaces/store-schemas';
-import { routeConstants } from '../services/constants/route-constants';
+// import { routeConstants } from '../services/constants/route-constants';
 import { sendRequest } from '../services/utils/request';
 
 const ProctedRoutes = () => {
     
-    const token = sessionStorage.getItem('token');
+    // const token = sessionStorage.getItem('token');
     const verified = useSelector((state: iStoreState) => state?.user?.email_verified);
     const [overlayMode, setOverlayMode] = useState<0 | 1 | 2>(2);
     const [initialized, setInitialized] = useState(false);

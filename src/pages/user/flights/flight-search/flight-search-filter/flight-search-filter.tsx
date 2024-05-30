@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './flight-search-filter.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-interface filter {
-  max: number;
-  min: number;
-}
+import { IFilter, initialFilter } from './flight-filter-service';
 
 function FlightSearchFilter(props: any) {
 
   const [selectedTab, setSelectedTab] = useState<'cheapest' | 'best' | 'quickest'>('best');
   const [filterOpened, setFilterOpened] = useState(false);
+  const [filter, setFilter] = useState<IFilter>(initialFilter());
 
   const changeFilterState = (state: boolean) => {
     const selector = window.innerWidth > 991 ? false : state;
