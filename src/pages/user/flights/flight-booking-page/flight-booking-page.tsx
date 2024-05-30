@@ -41,7 +41,11 @@ function FlightBookingPage(props: any) {
         setFlightDetails(res.data);
         setupTouchedAndErrors(res.data);
         getPassengers(res.data?.price_summary || []);
-        setLoading(1);
+        if(user?.email) {
+          setLoading(1);
+        } else {
+          setLoading(3);
+        }
       },
       (err: any) => {
         setLoading(2);
@@ -69,7 +73,7 @@ function FlightBookingPage(props: any) {
   const validate = (values: IFlightBookingPayload) => {
     // const formValues: IFlightBookingPayload = Object.assign(values);
     // validateForErrors(formValues);
-    const { bookingErr, errors } = validateForErrors(values);
+    const { bookingErr, errors } = validateForErrors(values, flightDetails.document_required);
     setBookingErrors(bookingErr);
     return errors;
   }
@@ -122,19 +126,16 @@ function FlightBookingPage(props: any) {
   const touchAll = () => {
     const touched = activateAllTouchFields(bookingTouched)
     setBookingTouched(touched);
-    console.log('Touchi')
   }
 
   const sumbitFlightBooking = (values: IFlightBookingPayload, control: FormikHelpers<any>) => {
-    const payload = updateBookingData(values);
-    console.log({values, payload, submitted: true});
+    const payload = updateBookingData(values, flightDetails.document_required);
     setBookingData(payload);
-    // return;
     sendRequest(
       {
         url: "flight/book-flight/" + flightId,
         method: "POST",
-        body: payload,
+        body: { ...payload, document_required: flightDetails.document_required },
       },
       (res: any) => {
         toast.success('Your flight data has been captured, please make payment to complete booking');
@@ -158,8 +159,11 @@ function FlightBookingPage(props: any) {
   }, [props])
 
   useEffect(() => {
-    // setupTouchedAndErrors();
-  }, [flightDetails])
+    console.log({'Azume': user});
+    if(loading === 3) {
+      setLoading(1)
+    }
+  }, [user])
 
   
   return (
@@ -196,16 +200,13 @@ function FlightBookingPage(props: any) {
               const {
                 values,
                 touched,
-                errors,
                 isValid,
                 isSubmitting,
                 handleChange,
                 handleBlur,
                 handleSubmit,
                 setValues,
-                setTouched,
               } = Props
-              console.log({values, touched, isValid, bookingTouched})
               return <form onSubmit={handleSubmit}>
                 {
                   !openPayment &&
@@ -567,117 +568,122 @@ function FlightBookingPage(props: any) {
                                 }
                               </div>
                             </div>
-                            <div className='col-md-6'>
-                              <div className='form-input'>
-                                <label>Issuing Date</label>
-                                <input
-                                  type="date"
-                                  name={"passenger.issuing_date"  + index}
-                                  placeholder="Enter issuing date"
-                                  value={passenger.issuing_date}
-                                  onChange={e => setFieldChange(e, values, setValues, 'issuing_date', index)}
-                                  onBlur={() => setFieldTouched('issuing_date', index)}
-                                  onKeyDown={e => e.preventDefault()}
-                                  min={generateMinDate(90)}
-                                  max={generateMaxDate(0)}
-                                  className={
-                                    bookingTouched.passenger_details[index]?.issuing_date && bookingErrors.passenger_details[index]?.issuing_date
-                                    ? "im-error" : ""
-                                  }
-                                />
-                                {
-                                  bookingTouched.passenger_details[index]?.issuing_date && bookingErrors.passenger_details[index]?.issuing_date &&
-                                  <p className='reduced red-tx-im mb-0'>{bookingErrors.passenger_details[index]?.issuing_date}</p>
-                                }
-                              </div>
-                            </div>
-                            <div className='col-md-6'>
-                              <div className='form-input'>
-                                <label>Expiry Date</label>
-                                <input
-                                  type="date"
-                                  name={"passenger.expiry_date"  + index}
-                                  placeholder="Enter expiry date"
-                                  value={passenger.expiry_date}
-                                  onChange={e => setFieldChange(e, values, setValues, 'expiry_date', index)}
-                                  onBlur={() => setFieldTouched('expiry_date', index)}
-                                  onKeyDown={e => e.preventDefault()}
-                                  min={generateMinDate(90)}
-                                  max={generateMaxDate(0)}
-                                  className={
-                                    bookingTouched.passenger_details[index]?.expiry_date && bookingErrors.passenger_details[index]?.expiry_date
-                                    ? "im-error" : ""
-                                  }
-                                />
-                                {
-                                  bookingTouched.passenger_details[index]?.expiry_date && bookingErrors.passenger_details[index]?.expiry_date &&
-                                  <p className='reduced red-tx-im mb-0'>{bookingErrors.passenger_details[index]?.expiry_date}</p>
-                                }
-                              </div>
-                            </div>
-                            <div className='col-md-6'>
-                              <div className='form-input'>
-                                <label>Document Number</label>
-                                <input
-                                  type="text"
-                                  name={"passenger.number"  + index}
-                                  placeholder="Enter document number"
-                                  value={passenger.number}
-                                  onChange={e => setFieldChange(e, values, setValues, 'number', index)}
-                                  onBlur={() => setFieldTouched('number', index)}
-                                  className={
-                                    bookingTouched.passenger_details[index]?.number && bookingErrors.passenger_details[index]?.number
-                                    ? "im-error" : ""
-                                  }
-                                />
-                                {
-                                  bookingTouched.passenger_details[index]?.number && bookingErrors.passenger_details[index]?.number &&
-                                  <p className='reduced red-tx-im mb-0'>{bookingErrors.passenger_details[index]?.number}</p>
-                                }
-                              </div>
-                            </div>
-                            <div className='col-md-6'>
-                              <div className='form-input'>
-                                <label>Country Issued</label>
-                                <input
-                                  type="text"
-                                  name={"passenger.issuing_country"  + index}
-                                  placeholder="Enter country document was issued"
-                                  value={passenger.issuing_country}
-                                  onChange={e => setFieldChange(e, values, setValues, 'issuing_country', index)}
-                                  onBlur={() => setFieldTouched('issuing_country', index)}
-                                  className={
-                                    bookingTouched.passenger_details[index]?.issuing_country && bookingErrors.passenger_details[index]?.issuing_country
-                                    ? "im-error" : ""
-                                  }
-                                />
-                                {
-                                  bookingTouched.passenger_details[index]?.issuing_country && bookingErrors.passenger_details[index]?.issuing_country &&
-                                  <p className='reduced red-tx-im mb-0'>{bookingErrors.passenger_details[index]?.issuing_country}</p>
-                                }
-                              </div>
-                            </div>
-                            <div className='col-md-6'>
-                              <div className='form-input'>
-                                <label>Nationality</label>
-                                <input
-                                  type="text"
-                                  name={"passenger.nationality_country"  + index}
-                                  placeholder="Enter nationality of document holder"
-                                  value={passenger.nationality_country}
-                                  onChange={e => setFieldChange(e, values, setValues, 'nationality_country', index)}
-                                  onBlur={() => setFieldTouched('nationality_country', index)}
-                                  className={
-                                    bookingTouched.passenger_details[index]?.nationality_country && bookingErrors.passenger_details[index]?.nationality_country
-                                    ? "im-error" : ""
-                                  }
-                                />
-                                {
-                                  bookingTouched.passenger_details[index]?.nationality_country && bookingErrors.passenger_details[index]?.nationality_country &&
-                                  <p className='reduced red-tx-im mb-0'>{bookingErrors.passenger_details[index]?.nationality_country}</p>
-                                }
-                              </div>
-                            </div>
+                            {
+                              flightDetails.document_required &&
+                              <>
+                                <div className='col-md-6'>
+                                  <div className='form-input'>
+                                    <label>Issuing Date</label>
+                                    <input
+                                      type="date"
+                                      name={"passenger.issuing_date"  + index}
+                                      placeholder="Enter issuing date"
+                                      value={passenger.issuing_date}
+                                      onChange={e => setFieldChange(e, values, setValues, 'issuing_date', index)}
+                                      onBlur={() => setFieldTouched('issuing_date', index)}
+                                      onKeyDown={e => e.preventDefault()}
+                                      min={generateMinDate(90)}
+                                      max={generateMaxDate(0)}
+                                      className={
+                                        bookingTouched.passenger_details[index]?.issuing_date && bookingErrors.passenger_details[index]?.issuing_date
+                                        ? "im-error" : ""
+                                      }
+                                    />
+                                    {
+                                      bookingTouched.passenger_details[index]?.issuing_date && bookingErrors.passenger_details[index]?.issuing_date &&
+                                      <p className='reduced red-tx-im mb-0'>{bookingErrors.passenger_details[index]?.issuing_date}</p>
+                                    }
+                                  </div>
+                                </div>
+                                <div className='col-md-6'>
+                                  <div className='form-input'>
+                                    <label>Expiry Date</label>
+                                    <input
+                                      type="date"
+                                      name={"passenger.expiry_date"  + index}
+                                      placeholder="Enter expiry date"
+                                      value={passenger.expiry_date}
+                                      onChange={e => setFieldChange(e, values, setValues, 'expiry_date', index)}
+                                      onBlur={() => setFieldTouched('expiry_date', index)}
+                                      onKeyDown={e => e.preventDefault()}
+                                      min={generateMinDate(90)}
+                                      max={generateMaxDate(0)}
+                                      className={
+                                        bookingTouched.passenger_details[index]?.expiry_date && bookingErrors.passenger_details[index]?.expiry_date
+                                        ? "im-error" : ""
+                                      }
+                                    />
+                                    {
+                                      bookingTouched.passenger_details[index]?.expiry_date && bookingErrors.passenger_details[index]?.expiry_date &&
+                                      <p className='reduced red-tx-im mb-0'>{bookingErrors.passenger_details[index]?.expiry_date}</p>
+                                    }
+                                  </div>
+                                </div>
+                                <div className='col-md-6'>
+                                  <div className='form-input'>
+                                    <label>Document Number</label>
+                                    <input
+                                      type="text"
+                                      name={"passenger.number"  + index}
+                                      placeholder="Enter document number"
+                                      value={passenger.number}
+                                      onChange={e => setFieldChange(e, values, setValues, 'number', index)}
+                                      onBlur={() => setFieldTouched('number', index)}
+                                      className={
+                                        bookingTouched.passenger_details[index]?.number && bookingErrors.passenger_details[index]?.number
+                                        ? "im-error" : ""
+                                      }
+                                    />
+                                    {
+                                      bookingTouched.passenger_details[index]?.number && bookingErrors.passenger_details[index]?.number &&
+                                      <p className='reduced red-tx-im mb-0'>{bookingErrors.passenger_details[index]?.number}</p>
+                                    }
+                                  </div>
+                                </div>
+                                <div className='col-md-6'>
+                                  <div className='form-input'>
+                                    <label>Country Issued</label>
+                                    <input
+                                      type="text"
+                                      name={"passenger.issuing_country"  + index}
+                                      placeholder="Enter country document was issued"
+                                      value={passenger.issuing_country}
+                                      onChange={e => setFieldChange(e, values, setValues, 'issuing_country', index)}
+                                      onBlur={() => setFieldTouched('issuing_country', index)}
+                                      className={
+                                        bookingTouched.passenger_details[index]?.issuing_country && bookingErrors.passenger_details[index]?.issuing_country
+                                        ? "im-error" : ""
+                                      }
+                                    />
+                                    {
+                                      bookingTouched.passenger_details[index]?.issuing_country && bookingErrors.passenger_details[index]?.issuing_country &&
+                                      <p className='reduced red-tx-im mb-0'>{bookingErrors.passenger_details[index]?.issuing_country}</p>
+                                    }
+                                  </div>
+                                </div>
+                                <div className='col-md-6'>
+                                  <div className='form-input'>
+                                    <label>Nationality</label>
+                                    <input
+                                      type="text"
+                                      name={"passenger.nationality_country"  + index}
+                                      placeholder="Enter nationality of document holder"
+                                      value={passenger.nationality_country}
+                                      onChange={e => setFieldChange(e, values, setValues, 'nationality_country', index)}
+                                      onBlur={() => setFieldTouched('nationality_country', index)}
+                                      className={
+                                        bookingTouched.passenger_details[index]?.nationality_country && bookingErrors.passenger_details[index]?.nationality_country
+                                        ? "im-error" : ""
+                                      }
+                                    />
+                                    {
+                                      bookingTouched.passenger_details[index]?.nationality_country && bookingErrors.passenger_details[index]?.nationality_country &&
+                                      <p className='reduced red-tx-im mb-0'>{bookingErrors.passenger_details[index]?.nationality_country}</p>
+                                    }
+                                  </div>
+                                </div>
+                              </>
+                            }
                           </div>
                         </div>
                       ))

@@ -71,7 +71,6 @@ function UserRoute() {
           <Route path={routeConstants.explore} element={<ExplorePage/>}></Route>
           <Route path={routeConstants.travelInfo} element={<TravelInfoPage/>}></Route>
           <Route path={routeConstants.flightTracker} element={<FlightTrackerPage/>}></Route>
-          <Route path={routeConstants.myBookings} element={<MyBookingsPage/>}></Route>
           <Route path={routeConstants.feedBack} element={<FeedbackPage/>}></Route>
           <Route path={routeConstants.partners} element={<PartnersPage/>}></Route>
           <Route path={routeConstants.help} element={<HelpPage/>}></Route>
@@ -82,6 +81,7 @@ function UserRoute() {
             <Route path={`${routeConstants.stayBooking}/:id`} element={<StayBookingPage/>}></Route>
             <Route path={`${routeConstants.stayDetails}/:id`} element={<StayDetailsPage/>}></Route>
             <Route path={routeConstants.profile} element={<ProfilePage/>}></Route>
+            <Route path={routeConstants.myBookings} element={<MyBookingsPage/>}></Route>
           </Route>
           <Route path={routeConstants.all} element={<Navigate to={routeConstants.home2}/>}></Route>
         </Route>
@@ -91,3 +91,35 @@ function UserRoute() {
 }
 
 export default UserRoute;
+
+
+// {
+//   contact_details: {
+//       c_email: "dapo@gmail.com"
+//     c_first_name: "Dapo"
+//     c_last_name: "Ogunlana"
+//     c_phone_number: "07036539719"
+//     c_relationship_to_p: "self"
+//   }
+//   passenger_details: [
+//     {
+//       dob: "2024-05-15"
+//       documents: {
+//         document_type: "passport"
+//         expiry_date: "2024-05-16"
+//         holder: true
+//         issuing_country: "Nigeria"
+//         issuing_date: "2024-05-09"
+//         nationality_country: "Nigeria"
+//         number: "sf3334533"
+//       }
+//       email: "dapoogunlana@gmail.com"
+//       first_name: "Dapo"
+//       gender: "male"
+//       last_name: "Ogunlana"
+//       passenger_type: "adult"
+//       phone_number: "07036539719"
+//       title: "Mr"
+//     }
+//   ]
+// }

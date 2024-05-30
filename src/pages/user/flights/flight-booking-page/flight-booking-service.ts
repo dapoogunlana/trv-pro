@@ -231,7 +231,7 @@ export const initialPassengerTouchedData = {
       }
 }
 
-export const validateForErrors = (values: IFlightBookingPayload): {bookingErr: IFlightBookingPayload, errors: object} => {
+export const validateForErrors = (values: IFlightBookingPayload, dr: boolean): {bookingErr: IFlightBookingPayload, errors: object} => {
       
       let hasErrors = false;
       const errors: any = {};
@@ -312,34 +312,36 @@ export const validateForErrors = (values: IFlightBookingPayload): {bookingErr: I
                   flightErrors.passenger_details[index].phone_number = 'Invalid phone number';
                   hasErrors = true;
             } else {flightErrors.passenger_details[index].phone_number = '';}
-            if(!info.number) {
-                  flightErrors.passenger_details[index].number = 'Document number is required';
-                  hasErrors = true;
-            } else {flightErrors.passenger_details[index].number = '';}
-            if(!info.issuing_date) {
-                  flightErrors.passenger_details[index].issuing_date = 'Issuing date is required';
-                  hasErrors = true;
-            } else {flightErrors.passenger_details[index].issuing_date = '';}
-            if(!info.expiry_date) {
-                  flightErrors.passenger_details[index].expiry_date = 'Expiry date is required';
-                  hasErrors = true;
-            } else {flightErrors.passenger_details[index].expiry_date = '';}
-            if(!info.issuing_country) {
-                  flightErrors.passenger_details[index].issuing_country = 'Issuing country is required';
-                  hasErrors = true;
-            } else {flightErrors.passenger_details[index].issuing_country = '';}
-            // if(!info.documents?.nationality_country) {
-            //       flightErrors.passenger_details[index].nationality_country = 'Nationality is required';
-            //       hasErrors = true;
-            // } else {flightErrors.passenger_details[index].nationality_country = '';}
-            if(!info.document_type) {
-                  flightErrors.passenger_details[index].document_type = 'Document type is required';
-                  hasErrors = true;
-            } else {flightErrors.passenger_details[index].document_type = '';}
-            if(!info.holder) {
-                  flightErrors.passenger_details[index].holder = 'Document holder is required';
-                  hasErrors = true;
-            } else {flightErrors.passenger_details[index].holder = '';}
+            if(dr) {
+                  if(!info.number) {
+                        flightErrors.passenger_details[index].number = 'Document number is required';
+                        hasErrors = true;
+                  } else {flightErrors.passenger_details[index].number = '';}
+                  if(!info.issuing_date) {
+                        flightErrors.passenger_details[index].issuing_date = 'Issuing date is required';
+                        hasErrors = true;
+                  } else {flightErrors.passenger_details[index].issuing_date = '';}
+                  if(!info.expiry_date) {
+                        flightErrors.passenger_details[index].expiry_date = 'Expiry date is required';
+                        hasErrors = true;
+                  } else {flightErrors.passenger_details[index].expiry_date = '';}
+                  if(!info.issuing_country) {
+                        flightErrors.passenger_details[index].issuing_country = 'Issuing country is required';
+                        hasErrors = true;
+                  } else {flightErrors.passenger_details[index].issuing_country = '';}
+                  // if(!info.documents?.nationality_country) {
+                  //       flightErrors.passenger_details[index].nationality_country = 'Nationality is required';
+                  //       hasErrors = true;
+                  // } else {flightErrors.passenger_details[index].nationality_country = '';}
+                  if(!info.document_type) {
+                        flightErrors.passenger_details[index].document_type = 'Document type is required';
+                        hasErrors = true;
+                  } else {flightErrors.passenger_details[index].document_type = '';}
+                  if(!info.holder) {
+                        flightErrors.passenger_details[index].holder = 'Document holder is required';
+                        hasErrors = true;
+                  } else {flightErrors.passenger_details[index].holder = '';}
+            }
       })
 
       if(hasErrors) {
@@ -375,7 +377,7 @@ export const activateAllTouchFields = (touchFields: IFlightBookingTouchedPayload
 }
 
 
-export const updateBookingData = (data: IFlightBookingPayload): IFlightBookingPayload => {
+export const updateBookingData = (data: IFlightBookingPayload, documentRequired: boolean): IFlightBookingPayload => {
       const passenterDetails: IPassengerPayload[] = [];
       data.passenger_details.map((item) => (
             passenterDetails.push({
@@ -387,7 +389,7 @@ export const updateBookingData = (data: IFlightBookingPayload): IFlightBookingPa
                   title: item.title,
                   email: item.email,
                   phone_number: item.phone_number,
-                  documents: {
+                  documents: documentRequired ? {
                       number: item.number || '',
                       issuing_date: item.issuing_date || '',
                       expiry_date: item.expiry_date || '',
@@ -395,7 +397,7 @@ export const updateBookingData = (data: IFlightBookingPayload): IFlightBookingPa
                       nationality_country: item.nationality_country || '',
                       document_type: item.document_type || '',
                       holder: parseBoolean(item.holder),
-                  }
+                  } : undefined,
             })
       ))
       return {

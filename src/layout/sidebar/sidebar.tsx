@@ -153,20 +153,25 @@ function Sidebar(props: any) {
 
         <hr className="separation-line" />
 
-        <div className="sect">
-          <NavLink to={`/${routeConstants.myBookings}`} className={({isActive}) => isActive ? 'active-sidebar-link' : ''}>
-            <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
-              <div className="sibebar-icon">
-                < FontAwesomeIcon icon={'suitcase-rolling'} />
-              </div>
-              <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
-                <p className="mb-0 pt-2">My&nbsp;Bookings</p>
-              </div>
+        {
+          userDetails.email_verified &&
+          <>
+            <div className="sect">
+              <NavLink to={`/${routeConstants.myBookings}`} className={({isActive}) => isActive ? 'active-sidebar-link' : ''}>
+                <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
+                  <div className="sibebar-icon">
+                    < FontAwesomeIcon icon={'suitcase-rolling'} />
+                  </div>
+                  <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
+                    <p className="mb-0 pt-2">My&nbsp;Bookings</p>
+                  </div>
+                </div>
+              </NavLink>
             </div>
-          </NavLink>
-        </div>
 
-        <hr className="separation-line" />
+            <hr className="separation-line" />
+          </>
+        }
 
         <div className="sect">
           <NavLink to={`/${routeConstants.feedBack}`} className={({isActive}) => isActive ? 'active-sidebar-link' : ''}>
