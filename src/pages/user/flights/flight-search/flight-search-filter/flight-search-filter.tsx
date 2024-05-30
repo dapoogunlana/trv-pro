@@ -2,9 +2,20 @@ import React, { useEffect, useState } from 'react';
 import './flight-search-filter.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+interface filter {
+  max: number;
+  min: number;
+}
+
 function FlightSearchFilter(props: any) {
 
   const [selectedTab, setSelectedTab] = useState<'cheapest' | 'best' | 'quickest'>('best');
+  const [filterOpened, setFilterOpened] = useState(false);
+
+  const changeFilterState = (state: boolean) => {
+    const selector = window.innerWidth > 991 ? false : state;
+    setFilterOpened(selector);
+  }
   
   const updateSelectedTab = (tab: 'cheapest' | 'best' | 'quickest') => {
     setSelectedTab(tab);
@@ -13,15 +24,31 @@ function FlightSearchFilter(props: any) {
   return (
     <div className='row filter-holder'>
       <div className='col-lg-3'>
-        <h3 className='f700 blue-tx pb-3'>Filters</h3>
-        <div className='filter'>
+        <div className='spread-info pb-4'>
+          <h3 className='f700 blue-tx mb-0'>Filters</h3>
+          {!filterOpened && <FontAwesomeIcon icon={'chevron-down'} className='increased' onClick={() => changeFilterState(true)} />}
+          {filterOpened && <FontAwesomeIcon icon={'chevron-left'} className='increased' onClick={() => changeFilterState(false)} />}
+        </div>
+        <div className={'filter ' + (filterOpened ? 'opened-filter' : 'closed-filter')}>
           <div className='spread-info'>
             <p className='mb-0 f600'>Price</p>
             <FontAwesomeIcon icon={'chevron-up'} className='faint-tx reduced' />
           </div>
           <div className='info-grid py-2'>
-            <input type="number" name="" id="" className='simple-input' placeholder='Minimum' />
-            <input type="number" name="" id="" className='simple-input' placeholder='Maximum' />
+            <input
+              type="number"
+              name=""
+              id=""
+              className='simple-input'
+              placeholder='Minimum'
+            />
+            <input
+              type="number"
+              name=""
+              id=""
+              className='simple-input'
+              placeholder='Maximum'
+            />
           </div>
           <hr className='' />
           <div className='spread-info'>

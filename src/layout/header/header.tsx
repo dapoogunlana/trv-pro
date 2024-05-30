@@ -7,14 +7,14 @@ import SearchComponent from "./search-component/search-component";
 import { useNavigate } from "react-router-dom";
 import { routeConstants } from "../../services/constants/route-constants";
 import { useSelector } from "react-redux";
-import { IStateData } from "../../services/constants/interfaces/data-schemas";
+import { iStoreState } from "../../services/constants/interfaces/store-schemas";
 import { useDispatch } from "react-redux";
 import { userLogout } from "../../services/actions-reducers/user-data";
 
 function Header(props: any) {
 
   const navigate = useNavigate();
-  const userDetails = useSelector((state: IStateData) => state?.user || {});
+  const userDetails = useSelector((state: iStoreState) => state?.user || {});
   const dispatch = useDispatch();
 
   const navigateTo = (link: string) => {

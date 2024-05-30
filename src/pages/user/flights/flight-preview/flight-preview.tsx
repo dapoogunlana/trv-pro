@@ -6,7 +6,7 @@ import MiniLoader from '../../../../components/block-components/mini-loader/mini
 import { routeConstants } from '../../../../services/constants/route-constants';
 import { formatDate, formatNumber } from '../../../../services/utils/data-manipulation-utilits';
 import { sendRequest } from '../../../../services/utils/request';
-import { formatTime, getFlightToAndFrom, sampleFlights } from '../flight-search/flight-search-service';
+import { formatTime, getFlightToAndFrom, processPassangerPriceList, sampleFlights } from '../flight-search/flight-search-service';
 import FlightImageSlideSect from './flight-image-slide/flight-image-slide';
 import './flight-preview.scss';
 
@@ -15,10 +15,7 @@ function FlightPreviewPage(props: any) {
   const navigate = useNavigate();
   const flightId = useParams().id || '';
   const [loading, setLoading] = useState(0);
-  const [flightDetails, setFlightDetails] = useState<any>(
-    {outbound: []}
-    // sampleFlights[0]
-    );
+  const [flightDetails, setFlightDetails] = useState<any>({outbound: [], inbound: []});
 
   const flightFeatureImageList = [FlightFeatureImage1, FlightFeatureImage2, FlightFeatureImage3, FlightFeatureImage4];
 
@@ -101,7 +98,7 @@ function FlightPreviewPage(props: any) {
                 {flightDetails.outbound[0]?.airport_from_details?.country}
               </p>
               <div className='description-grid-50'>
-                <div className='center-info book-flight'>
+                <div className='center-info save-flight'>
                   <FontAwesomeIcon icon={'heart'} className='save-icon' />
                 </div>
                 <div className='pl-3'>
@@ -208,16 +205,85 @@ function FlightPreviewPage(props: any) {
                 </div>
               ))
             }
+            {
+              flightDetails.inbound.length > 0 &&
+              <div className='py-2'>
+                <hr className='text-center'/>
+                <h6 className='text-center mb-0'>Return Trip</h6>
+                <hr className='text-center'/>
+              </div>
+            }
+            {
+              flightDetails.inbound.map((trip: any, tripIndex: number) => (
+                <div className='mb-4 trip-card' key={tripIndex}>
+                  <div className='spread-info pb-i'>
+                    <p className='f400 mb-0 number-medium'>{formatDate(trip.departure_time)}</p>
+                    <span className='reduced-im number-light'>{Math.floor(trip.duration/60)}Hs, {trip.duration % 60}Ms</span>
+                  </div>
+                  <div className='spread-info-web my-3'>
+                    <div className='airline-badge my-2'>
+                      <div className='imh'>
+                        <img src={trip.airline_details?.logo} alt="" />
+                      </div>
+                      <span></span>
+                      <div className=''>
+                        <h6>{trip.airline_details?.name}</h6>
+                        <p className='mb-0 reduced fainter-tx'>{trip.airline_details?.code}</p>
+                      </div>
+                    </div>
+                    <div className='spread-info'>
+                      <FontAwesomeIcon icon={'plane'} />
+                      <div className='split'></div>
+                      <FontAwesomeIcon icon={'wifi'} />
+                      <div className='split'></div>
+                      <FontAwesomeIcon icon={'stopwatch'} />
+                      <div className='split'></div>
+                      <FontAwesomeIcon icon={'bowl-food'} />
+                      <div className='split'></div>
+                      <FontAwesomeIcon icon={'restroom'} />
+                    </div>
+                  </div>
+                  <div className='spread-info w96 max800'>
+                    <div className='text-center'>
+                      <p className='mb-0'>
+                        <span className='f500 mb-0 number-medium'>{formatTime(trip.departure_time)} </span>
+                        <span className='f400 reduced-im faint-tx'>{trip.airport_from}</span>
+                      </p>
+                      <p className='mb-0'>
+                        <span className='f400 reduced-im faint-tx'>{trip.airport_from_details?.city ? `(${trip.airport_from_details.city})` : ''}</span>
+                      </p>
+                    </div>
+                    <div className='trip-icon'>
+                      <img src={PlaneTripIcon} alt="" />
+                    </div>
+                    <div className='text-center'>
+                      <p className='mb-0'>
+                        <span className='f500 mb-0 number-medium'>{formatTime(trip.arrival_time)} </span>
+                        <span className='f400 reduced-im faint-tx'>{trip.airport_to}</span>
+                      </p>
+                      <p className='mb-0'>
+                        <span className='f400 reduced-im faint-tx'>{trip.airport_to_details?.city ? `(${trip.airport_to_details.city})` : ''}</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
             <div className='mb-4 summary-card'>
               <div className='hanger' id='summary-card'></div>
               <div className='row'>
                 <div className='col-md-6'>
                   <div className='py-2'>
                     <h6>Price Details</h6>
-                    {flightDetails?.price_summary?.map((price: any, index: number) => (
+                    {flightDetails?.travelers_price?.map((price: any, index: number) => (
                       <div className='spread-info' key={index}>
-                        <h6 className='sentence-case f300'>{price.passenger_type}</h6>
-                        <h6 className='number-light'>{formatNumber(price.total_price)}</h6>
+                        {/* price_summary */}
+                        {
+                        processPassangerPriceList(price).map((item, index) => <React.Fragment key={index}>
+                          <h6 className='sentence-case f300'>{item.key}</h6>
+                          <h6 className='number-light'>{formatNumber(item.value)}</h6>
+                        </React.Fragment>)
+                        }
                       </div>
                     ))}
                     <div className='spread-info'>

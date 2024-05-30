@@ -7,6 +7,19 @@
             color: $black-faint2;
         }
     }
+    .opened-filter{
+        @include mediaM(991px){
+            transition: 0.4s ease;
+            max-height: 1000px;
+        }
+    }
+    .closed-filter{
+        @include mediaM(991px){
+            transition: 0.4s ease;
+            max-height: 0px;
+            overflow: hidden;
+        }
+    }
     .category-tabs{
         display: grid;
         grid-template-columns: 32% 2% 33% 2% 33%;

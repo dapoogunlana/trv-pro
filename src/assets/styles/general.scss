@@ -178,6 +178,9 @@
   .red-tx{
     color: $red;
   }
+  .red-tx-im{
+    color: $red !important;
+  }
   .faint-tx{
     opacity: 0.7;
   }
@@ -762,6 +765,30 @@
   opacity: 0.7;
   filter: grayscale(0.8);
   // pointer-events: none;
+}
+.form-input{
+  label{
+    font-size: 0.7em;
+    font-weight: 700;
+    padding-top: 1em;
+  }
+  input, select{
+      width: 100%;
+      padding: 3px 10px;
+      transition: 0.3s ease;
+      border: 1px solid $black-faint3;
+      border-radius: 4px;
+      &:focus{
+          outline: none;
+          box-shadow: 0 2px 6px 0 $black-faint3;
+      }
+  }
+  select{
+    padding: 5px 10px;
+  }
+  .im-error{
+      border-color: $red;
+  }
 }
 
 .page-holder{

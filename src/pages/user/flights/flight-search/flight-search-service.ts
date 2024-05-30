@@ -46,6 +46,17 @@ import { ICombinedFlightSearchData, IFlightClassData } from "../../../../service
     return result;
   }
 
+  export const processPassangerPriceList = (price: any) => {
+    const prices = [];
+    for(const item in price) {
+        // console.log({key: item, value: price[item], price})
+      if(item && price[item]) {
+        prices.push({key: item, value: price[item]});
+      }
+    }
+    return prices;
+  }
+
 
 export const sampleFlights = [
     {

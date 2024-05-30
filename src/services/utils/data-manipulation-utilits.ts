@@ -54,6 +54,14 @@
     return number.toLocaleString(undefined, { maximumFractionDigits: decimal || 0 });
   }
 
+  export const parseBoolean = (bool: any) => {
+    if(bool === 'true' || bool !== true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   export function calculateAge(dob: any) {
     if (dob) {
       const timeGap = new Date().getTime() - new Date(dob).getTime();

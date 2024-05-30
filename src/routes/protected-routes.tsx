@@ -5,14 +5,14 @@ import { Outlet, Navigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import AuthEnforcerModal from '../components/block-components/auth-enforcer-modal/auth-enforcer-modal';
 import { apiLinks } from '../config/environment';
-import { IStateData } from '../services/constants/interfaces/data-schemas';
+import { iStoreState } from '../services/constants/interfaces/store-schemas';
 import { routeConstants } from '../services/constants/route-constants';
 import { sendRequest } from '../services/utils/request';
 
 const ProctedRoutes = () => {
     
     const token = sessionStorage.getItem('token');
-    const verified = useSelector((state: IStateData) => state?.user?.email_verified);
+    const verified = useSelector((state: iStoreState) => state?.user?.email_verified);
     const [overlayMode, setOverlayMode] = useState<0 | 1 | 2>(2);
     const [initialized, setInitialized] = useState(false);
 

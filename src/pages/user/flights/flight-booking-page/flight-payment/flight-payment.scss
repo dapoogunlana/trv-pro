@@ -4,7 +4,7 @@
 .flight-payment{
     background-color: $white;
     width: 100%;
-    padding: 12vh 0 0;
+    padding: 6vh 0 6vh;
     color: $white;
     position: relative;
     // background-image: url(../../../../assets/images/flight-banner-bg.jpg);
@@ -18,19 +18,5 @@
     .paystack-button {
         @include base-button($purple-bg, $purple-bg-hover, $black-faint2, $black-faint1);
         padding: 0.4em 1em;
-        // box-shadow: 0 1px 6px 0 #000;
-        // cursor: pointer;
-        // text-align: center;
-        // font-size: 1em;
-        // letter-spacing: 0.1rem;
-        // text-transform: uppercase;
-        // background-color: #bfbfbf;
-        // font-weight: bold;
-        // color: #e0eafc;
-        // border: none;
-        // border-radius: 5px;
-        // // width: 100%;
-        // padding: 0.4em 1em;
-        // margin-top: 40px;
     }
 }

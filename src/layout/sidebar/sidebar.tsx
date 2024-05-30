@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { LogoWhite } from "../../assets/images";
-import { IStateData } from "../../services/constants/interfaces/data-schemas";
+import { iStoreState } from "../../services/constants/interfaces/store-schemas";
 import { routeConstants } from "../../services/constants/route-constants";
 import SubHeaderMenu from "../sub-header/sub-header-menu/sub-header-menu";
 
@@ -12,7 +12,7 @@ import "./sidebar.scss";
 
 function Sidebar(props: any) {
 
-  const userDetails = useSelector((state: IStateData) => state?.user || {});
+  const userDetails = useSelector((state: iStoreState) => state?.user || {});
 
   useEffect(() => {}, [props]);
 

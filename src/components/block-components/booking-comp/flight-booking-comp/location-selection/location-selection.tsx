@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { getAirport } from '../../../../../services/actions-reducers/airport-list';
-import { iStoreState } from '../../../../../services/store';
+import { iStoreState } from '../../../../../services/constants/interfaces/store-schemas';
 import { clipToLength } from '../../../../../services/utils/data-manipulation-utilits';
 import { sendRequest } from '../../../../../services/utils/request';
 import TypeSuggestComponent from '../../../../base-components/type-suggest/type-suggest';

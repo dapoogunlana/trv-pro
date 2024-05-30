@@ -52,7 +52,9 @@ function FlightSearchPage(props: any) {
           setFlightList([]);
         }
       },
-      (err: any) => {}
+      (err: any) => {
+        setLoading(false);
+      }
     );
   };
 
@@ -117,6 +119,26 @@ function FlightSearchPage(props: any) {
                           </div>
                           {
                             flight.outbound.map((trip: any, tripIndex: number) => (
+                              <div className='pb-2 w96 max500' key={tripIndex}>
+                                <div className='spread-info pb-i'>
+                                  <p className='f500 mb-0 number-bold'>{formatTime(trip.departure_time)}</p>
+                                  <span className='reduced-im number-light'>{Math.floor(trip.duration/60)}Hs, {trip.duration % 60}Ms</span>
+                                  <p className='f500 mb-0 number-bold'>{formatTime(trip.arrival_time)}</p>
+                                </div>
+                                <div className='spread-info'>
+                                  <p className='fainter-tx reduced-soft'>{trip.airport_from_details?.iata_code}</p>
+                                  <span className='reduced-im faint-tx'>non-stop</span>
+                                  <p className='fainter-tx reduced-soft'>{trip.airport_to_details?.iata_code}</p>
+                                </div>
+                              </div>
+                            ))
+                          }
+                          {
+                            flight.inbound.length > 0 &&
+                            <hr className='text-center'/>
+                          }
+                          {
+                            flight.inbound.map((trip: any, tripIndex: number) => (
                               <div className='pb-2 w96 max500' key={tripIndex}>
                                 <div className='spread-info pb-i'>
                                   <p className='f500 mb-0 number-bold'>{formatTime(trip.departure_time)}</p>

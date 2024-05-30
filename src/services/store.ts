@@ -7,17 +7,6 @@ import rootSaga from "./sagas/root-saga";
 import userReducer from "./actions-reducers/user-data";
 import airportListReducer from "./actions-reducers/airport-list";
 
-export interface iStoreState {
-    user: any;
-    airportList: {
-        city: string;
-        city_code: string;
-        country: string;
-        iata_code: string;
-        name: string;
-    }[];
-}
-
 const combinedReducers: any = combineReducers({
     user: userReducer,
     airportList: airportListReducer,
