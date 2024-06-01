@@ -182,7 +182,7 @@ export const getNameFromRoute = (route: string) => {
 }
 
 
-export function generateMinDate(customYear = 70) {
+export function generateMinDate(customYear = 70, customMonth = 0, customDay = 0) {
   const newDate = new Date().setFullYear(new Date().getFullYear() - customYear);
   return new Date(newDate).toISOString().split('T')[0];
 }

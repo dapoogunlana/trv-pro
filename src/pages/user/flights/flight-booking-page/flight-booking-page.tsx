@@ -135,14 +135,15 @@ function FlightBookingPage(props: any) {
       {
         url: "flight/book-flight/" + flightId,
         method: "POST",
-        body: { ...payload, document_required: flightDetails.document_required },
+        body: payload,
+        // body: { ...payload, document_required: flightDetails.document_required },
       },
       (res: any) => {
         toast.success('Your flight data has been captured, please make payment to complete booking');
         setFlightPaymentData({
           email: values.contact_details.c_email,
           amount: flightDetails.pricing?.payable * 100,
-          booking_reference: res.booking_reference,
+          booking_reference: res.data?.reference,
         });
         setOpenPayment(true);
         control.setSubmitting(false);
@@ -606,8 +607,8 @@ function FlightBookingPage(props: any) {
                                       onChange={e => setFieldChange(e, values, setValues, 'expiry_date', index)}
                                       onBlur={() => setFieldTouched('expiry_date', index)}
                                       onKeyDown={e => e.preventDefault()}
-                                      min={generateMinDate(90)}
-                                      max={generateMaxDate(0)}
+                                      min={generateMinDate(0)}
+                                      max={generateMaxDate(-90)}
                                       className={
                                         bookingTouched.passenger_details[index]?.expiry_date && bookingErrors.passenger_details[index]?.expiry_date
                                         ? "im-error" : ""
