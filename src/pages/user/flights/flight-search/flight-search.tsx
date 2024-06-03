@@ -20,7 +20,8 @@ function FlightSearchPage(props: any) {
 
   const [loading, setLoading] = useState(false);
   const [flightsSearched, setFlightsSearched] = useState(false);
-  const [flightList, setFlightList] = useState<any[]>([])
+  const [flightList, setFlightList] = useState<any[]>([]);
+  const [filteredFlightList, setFilteredFlightList] = useState<any[]>([]);
   const [selectedTab, setSelectedTab] = useState<'cheapest' | 'best' | 'quickest'>('best');
 
   const fetchFlights = (flightData = fData) => {
@@ -48,27 +49,21 @@ function FlightSearchPage(props: any) {
         setLoading(false);
         if(Array.isArray(res.data)) {
           setFlightList(res.data);
+          setFilteredFlightList(res.data);
         } else {
           setFlightList([]);
         }
       },
       (err: any) => {
         setLoading(false);
+        setFlightList(sampleFlights);
+        setFilteredFlightList(sampleFlights);
       }
     );
   };
 
-  const interceptor = (callback: Function) => {
-    setTimeout(() => {
-      setLoading(false);
-      console.log({lativo: sampleFlights.length})
-      setFlightList(sampleFlights);
-    }, 2000);
-    callback();
-  }
-  
-  const updateSelectedTab = (tab: 'cheapest' | 'best' | 'quickest') => {
-    setSelectedTab(tab);
+  const updateFilter = (updatedList: any[]) => {
+    setFilteredFlightList(updatedList);
   }
 
   const viewFlightDetails = (id: number) => {
@@ -93,16 +88,16 @@ function FlightSearchPage(props: any) {
         {
           flightsSearched ?
           <div className='flight-listout'>
-            <FlightSearchFilter>
+            <FlightSearchFilter list={flightList} updateList={updateFilter}>
                 {
                     !loading &&
                     <p className='reduced-x'>
-                      <span className='blue-tx number-bold'>Showing {flightList.length} of</span> 
-                      <span className='orange-tx number-bold'> {flightList.length} flights</span>
+                      <span className='blue-tx number-bold'>Showing {filteredFlightList.length} of</span> 
+                      <span className='orange-tx number-bold'> {filteredFlightList.length} flights</span>
                     </p>
                   }
                   {
-                    flightList.map((flight, index) => (
+                    filteredFlightList.map((flight, index) => (
                       <div className='flight-card' key={index}>
                         <div className='logo-side'>
                           <img src={flight.outbound[0]?.airline_details?.logo} alt="" />
@@ -115,7 +110,7 @@ function FlightSearchPage(props: any) {
                               </div>
                               <h6 className='mb-0 mx-3'>{getFlightToAndFrom(flight).from} - {getFlightToAndFrom(flight).to}</h6>
                             </div>
-                            <h5 className='orange-tx number-bold'><span className='reduced-im'>{flight.currency}</span> {formatNumber(flight.amount)}</h5>
+                            <h5 className='orange-tx number-bold'><span className='reduced-im'>{flight.currency}</span> {formatNumber(Math.ceil(flight?.amount))}</h5>
                           </div>
                           {
                             flight.outbound.map((trip: any, tripIndex: number) => (
@@ -166,7 +161,7 @@ function FlightSearchPage(props: any) {
                     ))
                   }
                   {
-                    flightList.length === 0 && !loading &&
+                    filteredFlightList.length === 0 && !loading &&
                     <div className='flight-card2 center-info'>
                       <h5 className=''>No Flight matches your search</h5>
                     </div>
