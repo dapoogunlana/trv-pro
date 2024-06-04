@@ -96,70 +96,72 @@ function FlightSearchPage(props: any) {
                       <span className='orange-tx number-bold'> {filteredFlightList.length} flights</span>
                     </p>
                   }
-                  {
-                    filteredFlightList.map((flight, index) => (
-                      <div className='flight-card' key={index}>
-                        <div className='logo-side'>
-                          <img src={flight.outbound[0]?.airline_details?.logo} alt="" />
-                        </div>
-                        <div className='content-side'>
-                          <div className='spread-info mb-2'>
-                            <div className='spread-info'>
+                  <div className='flight-list-restrictor'>
+                    {
+                      filteredFlightList.map((flight, index) => (
+                        <div className='flight-card' key={index}>
+                          <div className='logo-side'>
+                            <img src={flight.outbound[0]?.airline_details?.logo} alt="" />
+                          </div>
+                          <div className='content-side'>
+                            <div className='spread-info mb-2'>
+                              <div className='spread-info'>
+                                <div className='center-info save-flight'>
+                                  <p className='mb-1'>4.3</p>
+                                </div>
+                                <h6 className='mb-0 mx-3'>{getFlightToAndFrom(flight).from} - {getFlightToAndFrom(flight).to}</h6>
+                              </div>
+                              <h5 className='orange-tx number-bold'><span className='reduced-im'>{flight.currency}</span> {formatNumber(Math.ceil(flight?.amount))}</h5>
+                            </div>
+                            {
+                              flight.outbound.map((trip: any, tripIndex: number) => (
+                                <div className='pb-2 w96 max500' key={tripIndex}>
+                                  <div className='spread-info pb-i'>
+                                    <p className='f500 mb-0 number-bold'>{formatTime(trip.departure_time)}</p>
+                                    <span className='reduced-im number-light'>{Math.floor(trip.duration/60)}Hs, {trip.duration % 60}Ms</span>
+                                    <p className='f500 mb-0 number-bold'>{formatTime(trip.arrival_time)}</p>
+                                  </div>
+                                  <div className='spread-info'>
+                                    <p className='fainter-tx reduced-soft'>{trip.airport_from_details?.iata_code}</p>
+                                    <span className='reduced-im faint-tx'>non-stop</span>
+                                    <p className='fainter-tx reduced-soft'>{trip.airport_to_details?.iata_code}</p>
+                                  </div>
+                                </div>
+                              ))
+                            }
+                            {
+                              flight.inbound.length > 0 &&
+                              <hr className='text-center'/>
+                            }
+                            {
+                              flight.inbound.map((trip: any, tripIndex: number) => (
+                                <div className='pb-2 w96 max500' key={tripIndex}>
+                                  <div className='spread-info pb-i'>
+                                    <p className='f500 mb-0 number-bold'>{formatTime(trip.departure_time)}</p>
+                                    <span className='reduced-im number-light'>{Math.floor(trip.duration/60)}Hs, {trip.duration % 60}Ms</span>
+                                    <p className='f500 mb-0 number-bold'>{formatTime(trip.arrival_time)}</p>
+                                  </div>
+                                  <div className='spread-info'>
+                                    <p className='fainter-tx reduced-soft'>{trip.airport_from_details?.iata_code}</p>
+                                    <span className='reduced-im faint-tx'>non-stop</span>
+                                    <p className='fainter-tx reduced-soft'>{trip.airport_to_details?.iata_code}</p>
+                                  </div>
+                                </div>
+                              ))
+                            }
+                            <div className='description-grid-50'>
                               <div className='center-info save-flight'>
-                                <p className='mb-1'>4.3</p>
+                                <FontAwesomeIcon icon={'heart'} className='save-icon' />
                               </div>
-                              <h6 className='mb-0 mx-3'>{getFlightToAndFrom(flight).from} - {getFlightToAndFrom(flight).to}</h6>
-                            </div>
-                            <h5 className='orange-tx number-bold'><span className='reduced-im'>{flight.currency}</span> {formatNumber(Math.ceil(flight?.amount))}</h5>
-                          </div>
-                          {
-                            flight.outbound.map((trip: any, tripIndex: number) => (
-                              <div className='pb-2 w96 max500' key={tripIndex}>
-                                <div className='spread-info pb-i'>
-                                  <p className='f500 mb-0 number-bold'>{formatTime(trip.departure_time)}</p>
-                                  <span className='reduced-im number-light'>{Math.floor(trip.duration/60)}Hs, {trip.duration % 60}Ms</span>
-                                  <p className='f500 mb-0 number-bold'>{formatTime(trip.arrival_time)}</p>
-                                </div>
-                                <div className='spread-info'>
-                                  <p className='fainter-tx reduced-soft'>{trip.airport_from_details?.iata_code}</p>
-                                  <span className='reduced-im faint-tx'>non-stop</span>
-                                  <p className='fainter-tx reduced-soft'>{trip.airport_to_details?.iata_code}</p>
-                                </div>
+                              <div className='pl-3'>
+                                <button className='flight-button' onClick={() => viewFlightDetails(flight.id)}>View Flight</button>
                               </div>
-                            ))
-                          }
-                          {
-                            flight.inbound.length > 0 &&
-                            <hr className='text-center'/>
-                          }
-                          {
-                            flight.inbound.map((trip: any, tripIndex: number) => (
-                              <div className='pb-2 w96 max500' key={tripIndex}>
-                                <div className='spread-info pb-i'>
-                                  <p className='f500 mb-0 number-bold'>{formatTime(trip.departure_time)}</p>
-                                  <span className='reduced-im number-light'>{Math.floor(trip.duration/60)}Hs, {trip.duration % 60}Ms</span>
-                                  <p className='f500 mb-0 number-bold'>{formatTime(trip.arrival_time)}</p>
-                                </div>
-                                <div className='spread-info'>
-                                  <p className='fainter-tx reduced-soft'>{trip.airport_from_details?.iata_code}</p>
-                                  <span className='reduced-im faint-tx'>non-stop</span>
-                                  <p className='fainter-tx reduced-soft'>{trip.airport_to_details?.iata_code}</p>
-                                </div>
-                              </div>
-                            ))
-                          }
-                          <div className='description-grid-50'>
-                            <div className='center-info save-flight'>
-                              <FontAwesomeIcon icon={'heart'} className='save-icon' />
-                            </div>
-                            <div className='pl-3'>
-                              <button className='flight-button' onClick={() => viewFlightDetails(flight.id)}>View Flight</button>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    ))
-                  }
+                      ))
+                    }
+                  </div>
                   {
                     filteredFlightList.length === 0 && !loading &&
                     <div className='flight-card2 center-info'>

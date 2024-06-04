@@ -1,7 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import MiniLoader from '../../../../../components/block-components/mini-loader/mini-loader';
+import { apiLinks } from '../../../../../config/environment';
+import { formatDateMini } from '../../../../../services/utils/data-manipulation-utilits';
 import { sendRequest } from '../../../../../services/utils/request';
+import { formatTime } from '../../../flights/flight-search/flight-search-service';
 import './flight-booking-records.scss';
 
 function FlightBookingRecords(props: any) {
@@ -14,11 +17,11 @@ function FlightBookingRecords(props: any) {
     
     sendRequest(
       {
-        url: "flight/confirm-price/",
+        url: "user-profile/flight-bookings",
         method: "GET",
       },
       (res: any) => {
-        setFlightRecords(Array.isArray(res.data) ? res.data : []);
+        setFlightRecords(Array.isArray(res.data) ? res.data.reverse() : []);
         setLoading(1);
       },
       (err: any) => {
@@ -26,6 +29,10 @@ function FlightBookingRecords(props: any) {
       }
     );
   };
+
+  const downloadTicket = (reference: string) => {
+    window.open(apiLinks.url + 'flight/flight-booking-details/' + reference);
+  }
 
   useEffect(() => {
     getFlightBookingRecords();
@@ -52,72 +59,77 @@ function FlightBookingRecords(props: any) {
       {
         loading === 1 &&
         <>
-          <div className='detail-card'>
-            <div className='outer-spread'>
-              <div className='inner-spread'>
-                <div className='image-holder'>
-                  <div className='airline-image'></div>
-                </div>
-                <div className='flight-time'>
-                  <div className=''>
-                    <p className='mb-0 reduced-x faint-tx'>Newark(EWR)</p>
-                    <h5 className='mb-0 f600'>12:00 pm</h5>
+          {
+            flightRecords.map((flight, index) => (
+              <div className='detail-card' key={index}>
+                <div className='outer-spread'>
+                  <div className='inner-spread'>
+                    <div className='image-holder'>
+                      <div className='airline-image' style={{backgroundImage: `url(${flight.airline_logo})`}}></div>
+                    </div>
+                    <div className='flight-time'>
+                      <div className=''>
+                        <p className='mb-0 reduced-x faint-tx'>{flight.origin} ({flight.origin_code})</p>
+                        <h5 className='mb-0 number-medium reduced-soft'>{formatTime(flight.departure_time)}</h5>
+                      </div>
+                      <FontAwesomeIcon icon={'minus'} className='increased px-3' />
+                      <div className=''>
+                        <p className='mb-0 reduced-x faint-tx'>{flight.destination} ({flight.destination_code})</p>
+                        <h5 className='mb-0 number-medium reduced-soft'>{formatTime(flight.arrival_time)}</h5>
+                      </div>
+                    </div>
+                    <div className='splitter'></div>
+                    <div className='spread-info'>
+                      <div className='space-right'>
+                        <div className='description-grid-40 pb-3'>
+                          <div className='icon-holder'>
+                            <FontAwesomeIcon icon={'calendar-days'} className='icon' />
+                          </div>
+                          <div className='space-left'>
+                            <p className='mb-0 reduced-xl faint-tx reduce-height'>Departure</p>
+                            <p className='mb-0 reduced-soft number-medium'>{formatDateMini(flight.departure_time)}</p>
+                          </div>
+                        </div>
+                        <div className='description-grid-40 '>
+                          <div className='icon-holder'>
+                            <FontAwesomeIcon icon={'calendar-days'} className='icon' />
+                          </div>
+                          <div className='space-left'>
+                            <p className='mb-0 reduced-xl faint-tx reduce-height'>Arrival</p>
+                            <p className='mb-0 reduced-soft number-medium'>{formatDateMini(flight.arrival_time)}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className='description-grid-40 pb-3'>
+                          <div className='icon-holder'>
+                            <FontAwesomeIcon icon={'door-closed'} className='icon' />
+                          </div>
+                          <div className='space-left'>
+                            <p className='mb-0 reduced-xl faint-tx reduce-height'>Gate</p>
+                            <p className='mb-0 reduced-soft number-medium'>: : : :</p>
+                          </div>
+                        </div>
+                        <div className='description-grid-40'>
+                          <div className='icon-holder'>
+                            <FontAwesomeIcon icon={'chair'} className='icon' />
+                          </div>
+                          <div className='space-left'>
+                            <p className='mb-0 reduced-xl faint-tx reduce-height'>Seat no.</p>
+                            <p className='mb-0 reduced-soft number-medium'>: : : :</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <FontAwesomeIcon icon={'minus'} className='increased px-3' />
-                  <div className=''>
-                    <p className='mb-0 reduced-x faint-tx'>Newark(EWR)</p>
-                    <h5 className='mb-0 f600'>12:00 pm</h5>
-                  </div>
-                </div>
-                <div className='splitter'></div>
-                <div className='spread-info'>
-                  <div className='space-right'>
-                    <div className='description-grid-40 pb-3'>
-                      <div className='icon-holder'>
-                        <FontAwesomeIcon icon={'calendar-days'} className='icon' />
-                      </div>
-                      <div className='space-left'>
-                        <p className='mb-0 reduced-xl faint-tx reduce-height'>Date</p>
-                        <p className='mb-0 reduced-soft number-medium'>12-11-22</p>
-                      </div>
-                    </div>
-                    <div className='description-grid-40 '>
-                      <div className='icon-holder'>
-                        <FontAwesomeIcon icon={'clock'} className='icon' />
-                      </div>
-                      <div className='space-left'>
-                        <p className='mb-0 reduced-xl faint-tx reduce-height'>Flight time</p>
-                        <p className='mb-0 reduced-soft number-medium'>12:30 pm</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className='description-grid-40 pb-3'>
-                      <div className='icon-holder'>
-                        <FontAwesomeIcon icon={'door-closed'} className='icon' />
-                      </div>
-                      <div className='space-left'>
-                        <p className='mb-0 reduced-xl faint-tx reduce-height'>Gate</p>
-                        <p className='mb-0 reduced-soft number-medium'>A12</p>
-                      </div>
-                    </div>
-                    <div className='description-grid-40'>
-                      <div className='icon-holder'>
-                        <FontAwesomeIcon icon={'chair'} className='icon' />
-                      </div>
-                      <div className='space-left'>
-                        <p className='mb-0 reduced-xl faint-tx reduce-height'>Seat no.</p>
-                        <p className='mb-0 reduced-soft number-medium'>128</p>
-                      </div>
-                    </div>
+                  <div className='text-center py-3'>
+                    <button className='purple-button purple-shadow' onClick={() => downloadTicket(flight.booking_reference)}>Download Ticket</button>
                   </div>
                 </div>
               </div>
-              <div className='text-center py-3'>
-                <button className='purple-button purple-shadow'>Download Ticket</button>
-              </div>
-            </div>
-          </div>
+            ))
+          }
+            
           {
             flightRecords.length === 0 &&
             <div className='detail-card py-5'>

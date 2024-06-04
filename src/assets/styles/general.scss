@@ -839,6 +839,13 @@
   padding: 7px 15px;
   border-radius: 4.5px;
 }
+.red-button{
+  @include base-button($red, $red-hover);
+  font-size: 0.85em;
+  font-weight: 600;
+  padding: 7px 15px;
+  border-radius: 4.5px;
+}
 
 .purple-shadow{
   box-shadow: 0 10px 20px 0 rgba(103, 4, 118, 0.25);

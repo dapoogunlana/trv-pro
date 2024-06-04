@@ -73,7 +73,7 @@ function FlightBookingPage(props: any) {
   const validate = (values: IFlightBookingPayload) => {
     // const formValues: IFlightBookingPayload = Object.assign(values);
     // validateForErrors(formValues);
-    const { bookingErr, errors } = validateForErrors(values, flightDetails.document_required);
+    const { bookingErr, errors } = validateForErrors(values, flightDetails.document_required, flightDetails);
     setBookingErrors(bookingErr);
     return errors;
   }
@@ -147,6 +147,7 @@ function FlightBookingPage(props: any) {
         });
         setOpenPayment(true);
         control.setSubmitting(false);
+        window.scrollTo({behavior: 'auto', left: 0, top: 0});
       },
       (err: any) => {
         toast.error(err.error || 'Request failed');
@@ -160,7 +161,6 @@ function FlightBookingPage(props: any) {
   }, [props])
 
   useEffect(() => {
-    console.log({'Azume': user});
     if(loading === 3) {
       setLoading(1)
     }
@@ -219,7 +219,7 @@ function FlightBookingPage(props: any) {
                         <span className='increased-soft'> {flightDetails.outbound[0]?.airline_details?.name}</span>
                       </h5>
                       <h2 className='pt-2 orange-tx increased number-bold'>
-                        <span className='reduced-im'>{flightDetails.currency}</span> {formatNumber(flightDetails.pricing?.payable)}
+                        <span className='reduced-im'>{flightDetails.currency}</span> {formatNumber(Math.ceil(flightDetails?.amount))}
                       </h2>
                     </div>
                     <h5 className='f600 increased mt-4'>Contact Details</h5>
@@ -536,6 +536,7 @@ function FlightBookingPage(props: any) {
                                     ? "im-error" : ""
                                   }
                                 >
+                                  <option value="">Choose Option</option>
                                   <option value="true">Yes</option>
                                   <option value="false">No</option>
                                 </select>

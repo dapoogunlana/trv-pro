@@ -1,5 +1,5 @@
 import { regexConstants } from "../../../../services/constants/validation-regex";
-import { parseBoolean } from "../../../../services/utils/data-manipulation-utilits";
+import { formatDate, parseBoolean } from "../../../../services/utils/data-manipulation-utilits";
 import { IFlightClassData } from "../../../../services/utils/flight-booking-service"
 
 
@@ -144,7 +144,7 @@ export const initialFlightBookingPayload = {
                   issuing_country: "",
                   nationality_country: "",
                   document_type: "",
-                  holder: "true"
+                  holder: ""
             }
       ]
 }
@@ -170,7 +170,7 @@ export const initialPassengerPayload = {
       issuing_country: "",
       nationality_country: "",
       document_type: "",
-      holder: "true"
+      holder: ""
 }
 export const initialFlightTouchedData = {
       contact_details: {
@@ -231,7 +231,7 @@ export const initialPassengerTouchedData = {
       }
 }
 
-export const validateForErrors = (values: IFlightBookingPayload, dr: boolean): {bookingErr: IFlightBookingPayload, errors: object} => {
+export const validateForErrors = (values: IFlightBookingPayload, dr: boolean, flightDetails: any): {bookingErr: IFlightBookingPayload, errors: object} => {
       
       let hasErrors = false;
       const errors: any = {};
@@ -323,6 +323,9 @@ export const validateForErrors = (values: IFlightBookingPayload, dr: boolean): {
                   } else {flightErrors.passenger_details[index].issuing_date = '';}
                   if(!info.expiry_date) {
                         flightErrors.passenger_details[index].expiry_date = 'Expiry date is required';
+                        hasErrors = true;
+                  } else if(new Date(info.expiry_date).getTime() < new Date(flightDetails?.outbound[0]?.departure_time).getTime()) {
+                        flightErrors.passenger_details[index].expiry_date = `Document already expired before the flight date (${formatDate(flightDetails?.outbound[0]?.departure_time)})`;
                         hasErrors = true;
                   } else {flightErrors.passenger_details[index].expiry_date = '';}
                   if(!info.issuing_country) {

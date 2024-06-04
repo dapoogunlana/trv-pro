@@ -181,8 +181,13 @@ export const getNameFromRoute = (route: string) => {
   return route.replace(/[/]/g, '').replace(/-/g, ' ');
 }
 
+export function generateDateRestriction(customYear = 0, customMonth = 0, customDay = 0) {
+  const day = 24 * 60 * 60 * 1000;
+  const newDate = new Date(new Date().getTime() + (customYear * day * 365) + (customMonth * day * 30) + (customDay * day));
+  return new Date(newDate).toISOString().split('T')[0];
+}
 
-export function generateMinDate(customYear = 70, customMonth = 0, customDay = 0) {
+export function generateMinDate(customYear = 70) {
   const newDate = new Date().setFullYear(new Date().getFullYear() - customYear);
   return new Date(newDate).toISOString().split('T')[0];
 }

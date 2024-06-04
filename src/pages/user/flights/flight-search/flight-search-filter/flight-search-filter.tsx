@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './flight-search-filter.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IFilter, initialFilter, validateAirlineFIlterInputs } from './flight-filter-service';
+import { timeConstants } from '../../../../../services/constants/general constants';
 
 interface IFilterProps {
   list: any[];
@@ -35,8 +36,8 @@ function FlightSearchFilter({list, updateList, children, status}: IFilterProps) 
     setFilter(newFIlter);
   }
 
-  const validateFilter = (key: string) => {
-    const { updatedFilter, changed } = validateAirlineFIlterInputs(key, filter);
+  const validateFilter = (key: string, ev?: any) => {
+    const { updatedFilter, changed } = validateAirlineFIlterInputs(key, filter, ev?.target?.value);
     if(changed) setFilter(updatedFilter);
   }
 
@@ -84,7 +85,30 @@ function FlightSearchFilter({list, updateList, children, status}: IFilterProps) 
         }
       });
       filteredList = tempList;
-      // filteredList = filteredList.map((item: any) => item.amount <= (filter.max || 0));
+    }
+    if(filter.earlyestTime){
+      const tempList: any = [];
+      filteredList.map((item: any) => {
+        const earlyMark = `2024-06-04T${filter.earlyestTime}:00:00.000Z`;
+        const flightTime = `2024-06-04T${item?.outbound[0]?.departure_time?.split('T')[1]}.000Z`;
+        console.log({earlyMark, flightTime});
+        if(new Date(earlyMark).getTime() < new Date(flightTime).getTime()) {
+          tempList.push(item);
+        }
+      });
+      filteredList = tempList;
+    }
+    if(filter.latestTime){
+      const tempList: any = [];
+      filteredList.map((item: any) => {
+        const lateMark = `2024-06-04T${filter.latestTime}:00:00.000Z`;
+        const flightTime = `2024-06-04T${item?.outbound[0]?.departure_time?.split('T')[1]}.000Z`;
+        console.log({lateMark, flightTime});
+        if(new Date(lateMark).getTime() > new Date(flightTime).getTime()) {
+          tempList.push(item);
+        }
+      });
+      filteredList = tempList;
     }
     setActiveFilter(true);
     updateList(filteredList);
@@ -127,40 +151,68 @@ function FlightSearchFilter({list, updateList, children, status}: IFilterProps) 
         <div className={'filter ' + (filterOpened ? 'opened-filter' : 'closed-filter')}>
           <div className='spread-info'>
             <p className='mb-0 f600'>Price</p>
-            <FontAwesomeIcon icon={'chevron-up'} className='faint-tx reduced' />
+            {/* <FontAwesomeIcon icon={'chevron-up'} className='faint-tx reduced' /> */}
           </div>
           <div className='info-grid py-2'>
-            <input
-              type="number"
-              name="min"
-              value={filter.min}
-              onChange={(e) => updateFilter(e, 'min')}
-              className='simple-input'
-              placeholder='Minimum'
-            />
-            <input
-              type="number"
-              name="max"
-              value={filter.max}
-              onChange={(e) => updateFilter(e, 'max')}
-              onBlur={() => validateFilter('')}
-              className='simple-input'
-              placeholder='Maximum'
-            />
+            <div className=''>
+              <label className='reduced-x f500'>Minimum</label>
+              <input
+                type="number"
+                name="min"
+                value={filter.min}
+                onChange={(e) => updateFilter(e, 'min')}
+                onBlur={() => validateFilter('min')}
+                className='simple-input'
+                placeholder='Minimum'
+              />
+            </div>
+            <div className=''>
+              <label className='reduced-x f500'>Maximum</label>
+              <input
+                type="number"
+                name="max"
+                value={filter.max}
+                onChange={(e) => updateFilter(e, 'max')}
+                onBlur={() => validateFilter('max')}
+                className='simple-input'
+                placeholder='Maximum'
+              />
+            </div>
           </div>
           <hr className='' />
           <div className='spread-info'>
             <p className='mb-0 f600'>Depature Time</p>
-            <FontAwesomeIcon icon={'chevron-up'} className='faint-tx reduced' />
+            {/* <FontAwesomeIcon icon={'chevron-up'} className='faint-tx reduced' /> */}
           </div>
           <div className='info-grid py-2'>
-            <input type="text" value={filter.earlyestTime} onChange={(e) => updateFilter(e, 'earlyestTime')} className='simple-input' placeholder='Earliest' />
-            <input type="text" value={filter.latestTime} onChange={(e) => updateFilter(e, 'latestTime')} className='simple-input' placeholder='Latest' />
+            <div className=''>
+              <label className='reduced-x f500'>Earliest</label>
+              <select
+                value={filter.earlyestTime}
+                onChange={(e) => {updateFilter(e, 'earlyestTime'); validateFilter('earlyestTime', e)}}
+                className='simple-input'
+              >
+                <option value="">Choose time</option>
+                {timeConstants.map((item, index) => <option key={index} value={item.value}>{item.name}</option>)}
+              </select>
+            </div>
+            <div className=''>
+              <label className='reduced-x f500'>Latest</label>
+              <select
+                value={filter.latestTime}
+                onChange={(e) => {updateFilter(e, 'latestTime'); validateFilter('latestTime', e)}}
+                className='simple-input'
+              >
+                <option value="">Choose time</option>
+                {timeConstants.map((item, index) => <option key={index} value={item.value}>{item.name}</option>)}
+              </select>
+            </div>
+            {/* <input type="text" value={filter.latestTime} onChange={(e) => updateFilter(e, 'latestTime')} className='simple-input' placeholder='Latest' /> */}
           </div>
           <hr />
           <div className='spread-info'>
             <p className='mb-0 f600'>Airlines</p>
-            <FontAwesomeIcon icon={'chevron-up'} className='faint-tx reduced' />
+            {/* <FontAwesomeIcon icon={'chevron-up'} className='faint-tx reduced' /> */}
           </div>
           {
             airlineList.map((airline, index) => (

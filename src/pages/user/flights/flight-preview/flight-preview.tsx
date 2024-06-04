@@ -55,6 +55,7 @@ function FlightPreviewPage(props: any) {
   }
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     getFlightDetails();
   }, [props])
   
@@ -88,7 +89,7 @@ function FlightPreviewPage(props: any) {
             <div className='spread-info-web pt-3 pb-2'>
               <h2 className='f700'>{flightDetails.outbound[0]?.airline_details?.name} {flightDetails.fare_basis}</h2>
               <h2 className='pt-2 orange-tx increased-x number-bold'>
-                <span className='reduced-im'>{flightDetails.currency}</span> {formatNumber(flightDetails.pricing?.payable)}
+                <span className='reduced-im'>{flightDetails.currency}</span> {formatNumber(Math.ceil(flightDetails.amount))}
               </h2>
             </div>
 
@@ -288,7 +289,7 @@ function FlightPreviewPage(props: any) {
                     ))}
                     <div className='spread-info'>
                       <h6>Total</h6>
-                      <h6 className='number-medium'>{formatNumber(flightDetails?.amount)}</h6>
+                      <h6 className='number-medium'>{formatNumber(Math.ceil(flightDetails?.amount))}</h6>
                     </div>
                   </div>
                 </div>

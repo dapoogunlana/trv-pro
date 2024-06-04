@@ -37,7 +37,7 @@ function FlightPayment(props: IFlightProps) {
       (res: any) => {
         toast.success('Booking complete');
         setProcessing(2);
-        navigate(routeConstants.home)
+        navigate(`/${routeConstants.myBookings}`)
       },
       (err: any) => {
         toast.error(err.error || 'Request failed');

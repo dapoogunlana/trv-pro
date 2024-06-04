@@ -20,34 +20,17 @@
             padding: 4vh 0 4vh;
             background-color: #fff;
             position: relative;
-            .filter{
-                hr{
-                    color: $black-faint2;
+            .flight-list-restrictor{
+                overflow: auto;
+                margin: 0 -0.5em;
+                max-height: calc(100vh - 250px);
+                padding: 0.5em;
+                // padding-right: 1em;
+                @include mediaM(850px){
+                    max-height: calc(100vh - 120px);
                 }
-            }
-            .category-tabs{
-                display: grid;
-                grid-template-columns: 32% 2% 32% 2% 32%;
-                box-shadow: 0 1px 5px 0 $black-faint4;
-                border-radius: 3px;
-                padding: 0 4px;
-                margin-bottom: 1.5em;
-                .splitter{
-                    width: 1px;
-                    height: 30px;
-                    background-color: #E8D7EE;
-                }
-                .category-tab{
-                    padding: 10px;
-                    text-align: center;
-                    cursor: pointer;
-                    p{
-                        font-size: 0.75em;
-                        opacity: 0.6;
-                    }
-                }
-                .active{
-                    border-bottom: 5px solid $purple-bg;
+                @include mediaM(550px){
+                    max-height: calc(100vh - 120px);
                 }
             }
             .pad-web{

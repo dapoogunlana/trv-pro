@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Formik, FormikValues } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { clipToLength, formatDate, formatDateMini } from '../../../../../services/utils/data-manipulation-utilits';
+import { clipToLength, formatDate, formatDateMini, generateDateRestriction } from '../../../../../services/utils/data-manipulation-utilits';
 import { sendRequest } from '../../../../../services/utils/request';
 import TypeSuggestComponent from '../../../../base-components/type-suggest/type-suggest';
 import AppPopup from '../../../app-popup/app-popup';
@@ -119,12 +119,14 @@ function DateSelectionComp(props: iDateProps) {
                   onChange={handleRangeSelect}
                   months={monthDisplayCount}
                   direction="horizontal"
+                  minDate={new Date(generateDateRestriction(0, 0, 1))}
               />
             </div> :
             <div className='single-date-holder'>
               <Calendar
                   date={selectionDate}
                   onChange={handleSelect}
+                  minDate={new Date(generateDateRestriction(0, 0, 1))}
               />
             </div>
           }
