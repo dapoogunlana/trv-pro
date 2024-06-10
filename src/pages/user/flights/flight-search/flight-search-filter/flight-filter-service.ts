@@ -41,6 +41,5 @@ export const validateAirlineFIlterInputs = (key: string, newFilter: IFilter, val
     filter.latestTime = newFilter.earlyestTime;
     changed = true;
   }
-  console.log({filter, changed, key, value: parseFloat(value || earlyestTime), control: parseFloat(latestTime)})
   return {updatedFilter: filter, changed};
 }

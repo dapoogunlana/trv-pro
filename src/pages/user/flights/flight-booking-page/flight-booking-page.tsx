@@ -136,7 +136,6 @@ function FlightBookingPage(props: any) {
         url: "flight/book-flight/" + flightId,
         method: "POST",
         body: payload,
-        // body: { ...payload, document_required: flightDetails.document_required },
       },
       (res: any) => {
         toast.success('Your flight data has been captured, please make payment to complete booking');
@@ -507,8 +506,8 @@ function FlightBookingPage(props: any) {
                                   onChange={e => setFieldChange(e, values, setValues, 'dob', index)}
                                   onBlur={() => setFieldTouched('dob', index)}
                                   onKeyDown={e => e.preventDefault()}
-                                  min={generateMinDate(90)}
-                                  max={generateMaxDate(0)}
+                                  min={generateMinDate(passenger.passenger_type.toLocaleLowerCase() === 'adult' ? 100 : 18)}
+                                  max={generateMaxDate(passenger.passenger_type.toLocaleLowerCase() === 'adult' ? 18 : 0)}
                                   className={
                                     bookingTouched.passenger_details[index]?.dob && bookingErrors.passenger_details[index]?.dob
                                     ? "im-error" : ""
@@ -520,59 +519,59 @@ function FlightBookingPage(props: any) {
                                 }
                               </div>
                             </div>
-                            <div className='col-md-12'>
-                              <p className='mb-0 pt-2 mt-4'>Passenger's documents</p>
-                            </div>
-                            <div className='col-md-6'>
-                              <div className='form-input'>
-                                <label>Is The Passanger The Holder of This Document?</label>
-                                <select
-                                  name={"passenger.holder" + index}
-                                  value={passenger.holder}
-                                  onChange={e => setFieldChange(e, values, setValues, 'holder', index)}
-                                  onBlur={() => setFieldTouched('holder', index)}
-                                  className={
-                                    bookingTouched.passenger_details[index]?.holder && bookingErrors.passenger_details[index]?.holder
-                                    ? "im-error" : ""
-                                  }
-                                >
-                                  <option value="">Choose Option</option>
-                                  <option value="true">Yes</option>
-                                  <option value="false">No</option>
-                                </select>
-                                {
-                                  bookingTouched.passenger_details[index]?.holder && bookingErrors.passenger_details[index]?.holder &&
-                                  <p className='reduced red-tx-im mb-0'>{bookingErrors.passenger_details[index]?.holder}</p>
-                                }
-                              </div>
-                            </div>
-                            <div className='col-md-6'>
-                              <div className='form-input'>
-                                <label>Document Type</label>
-                                <select
-                                  name={"passenger.document_type" + index}
-                                  value={passenger.document_type}
-                                  onChange={e => setFieldChange(e, values, setValues, 'document_type', index)}
-                                  onBlur={() => setFieldTouched('document_type', index)}
-                                  className={
-                                    bookingTouched.passenger_details[index]?.document_type && bookingErrors.passenger_details[index]?.document_type
-                                    ? "im-error" : ""
-                                  }
-                                >
-                                  <option value="">Chose Document Type</option>
-                                  <option value="passport">Passport</option>
-                                  <option value="national_idcard">National ID Card</option>
-                                  <option value="others">Others</option>
-                                </select>
-                                {
-                                  bookingTouched.passenger_details[index]?.document_type && bookingErrors.passenger_details[index]?.document_type &&
-                                  <p className='reduced red-tx-im mb-0'>{bookingErrors.passenger_details[index]?.document_type}</p>
-                                }
-                              </div>
-                            </div>
                             {
                               flightDetails.document_required &&
                               <>
+                                <div className='col-md-12'>
+                                  <p className='mb-0 pt-2 mt-4'>Passenger's documents</p>
+                                </div>
+                                <div className='col-md-6'>
+                                  <div className='form-input'>
+                                    <label>Is The Passanger The Holder of This Document?</label>
+                                    <select
+                                      name={"passenger.holder" + index}
+                                      value={passenger.holder}
+                                      onChange={e => setFieldChange(e, values, setValues, 'holder', index)}
+                                      onBlur={() => setFieldTouched('holder', index)}
+                                      className={
+                                        bookingTouched.passenger_details[index]?.holder && bookingErrors.passenger_details[index]?.holder
+                                        ? "im-error" : ""
+                                      }
+                                    >
+                                      <option disabled value="">Choose Option</option>
+                                      <option value="true">Yes</option>
+                                      <option value="false">No</option>
+                                    </select>
+                                    {
+                                      bookingTouched.passenger_details[index]?.holder && bookingErrors.passenger_details[index]?.holder &&
+                                      <p className='reduced red-tx-im mb-0'>{bookingErrors.passenger_details[index]?.holder}</p>
+                                    }
+                                  </div>
+                                </div>
+                                <div className='col-md-6'>
+                                  <div className='form-input'>
+                                    <label>Document Type</label>
+                                    <select
+                                      name={"passenger.document_type" + index}
+                                      value={passenger.document_type}
+                                      onChange={e => setFieldChange(e, values, setValues, 'document_type', index)}
+                                      onBlur={() => setFieldTouched('document_type', index)}
+                                      className={
+                                        bookingTouched.passenger_details[index]?.document_type && bookingErrors.passenger_details[index]?.document_type
+                                        ? "im-error" : ""
+                                      }
+                                    >
+                                      <option disabled value="">Chose Document Type</option>
+                                      <option value="passport">Passport</option>
+                                      <option value="national_idcard">National ID Card</option>
+                                      <option value="others">Others</option>
+                                    </select>
+                                    {
+                                      bookingTouched.passenger_details[index]?.document_type && bookingErrors.passenger_details[index]?.document_type &&
+                                      <p className='reduced red-tx-im mb-0'>{bookingErrors.passenger_details[index]?.document_type}</p>
+                                    }
+                                  </div>
+                                </div>
                                 <div className='col-md-6'>
                                   <div className='form-input'>
                                     <label>Issuing Date</label>

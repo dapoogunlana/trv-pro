@@ -3,6 +3,7 @@ import './flight-search-filter.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IFilter, initialFilter, validateAirlineFIlterInputs } from './flight-filter-service';
 import { timeConstants } from '../../../../../services/constants/general constants';
+import { formatNumber } from '../../../../../services/utils/data-manipulation-utilits';
 
 interface IFilterProps {
   list: any[];
@@ -18,14 +19,30 @@ function FlightSearchFilter({list, updateList, children, status}: IFilterProps) 
   const [filter, setFilter] = useState<IFilter>(initialFilter());
   const [canFilter, setCanFilter] = useState(false);
   const [activeFilter, setActiveFilter] = useState(false);
+  const [quickestTime, setQuickestTime] = useState(0);
+  const [cheapestPrice, setCheapestPrice] = useState(0);
   const [airlineList, setAirlineList] = useState<{name: string, code: string}[]>([]);
+  const [updatedList, setUpdatedList] = useState<any[]>([]);
 
   const changeFilterState = (state: boolean) => {
     const selector = window.innerWidth > 991 ? false : state;
     setFilterOpened(selector);
   }
   
-  const updateSelectedTab = (tab: 'cheapest' | 'best' | 'quickest') => {
+  const updateSelectedTab = (tab: 'cheapest' | 'best' | 'quickest', active?: any[]) => {
+    const acctiveList = active || updatedList;
+    switch(tab) {
+      case 'cheapest':
+        const cheapest = [...acctiveList].sort((a, b) => a.amount - b.amount);
+        setUpdatedList(cheapest);
+        break;
+      case 'best':
+        setUpdatedList(acctiveList);
+        break;
+      case 'quickest':
+        const quickest = [...acctiveList].sort((a, b) => a.total_duration - b.total_duration);
+        setUpdatedList(quickest);
+    }
     setSelectedTab(tab);
   }
 
@@ -54,7 +71,7 @@ function FlightSearchFilter({list, updateList, children, status}: IFilterProps) 
   const clearFilter = () => {
     setFilter(initialFilter());
     setActiveFilter(false);
-    updateList(list);
+    setUpdatedList(list);
   }
 
   const searchFilter = () => {
@@ -91,7 +108,6 @@ function FlightSearchFilter({list, updateList, children, status}: IFilterProps) 
       filteredList.map((item: any) => {
         const earlyMark = `2024-06-04T${filter.earlyestTime}:00:00.000Z`;
         const flightTime = `2024-06-04T${item?.outbound[0]?.departure_time?.split('T')[1]}.000Z`;
-        console.log({earlyMark, flightTime});
         if(new Date(earlyMark).getTime() < new Date(flightTime).getTime()) {
           tempList.push(item);
         }
@@ -103,7 +119,6 @@ function FlightSearchFilter({list, updateList, children, status}: IFilterProps) 
       filteredList.map((item: any) => {
         const lateMark = `2024-06-04T${filter.latestTime}:00:00.000Z`;
         const flightTime = `2024-06-04T${item?.outbound[0]?.departure_time?.split('T')[1]}.000Z`;
-        console.log({lateMark, flightTime});
         if(new Date(lateMark).getTime() > new Date(flightTime).getTime()) {
           tempList.push(item);
         }
@@ -111,25 +126,36 @@ function FlightSearchFilter({list, updateList, children, status}: IFilterProps) 
       filteredList = tempList;
     }
     setActiveFilter(true);
-    updateList(filteredList);
+    setUpdatedList(filteredList);
+    updateSelectedTab('best', filteredList);
   }
 
   useEffect(() => {
     const airlineObg: any = {};
     const airlines: {name: string, code: string}[] = [];
+    let listPirce = 0;
+    let fastestTime = 0;
     list.map((flight: any) => {
+      if(!listPirce || listPirce > flight?.amount) {
+        listPirce = flight?.amount;
+      }
+      if(!fastestTime || fastestTime > flight?.total_duration) {
+        fastestTime = flight?.total_duration;
+      }
       airlineObg[flight?.outbound[0]?.airline_details?.name] = {
         name: flight?.outbound[0]?.airline_details?.name,
         code: flight?.outbound[0]?.airline_details?.code
       };
     });
+    setCheapestPrice(listPirce);
+    setQuickestTime(fastestTime);
     for(let item in airlineObg) {
       if(item && airlineObg[item]) {
         airlines.push(airlineObg[item]);
       }
     }
     setAirlineList(airlines);
-    console.log({list})
+    clearFilter();
   }, [list]);
 
   useEffect(() => {
@@ -139,6 +165,10 @@ function FlightSearchFilter({list, updateList, children, status}: IFilterProps) 
       setCanFilter(false);
     }
   }, [filter]);
+
+  useEffect(() => {
+    updateList(updatedList);
+  }, [updatedList]);
   
   return (
     <div className='row filter-holder'>
@@ -272,21 +302,24 @@ function FlightSearchFilter({list, updateList, children, status}: IFilterProps) 
           <div className='category-tabs'>
             <div className={'category-tab' + (selectedTab ==='cheapest' ? ' active' : '')} onClick={() => updateSelectedTab('cheapest')}>
               <h6 className='mb-0'>Cheapest</h6>
-              <p className='mb-0 number-light'>$99. 2h 18m</p>
+              <p className='mb-0 number-light'>
+                <span className='reduced-im'>{list[0]?.currency} </span> 
+                {formatNumber(Math.ceil(cheapestPrice))}
+              </p>
             </div>
             <div className='center-info py-2'>
               <div className='splitter'></div>
             </div>
             <div className={'category-tab' + (selectedTab ==='best' ? ' active' : '')} onClick={() => updateSelectedTab('best')}>
               <h6 className='mb-0'>Best</h6>
-              <p className='mb-0 number-light'>$99. 2h 18m</p>
+              <p className='mb-0 number-light'>: &nbsp; : &nbsp; : &nbsp; :</p>
             </div>
             <div className='center-info py-2'>
               <div className='splitter'></div>
             </div>
             <div className={'category-tab' + (selectedTab ==='quickest' ? ' active' : '')} onClick={() => updateSelectedTab('quickest')}>
               <h6 className='mb-0'>Quickest</h6>
-              <p className='mb-0 number-light'>$99. 2h 18m</p>
+              <p className='mb-0 number-light'>{Math.floor(quickestTime/60)}Hs, {quickestTime % 60}Ms</p>
             </div>
           </div>
 

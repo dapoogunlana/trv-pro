@@ -22,13 +22,11 @@ function FlightSearchPage(props: any) {
   const [flightsSearched, setFlightsSearched] = useState(false);
   const [flightList, setFlightList] = useState<any[]>([]);
   const [filteredFlightList, setFilteredFlightList] = useState<any[]>([]);
-  const [selectedTab, setSelectedTab] = useState<'cheapest' | 'best' | 'quickest'>('best');
 
   const fetchFlights = (flightData = fData) => {
     setLoading(true);
     setFlightsSearched(true);
-    // interceptor(() => {})
-    // return;
+    setFlightList([]);
     
     sendRequest(
       {
@@ -39,25 +37,25 @@ function FlightSearchPage(props: any) {
           destination: fData.location?.to?.iata_code,
           departure_date: fData.date?.startDate?.toISOString().split('T')[0],
           adults: fData.flightClass ? calculateAdult(fData.flightClass) : 0,
-          cabin: fData.flightClass?.flightClass.toLocaleLowerCase(),
+          cabin: fData.flightClass?.cabinClass.toLocaleLowerCase(),
           children: `${fData.flightClass?.children2_11Count || 0}`,
           infants: fData.flightClass ? calculateInfant(fData.flightClass) : 0,
           return_date: fData.date?.endDate ? fData.date?.endDate?.toISOString().split('T')[0] : ""
         },
       },
       (res: any) => {
-        setLoading(false);
         if(Array.isArray(res.data)) {
           setFlightList(res.data);
           setFilteredFlightList(res.data);
         } else {
           setFlightList([]);
         }
+        setLoading(false);
       },
       (err: any) => {
         setLoading(false);
-        setFlightList(sampleFlights);
-        setFilteredFlightList(sampleFlights);
+        setFlightList([]);
+        setFilteredFlightList([]);
       }
     );
   };

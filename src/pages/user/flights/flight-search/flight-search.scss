@@ -68,8 +68,9 @@
                         }
                         &:hover{
                             background-color: $purple-bg;
+                            color: $white;
                             .save-icon{
-                                color: $white
+                                color: $white;
                             }
                         }
                     }

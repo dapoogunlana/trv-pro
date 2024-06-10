@@ -172,6 +172,25 @@ export const initialPassengerPayload = {
       document_type: "",
       holder: ""
 }
+export const generateInitialPassengerPayload = () => {
+      return {
+            passenger_type: "",
+            first_name: "",
+            last_name: "",
+            dob: "",
+            gender: "",
+            title: "",
+            email: "",
+            phone_number: "",
+            number: "",
+            issuing_date: "",
+            expiry_date: "",
+            issuing_country: "",
+            nationality_country: "",
+            document_type: "",
+            holder: ""
+      }
+}
 export const initialFlightTouchedData = {
       contact_details: {
             c_first_name: false,
@@ -233,6 +252,7 @@ export const initialPassengerTouchedData = {
 
 export const validateForErrors = (values: IFlightBookingPayload, dr: boolean, flightDetails: any): {bookingErr: IFlightBookingPayload, errors: object} => {
       
+      console.log({dr})
       let hasErrors = false;
       const errors: any = {};
       const flightErrors: IFlightBookingPayload = {
@@ -272,79 +292,154 @@ export const validateForErrors = (values: IFlightBookingPayload, dr: boolean, fl
             flightErrors.contact_details.c_relationship_to_p = 'Relationship is required';
             hasErrors = true;
       }
+      // values.passenger_details.map((info, index) => {
+      //       flightErrors.passenger_details.push(initialPassengerPayload);
+      //       if(!info.passenger_type) {
+      //             flightErrors.passenger_details[index].passenger_type = 'Passenger type is required';
+      //             hasErrors = true;
+      //       } else {flightErrors.passenger_details[index].passenger_type = '';}
+      //       if(!info.first_name) {
+      //             flightErrors.passenger_details[index].first_name = 'First name is required';
+      //             hasErrors = true;
+      //       } else {flightErrors.passenger_details[index].first_name = '';}
+      //       if(!info.last_name) {
+      //             flightErrors.passenger_details[index].last_name = 'Last name is required';
+      //             hasErrors = true;
+      //       } else {flightErrors.passenger_details[index].last_name = '';}
+      //       if(!info.dob) {
+      //             flightErrors.passenger_details[index].dob = 'Date of birth is required';
+      //             hasErrors = true;
+      //       } else {flightErrors.passenger_details[index].dob = '';}
+      //       if(!info.gender) {
+      //             flightErrors.passenger_details[index].gender = 'Gender is required';
+      //             hasErrors = true;
+      //       } else {flightErrors.passenger_details[index].gender = '';}
+      //       if(!info.title) {
+      //             flightErrors.passenger_details[index].title = 'Title is required';
+      //             hasErrors = true;
+      //       } else {flightErrors.passenger_details[index].title = '';}
+      //       if(!info.email) {
+      //             flightErrors.passenger_details[index].email = 'Email is required';
+      //             hasErrors = true;
+      //       } else if(!regexConstants.emailPattern.test(info.email)) {
+      //             flightErrors.passenger_details[index].email = 'Invalid email';
+      //             hasErrors = true;
+      //       } else {flightErrors.passenger_details[index].email = '';}
+      //       if(!info.phone_number) {
+      //             flightErrors.passenger_details[index].phone_number = 'Phone number is required';
+      //             hasErrors = true;
+      //       } else if(!regexConstants.phonePattern.test(info.phone_number)) {
+      //             flightErrors.passenger_details[index].phone_number = 'Invalid phone number';
+      //             hasErrors = true;
+      //       } else {flightErrors.passenger_details[index].phone_number = '';}
+      //       if(dr) {
+      //             if(!info.number) {
+      //                   flightErrors.passenger_details[index].number = 'Document number is required';
+      //                   hasErrors = true;
+      //             } else {flightErrors.passenger_details[index].number = '';}
+      //             if(!info.issuing_date) {
+      //                   flightErrors.passenger_details[index].issuing_date = 'Issuing date is required';
+      //                   hasErrors = true;
+      //             } else {flightErrors.passenger_details[index].issuing_date = '';}
+      //             if(!info.expiry_date) {
+      //                   flightErrors.passenger_details[index].expiry_date = 'Expiry date is required';
+      //                   hasErrors = true;
+      //             } else if(new Date(info.expiry_date).getTime() < new Date(flightDetails?.outbound[0]?.departure_time).getTime()) {
+      //                   flightErrors.passenger_details[index].expiry_date = `Document already expired before the flight date (${formatDate(flightDetails?.outbound[0]?.departure_time)})`;
+      //                   hasErrors = true;
+      //             } else {flightErrors.passenger_details[index].expiry_date = '';}
+      //             if(!info.issuing_country) {
+      //                   flightErrors.passenger_details[index].issuing_country = 'Issuing country is required';
+      //                   hasErrors = true;
+      //             } else {flightErrors.passenger_details[index].issuing_country = '';}
+      //             // if(!info.documents?.nationality_country) {
+      //             //       flightErrors.passenger_details[index].nationality_country = 'Nationality is required';
+      //             //       hasErrors = true;
+      //             // } else {flightErrors.passenger_details[index].nationality_country = '';}
+      //             if(!info.document_type) {
+      //                   flightErrors.passenger_details[index].document_type = 'Document type is required';
+      //                   hasErrors = true;
+      //             } else {flightErrors.passenger_details[index].document_type = '';}
+      //             if(!info.holder) {
+      //                   flightErrors.passenger_details[index].holder = 'Document holder is required';
+      //                   hasErrors = true;
+      //             } else {flightErrors.passenger_details[index].holder = '';}
+      //       }
+      // })
       values.passenger_details.map((info, index) => {
-            flightErrors.passenger_details.push(initialPassengerPayload);
+            const passengerErrorObject = generateInitialPassengerPayload();
             if(!info.passenger_type) {
-                  flightErrors.passenger_details[index].passenger_type = 'Passenger type is required';
+                  passengerErrorObject.passenger_type = 'Passenger type is required';
                   hasErrors = true;
-            } else {flightErrors.passenger_details[index].passenger_type = '';}
+            } else {passengerErrorObject.passenger_type = '';}
             if(!info.first_name) {
-                  flightErrors.passenger_details[index].first_name = 'First name is required';
+                  passengerErrorObject.first_name = 'First name is required';
                   hasErrors = true;
-            } else {flightErrors.passenger_details[index].first_name = '';}
+            } else {passengerErrorObject.first_name = '';}
             if(!info.last_name) {
-                  flightErrors.passenger_details[index].last_name = 'Last name is required';
+                  passengerErrorObject.last_name = 'Last name is required';
                   hasErrors = true;
-            } else {flightErrors.passenger_details[index].last_name = '';}
+            } else {passengerErrorObject.last_name = '';}
             if(!info.dob) {
-                  flightErrors.passenger_details[index].dob = 'Date of birth is required';
+                  passengerErrorObject.dob = 'Date of birth is required';
                   hasErrors = true;
-            } else {flightErrors.passenger_details[index].dob = '';}
+            } else {passengerErrorObject.dob = '';}
             if(!info.gender) {
-                  flightErrors.passenger_details[index].gender = 'Gender is required';
+                  passengerErrorObject.gender = 'Gender is required';
                   hasErrors = true;
-            } else {flightErrors.passenger_details[index].gender = '';}
+            } else {passengerErrorObject.gender = '';}
             if(!info.title) {
-                  flightErrors.passenger_details[index].title = 'Title is required';
+                  passengerErrorObject.title = 'Title is required';
                   hasErrors = true;
-            } else {flightErrors.passenger_details[index].title = '';}
+            } else {passengerErrorObject.title = '';}
             if(!info.email) {
-                  flightErrors.passenger_details[index].email = 'Email is required';
+                  passengerErrorObject.email = 'Email is required';
                   hasErrors = true;
             } else if(!regexConstants.emailPattern.test(info.email)) {
-                  flightErrors.passenger_details[index].email = 'Invalid email';
+                  passengerErrorObject.email = 'Invalid email';
                   hasErrors = true;
-            } else {flightErrors.passenger_details[index].email = '';}
+            } else {passengerErrorObject.email = '';}
             if(!info.phone_number) {
-                  flightErrors.passenger_details[index].phone_number = 'Phone number is required';
+                  passengerErrorObject.phone_number = 'Phone number is required';
                   hasErrors = true;
             } else if(!regexConstants.phonePattern.test(info.phone_number)) {
-                  flightErrors.passenger_details[index].phone_number = 'Invalid phone number';
+                  passengerErrorObject.phone_number = 'Invalid phone number';
                   hasErrors = true;
-            } else {flightErrors.passenger_details[index].phone_number = '';}
+            } else {passengerErrorObject.phone_number = '';}
             if(dr) {
                   if(!info.number) {
-                        flightErrors.passenger_details[index].number = 'Document number is required';
+                        passengerErrorObject.number = 'Document number is required';
                         hasErrors = true;
-                  } else {flightErrors.passenger_details[index].number = '';}
+                  } else {passengerErrorObject.number = '';}
                   if(!info.issuing_date) {
-                        flightErrors.passenger_details[index].issuing_date = 'Issuing date is required';
+                        passengerErrorObject.issuing_date = 'Issuing date is required';
                         hasErrors = true;
-                  } else {flightErrors.passenger_details[index].issuing_date = '';}
+                  } else {passengerErrorObject.issuing_date = '';}
                   if(!info.expiry_date) {
-                        flightErrors.passenger_details[index].expiry_date = 'Expiry date is required';
+                        passengerErrorObject.expiry_date = 'Expiry date is required';
                         hasErrors = true;
                   } else if(new Date(info.expiry_date).getTime() < new Date(flightDetails?.outbound[0]?.departure_time).getTime()) {
-                        flightErrors.passenger_details[index].expiry_date = `Document already expired before the flight date (${formatDate(flightDetails?.outbound[0]?.departure_time)})`;
+                        passengerErrorObject.expiry_date = `Document already expired before the flight date (${formatDate(flightDetails?.outbound[0]?.departure_time)})`;
                         hasErrors = true;
-                  } else {flightErrors.passenger_details[index].expiry_date = '';}
+                  } else {passengerErrorObject.expiry_date = '';}
                   if(!info.issuing_country) {
-                        flightErrors.passenger_details[index].issuing_country = 'Issuing country is required';
+                        passengerErrorObject.issuing_country = 'Issuing country is required';
                         hasErrors = true;
-                  } else {flightErrors.passenger_details[index].issuing_country = '';}
-                  // if(!info.documents?.nationality_country) {
-                  //       flightErrors.passenger_details[index].nationality_country = 'Nationality is required';
-                  //       hasErrors = true;
-                  // } else {flightErrors.passenger_details[index].nationality_country = '';}
+                  } else {passengerErrorObject.issuing_country = '';}
+                  if(!info.nationality_country) {
+                        passengerErrorObject.nationality_country = 'Nationality is required';
+                        hasErrors = true;
+                  } else {passengerErrorObject.nationality_country = '';}
                   if(!info.document_type) {
-                        flightErrors.passenger_details[index].document_type = 'Document type is required';
+                        passengerErrorObject.document_type = 'Document type is required';
                         hasErrors = true;
-                  } else {flightErrors.passenger_details[index].document_type = '';}
+                  } else {passengerErrorObject.document_type = '';}
                   if(!info.holder) {
-                        flightErrors.passenger_details[index].holder = 'Document holder is required';
+                        passengerErrorObject.holder = 'Document holder is required';
                         hasErrors = true;
-                  } else {flightErrors.passenger_details[index].holder = '';}
+                  } else {passengerErrorObject.holder = '';}
             }
+            flightErrors.passenger_details.push(passengerErrorObject);
       })
 
       if(hasErrors) {

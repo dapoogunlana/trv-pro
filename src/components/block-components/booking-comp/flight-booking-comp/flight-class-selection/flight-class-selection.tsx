@@ -23,7 +23,7 @@ function FlightClassSelectionComp(props: iFlightClassProps) {
   const [toddlersInOwnSeatUnder2Count, setToddlersInOwnSeatUnder2Count] = useState(props.flightClass?.toddlersInOwnSeatUnder2Count || 0);
   const [infantsOnLapUnder2Count, setInfantsOnLapUnder2Count] = useState(props.flightClass?.infantsOnLapUnder2Count || 0);
   const [allPassengerCount, setAllPassengerCount] = useState(props.flightClass?.allPassengerCount || 0);
-  const [flightClass, setFlightClass] = useState<'Economy' | 'Premium Economy' | 'Business' | 'First Class'>('Economy');
+  const [cabinClass, setCabinClass] = useState<'Economy' | 'Premium' | 'Business' | 'First'>(props.flightClass?.cabinClass || 'Economy');
 
   const toggleShowPopup = (status?: 0 | 1 | 2) => {
     setShowPopup(status || 0);
@@ -51,8 +51,8 @@ function FlightClassSelectionComp(props: iFlightClassProps) {
     setInfantsOnLapUnder2Count(count);
   }
 
-  const updateFlightClass = (flightClass: 'Economy' | 'Premium Economy' | 'Business' | 'First Class') => {
-    setFlightClass(flightClass);
+  const updateCabinClass = (cabinClass: 'Economy' | 'Premium' | 'Business' | 'First') => {
+    setCabinClass(cabinClass);
   }
 
   const calculateAllPassengerCount = () => {
@@ -76,7 +76,7 @@ function FlightClassSelectionComp(props: iFlightClassProps) {
       children2_11Count,
       toddlersInOwnSeatUnder2Count,
       infantsOnLapUnder2Count,
-      flightClass,
+      cabinClass,
       allPassengerCount,
     });
   }
@@ -106,7 +106,7 @@ function FlightClassSelectionComp(props: iFlightClassProps) {
   ])
   useEffect(() => {
     sendFlightUpdates();
-  }, [allPassengerCount])
+  }, [allPassengerCount, cabinClass])
 
   return (
     <div className='pt-3 pb-2'>
@@ -115,11 +115,11 @@ function FlightClassSelectionComp(props: iFlightClassProps) {
           <div className='selector' onClick={() => toggleShowPopup(2)} 
             title={
               `${sendAdults()} Adult${sendAdults() === 1 ? '' : 's'}, ` +
-              `${sendMinors()} Minor${sendMinors() === 1 ? '' : 's'}, ${flightClass}`
+              `${sendMinors()} Minor${sendMinors() === 1 ? '' : 's'}, ${cabinClass}`
             }
           >
             <div className='label'>Passanger - Class</div>
-            <p className='mb-0 reduced-info'>{allPassengerCount} Passenger{allPassengerCount === 1 ? '' : 's'}, {clipToLength(flightClass, 19)}</p>
+            <p className='mb-0 reduced-info'>{allPassengerCount} Passenger{allPassengerCount === 1 ? '' : 's'}, {clipToLength(cabinClass, 19)}</p>
             <FontAwesomeIcon icon={'chevron-down'} className='fainter-tx' />
           </div>
         }
@@ -163,54 +163,54 @@ function FlightClassSelectionComp(props: iFlightClassProps) {
           <div className='sect-holder pb-3'>
             <div className='label'>Passanger</div>
             <div 
-              className={'flight-class-sect' + (flightClass === 'Economy' ? ' selected' : '')}
-              onClick={() => updateFlightClass('Economy')}
+              className={'flight-class-sect' + (cabinClass === 'Economy' ? ' selected' : '')}
+              onClick={() => updateCabinClass('Economy')}
             >
               <input
                 type="radio"
                 value={'Economy'}
                 name='flight-class'
-                checked={flightClass === 'Economy'}
-                onChange={() => updateFlightClass('Economy')}
+                checked={cabinClass === 'Economy'}
+                onChange={() => updateCabinClass('Economy')}
               />
               <span className=''>Economy</span>
             </div>
             <div 
-              className={'flight-class-sect' + (flightClass === 'Premium Economy' ? ' selected' : '')}
-              onClick={() => updateFlightClass('Premium Economy')}
+              className={'flight-class-sect' + (cabinClass === 'Premium' ? ' selected' : '')}
+              onClick={() => updateCabinClass('Premium')}
             >
               <input
                 type="radio"
-                value={'Premium Economy'}
+                value={'Premium'}
                 name='flight-class'
-                checked={flightClass === 'Premium Economy'}
-                onChange={() => updateFlightClass('Premium Economy')}
+                checked={cabinClass === 'Premium'}
+                onChange={() => updateCabinClass('Premium')}
               />
               <span className=''>Premium Economy</span>
             </div>
             <div 
-              className={'flight-class-sect' + (flightClass === 'Business' ? ' selected' : '')}
-              onClick={() => updateFlightClass('Business')}
+              className={'flight-class-sect' + (cabinClass === 'Business' ? ' selected' : '')}
+              onClick={() => updateCabinClass('Business')}
             >
               <input
                 type="radio"
                 value={'Business'}
                 name='flight-class'
-                checked={flightClass === 'Business'}
-                onChange={() => updateFlightClass('Business')}
+                checked={cabinClass === 'Business'}
+                onChange={() => updateCabinClass('Business')}
               />
               <span className=''>Business</span>
             </div>
             <div 
-              className={'flight-class-sect mb-2' + (flightClass === 'First Class' ? ' selected' : '')}
-              onClick={() => updateFlightClass('First Class')}
+              className={'flight-class-sect mb-2' + (cabinClass === 'First' ? ' selected' : '')}
+              onClick={() => updateCabinClass('First')}
             >
               <input
                 type="radio"
-                value={'First Class'}
+                value={'First'}
                 name='flight-class'
-                checked={flightClass === 'First Class'}
-                onChange={() => updateFlightClass('First Class')}
+                checked={cabinClass === 'First'}
+                onChange={() => updateCabinClass('First')}
               />
               <span className=''>First Class</span>
             </div>

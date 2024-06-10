@@ -20,7 +20,6 @@ function FlightPayment(props: IFlightProps) {
   const [processing, setProcessing] = useState <0 | 1 | 2>(0);
 
   const recordPayment = (response: any) => {
-    console.log({response})
     setProcessing(1);
     sendRequest(
       {
@@ -47,7 +46,6 @@ function FlightPayment(props: IFlightProps) {
   }
   const closePayment = (error: any) => {
     setProcessing(0);
-    console.log({error})
   }
 
   const [paystackProps, setPaystackProps] = useState<PaystackButtonProps>({
@@ -63,12 +61,6 @@ function FlightPayment(props: IFlightProps) {
     onSuccess: recordPayment,
     onClose: closePayment,
   });
-const mabul = {
-  flight_id: "ama_b8bd9d44-ccbc-44f7-8c88-9a962c364784",
-  reference: "T505560676826318",
-  transaction: "3816568449",
-  time: 1716417103295,
-}
 
   useEffect(() => {
     // setTimeout(() => {

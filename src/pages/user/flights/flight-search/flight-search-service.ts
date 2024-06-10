@@ -12,7 +12,7 @@
     const timeArray = time.split('T')[1].split(':');
     const section = parseFloat(timeArray[0]) > 11 ? 'pm' : 'am'
     let hour = parseFloat(timeArray[0]) > 12 ? (parseFloat(timeArray[0]) - 12) : parseFloat(timeArray[0]) === 0 ? 12 : timeArray[0]
-    return `${hour} : ${timeArray[0]} ${section}`;
+    return `${hour} : ${timeArray[1]} ${section}`;
   }
 
   export const calculateAdult = (fData: any, digit = false) => {
@@ -45,7 +45,6 @@
   export const processPassangerPriceList = (price: any) => {
     const prices = [];
     for(const item in price) {
-        // console.log({key: item, value: price[item], price})
       if(item && price[item]) {
         prices.push({key: item, value: price[item]});
       }

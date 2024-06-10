@@ -22,7 +22,7 @@ export interface IFlightClassData {
     children2_11Count: number;
     toddlersInOwnSeatUnder2Count: number;
     infantsOnLapUnder2Count: number;
-    flightClass: string;
+    cabinClass: 'Economy' | 'Premium' | 'Business' | 'First';
     allPassengerCount: number;
   }
 
