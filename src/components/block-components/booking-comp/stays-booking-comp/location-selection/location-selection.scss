@@ -1,0 +1,17 @@
+@import '../../../../../assets/styles/variables.scss';
+
+.location-case{
+    width: 100%;
+    @include mediaW(750px){
+        width: 500px;
+    }
+    @include mediaW(1000px){
+        width: 450px;
+    }
+    .location-selection{
+        width: 100%;
+    }
+    .confirm-location-button{
+        @include base-button($purple-bg, $purple-bg-hover);
+    }
+}

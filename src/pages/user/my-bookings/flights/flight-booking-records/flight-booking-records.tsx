@@ -1,7 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
+import { Navigate, useNavigate } from 'react-router';
 import MiniLoader from '../../../../../components/block-components/mini-loader/mini-loader';
 import { apiLinks } from '../../../../../config/environment';
+import { routeConstants } from '../../../../../services/constants/route-constants';
 import { formatDateMini } from '../../../../../services/utils/data-manipulation-utilits';
 import { sendRequest } from '../../../../../services/utils/request';
 import { formatTime } from '../../../flights/flight-search/flight-search-service';
@@ -11,6 +13,8 @@ function FlightBookingRecords(props: any) {
 
   const [flightRecords, setFlightRecords] = useState<any[]>([]);
   const [loading, setLoading] = useState<0 | 1 | 2>(0);
+
+  const navigate = useNavigate();
 
   const getFlightBookingRecords = () => {
     setLoading(0);
@@ -31,7 +35,8 @@ function FlightBookingRecords(props: any) {
   };
 
   const downloadTicket = (reference: string) => {
-    window.open(apiLinks.url + 'flight/flight-booking-details/' + reference);
+    // window.open(apiLinks.url + 'flight/flight-booking-details/' + reference);
+    navigate(`/${routeConstants.flightTicket}/${reference}`)
   }
 
   useEffect(() => {

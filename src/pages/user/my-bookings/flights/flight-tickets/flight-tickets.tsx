@@ -1,9 +1,34 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import { sendRequest } from '../../../../../services/utils/request';
 import './flight-tickets.scss';
 
 function FlightTickets() {
 
+  const flightReference = useParams().reference || '';
+  const [loading, setLoading] = useState(0);
+  const [flightDetails, setFlightDetails] = useState<any>({outbound: [], inbound: []});
+
+  const getFlightDetails = () => {
+    setLoading(0);
+    
+    sendRequest(
+      {
+        url: "flight/flight-booking-details/" + flightReference,
+        method: "GET",
+      },
+      (res: any) => {
+        setFlightDetails(res.data);
+        setLoading(1);
+      },
+      (err: any) => {
+        setLoading(2);
+      }
+    );
+  };
+
   useEffect(() => {
+    getFlightDetails();
     window.scrollTo(0, 0);
   });
   

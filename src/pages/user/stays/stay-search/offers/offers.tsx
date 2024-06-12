@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect } from 'react';
-import { Carousel } from '../../../../components/block-components/carousel';
+import { Carousel } from '../../../../../components/block-components/carousel';
 import { offersData } from './offers-data';
 import './offers.scss';
 

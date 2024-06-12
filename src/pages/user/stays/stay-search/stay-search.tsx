@@ -4,12 +4,12 @@ import {
   PropertyRecentSearch2,
   PropertyRecentSearch3,
   PropertyRecentSearch4,
- } from '../../../assets/images';
+ } from '../../../../assets/images';
 import BannerSect from './hero/banner';
 import OffersSect from './offers/offers';
 import PropertiesSect from './properties/properties';
 import StayLocationDealsSect from './stay-location-deals/stay-location-deals';
-import './stays.scss';
+import './stay-search.scss';
 
 function StaysPage() {
 
@@ -20,7 +20,7 @@ function StaysPage() {
   });
   
   return (
-    <div className='stays'>
+    <div className='stay-search'>
       <BannerSect searchStays={searchStays} />
       <div className='stay-info'>
         <div className='w90 max1100 pt-5'>

@@ -25,10 +25,10 @@ const FlightSearchPage = lazy(() => import("../pages/user/flights/flight-search/
 const FlightPreviewPage = lazy(() => import("../pages/user/flights/flight-preview/flight-preview"));
 const FlightBookingPage = lazy(() => import("../pages/user/flights/flight-booking-page/flight-booking-page"));
 const FlightDetailsPage = lazy(() => import("../pages/user/flights/flight-search/flight-search"));
-const StaysPage = lazy(() => import("../pages/user/stays/stays"));
-const StayPreviewPage = lazy(() => import("../pages/user/flights/flight-preview/flight-preview"));
-const StayBookingPage = lazy(() => import("../pages/user/flights/flight-booking-page/flight-booking-page"));
-const StayDetailsPage = lazy(() => import("../pages/user/flights/flight-search/flight-search"));
+const StaySearchPage = lazy(() => import("../pages/user/stays/stay-search/stay-search"));
+const StayPreviewPage = lazy(() => import("../pages/user/stays/stay-preview/stay-preview"));
+const StayBookingPage = lazy(() => import("../pages/user/stays/stay-booking-page/stay-booking-page"));
+const StayDetailsPage = lazy(() => import("../pages/user/stays/stay-search/stay-search"));
 const BookRidesPage = lazy(() => import("../pages/user/book-rides/book-rides"));
 const RewardsPage = lazy(() => import("../pages/user/rewards/rewards"));
 const DealsPage = lazy(() => import("../pages/user/deals/deals"));
@@ -36,6 +36,7 @@ const ExplorePage = lazy(() => import("../pages/user/explore/explore"));
 const TravelInfoPage = lazy(() => import("../pages/user/travel-info/travel-info"));
 const FlightTrackerPage = lazy(() => import("../pages/user/flight-tracker/flight-tracker"));
 const MyBookingsPage = lazy(() => import("../pages/user/my-bookings/my-bookings"));
+const FlightTicketPage = lazy(() => import("../pages/user/my-bookings/flights/flight-tickets/flight-tickets"));
 const FeedbackPage = lazy(() => import("../pages/user/feedback/feedback"));
 const PartnersPage = lazy(() => import("../pages/user/partners/partners"));
 const HelpPage = lazy(() => import("../pages/user/help/help"));
@@ -63,7 +64,7 @@ function UserRoute() {
           <Route path={routeConstants.contact} element={<ContactPage/>}></Route>
           <Route path={routeConstants.flights} element={<FlightSearchPage/>}></Route>
           <Route path={`${routeConstants.flightPreview}/:id`} element={<FlightPreviewPage/>}></Route>
-          <Route path={routeConstants.stays} element={<StaysPage/>}></Route>
+          <Route path={routeConstants.stays} element={<StaySearchPage/>}></Route>
           <Route path={`${routeConstants.stayPreview}/:id`} element={<StayPreviewPage/>}></Route>
           <Route path={routeConstants.bookRides} element={<BookRidesPage/>}></Route>
           <Route path={routeConstants.rewards} element={<RewardsPage/>}></Route>
@@ -82,6 +83,7 @@ function UserRoute() {
             <Route path={`${routeConstants.stayDetails}/:id`} element={<StayDetailsPage/>}></Route>
             <Route path={routeConstants.profile} element={<ProfilePage/>}></Route>
             <Route path={routeConstants.myBookings} element={<MyBookingsPage/>}></Route>
+            <Route path={`${routeConstants.flightTicket}/:reference`} element={<FlightTicketPage/>}></Route>
           </Route>
           <Route path={routeConstants.all} element={<Navigate to={routeConstants.home2}/>}></Route>
         </Route>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { DealsHeroImage } from '../../../assets/images';
 import TravelDealsSect from '../home/page-modules/travel-deals/travel-deals';
-import StayLocationDealsSect from '../stays/stay-location-deals/stay-location-deals';
+import StayLocationDealsSect from '../stays/stay-search/stay-location-deals/stay-location-deals';
 import './deals.scss';
 
 function DealsPage() {

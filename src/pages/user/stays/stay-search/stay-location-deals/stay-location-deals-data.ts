@@ -1,4 +1,4 @@
-import { Location1, Location2, Location3, Location4 } from "../../../../assets/images";
+import { Location1, Location2, Location3, Location4 } from "../../../../../assets/images";
 
 export const stayDummyImages = [
     Location1,

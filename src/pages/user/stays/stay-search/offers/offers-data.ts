@@ -1,4 +1,5 @@
-import { PropertyOffer1, PropertyOffer2, HomeShortlet3, HomeShortlet4 } from "../../../../assets/images";
+
+import { PropertyOffer1, PropertyOffer2, HomeShortlet3, HomeShortlet4 } from "../../../../../assets/images";
 
 
 export const offersData = [

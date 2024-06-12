@@ -45,7 +45,7 @@ function BookingComp(props: iProps) {
         }
         <div className='main-content'>
           {mode === 'FLIGHTS' && <FlightBookingComp hidecategories={props.hidecategories} searchFlights={props.searchFlights} cleanSelection={props.cleanSelection} />}
-          {mode === 'STAYS' && <StaysBookingComp cleanSelection={props.cleanSelection} />}
+          {mode === 'STAYS' && <StaysBookingComp  hidecategories={props.hidecategories} searchStays={props.searchStays} cleanSelection={props.cleanSelection} />}
           {mode === 'RIDES' && <RideBookingComp cleanSelection={props.cleanSelection} />}
         </div>
       </div>

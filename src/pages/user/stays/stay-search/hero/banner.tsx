@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import BookingComp from '../../../../components/block-components/booking-comp/booking-comp';
+import BookingComp from '../../../../../components/block-components/booking-comp/booking-comp';
 import './banner.scss';
 
 function BannerSect(props: {searchStays: Function}) {

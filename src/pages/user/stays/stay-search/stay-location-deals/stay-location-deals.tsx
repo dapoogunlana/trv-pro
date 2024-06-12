@@ -1,10 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { Carousel } from '../../../../components/block-components/carousel';
-import { routeConstants } from '../../../../services/constants/route-constants';
-import { formatNumber } from '../../../../services/utils/data-manipulation-utilits';
-import { sendRequest } from '../../../../services/utils/request';
+import { Carousel } from '../../../../../components/block-components/carousel';
+import { routeConstants } from '../../../../../services/constants/route-constants';
+import { formatNumber } from '../../../../../services/utils/data-manipulation-utilits';
+import { sendRequest } from '../../../../../services/utils/request';
 import { stayLocationDealsData as dummyStayLocationDealsData, stayDummyImages } from './stay-location-deals-data';
 import './stay-location-deals.scss';
 

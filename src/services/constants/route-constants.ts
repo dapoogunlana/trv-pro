@@ -39,6 +39,7 @@
      travelInfo: 'travel-info',
      flightTracker: 'flight-tracker',
      myBookings: 'my-bookings',
+     flightTicket: 'flight-ticket',
      feedBack: 'feed-back',
      industryNews: 'news',
  };

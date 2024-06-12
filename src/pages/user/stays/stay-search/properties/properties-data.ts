@@ -1,5 +1,5 @@
 
-import { PropertyTypeHotels, PropertyTypeResorts, PropertyTypeShortlets, PropertyTypeVillas } from "../../../../assets/images";
+import { PropertyTypeHotels, PropertyTypeResorts, PropertyTypeShortlets, PropertyTypeVillas } from "../../../../../assets/images";
 
 export const propertiesData = [
     {
