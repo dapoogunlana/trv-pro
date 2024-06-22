@@ -100,6 +100,7 @@ function FlightSearchPage(props: any) {
                         <div className='flight-card' key={index}>
                           <div className='logo-side'>
                             <img src={flight.outbound[0]?.airline_details?.logo} alt="" />
+                            <p className='text-center pt-2 mb-1'>{flight.outbound[0]?.airline_details?.name}</p>
                           </div>
                           <div className='content-side'>
                             <div className='spread-info mb-2'>

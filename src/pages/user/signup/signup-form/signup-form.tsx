@@ -18,9 +18,9 @@ function AdminSignupForm({poceedToVerify, switchToLogin}: {poceedToVerify?: Func
         url: "user-auth/signup",
         method: "POST",
         body: {
-          // first_name: values.first_name,
-          // last_name: values.last_name,
-          name: `${values.first_name} ${values.last_name}`,
+          first_name: values.first_name,
+          last_name: values.last_name,
+          // name: `${values.first_name} ${values.last_name}`,
           email: values.email,
           password: values.password,
           referred_by: values.referred_by,
