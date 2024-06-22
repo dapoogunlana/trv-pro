@@ -30,7 +30,7 @@ const ProctedRoutes = () => {
         },
         (res: any) => {},
         (err: any) => {
-          toast.error(err?.error || err?.message || 'Request Failed');
+        //   toast.error(err?.error || err?.message || 'Request Failed');
           if(err?.error === 'No cookie found'){
               dispatch(userLogout());
           }

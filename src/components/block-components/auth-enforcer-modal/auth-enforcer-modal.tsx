@@ -9,14 +9,20 @@ import ResetPasswordForm from "../../../pages/user/reset-password/reset-password
 import { useNavigate } from "react-router";
 import { routeConstants } from "../../../services/constants/route-constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch } from "react-redux";
+import { userLogin } from "../../../services/actions-reducers/user-data";
 
 const AuthEnforcerModal = (props: { overlayMode: number, updateOverlayMode: Function, init: boolean, proceed?: Function }) => {
 
   const [authPage, setAuthPage] = useState<'login' | 'register' | 'verify' | 'forgot_password' | 'reset_password'>('login');
   const [closeClass, setCloseClass] = useState<'close-false' | 'close-true'>('close-false');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const logUserIn = () => {
+  const logUserIn = (user?: any) => {
+    if(user) {
+      dispatch(userLogin(user));
+    }
     setAuthPage('login');
     if(props.proceed) {
       closeModal();
@@ -82,7 +88,7 @@ const AuthEnforcerModal = (props: { overlayMode: number, updateOverlayMode: Func
               {/* <h1 className="text-center">Content Starts Here</h1> */}
               {authPage === 'login' && <LoginForm poceedToVerify={poceedToVerify} logUserIn={logUserIn} switchToRegister={goToRegister} passwordReset={forgotPassword} />}
               {authPage === 'register' && <AdminSignupForm poceedToVerify={poceedToVerify} switchToLogin={goToLogin} />}
-              {authPage === 'verify' && <VerifyEmailForm userVerified={goToLogin} />}
+              {authPage === 'verify' && <VerifyEmailForm userVerified={logUserIn} />}
               {authPage === 'forgot_password' && <RetrievePasswordForm retrievalInitiated={retrievalInitiated} switchToLogin={goToLogin} />}
               {authPage === 'reset_password' && <ResetPasswordForm resetComplete={goToLogin} switchToLogin={goToLogin} />}
               {/* <h1 className="text-center">Content Ends Here</h1> */}

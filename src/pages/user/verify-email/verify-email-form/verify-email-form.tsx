@@ -23,7 +23,7 @@ function VerifyEmailForm({userVerified}: {userVerified?: Function}) {
         sessionStorage.setItem("userInfo", JSON.stringify(res.user));
         toast.success(res.message);
         if(userVerified) {
-          userVerified();
+          userVerified(res.user);
         }
         controls.setSubmitting(false);
       },
