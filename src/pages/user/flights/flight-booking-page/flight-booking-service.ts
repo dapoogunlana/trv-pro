@@ -292,80 +292,6 @@ export const validateForErrors = (values: IFlightBookingPayload, dr: boolean, fl
             flightErrors.contact_details.c_relationship_to_p = 'Relationship is required';
             hasErrors = true;
       }
-      // values.passenger_details.map((info, index) => {
-      //       flightErrors.passenger_details.push(initialPassengerPayload);
-      //       if(!info.passenger_type) {
-      //             flightErrors.passenger_details[index].passenger_type = 'Passenger type is required';
-      //             hasErrors = true;
-      //       } else {flightErrors.passenger_details[index].passenger_type = '';}
-      //       if(!info.first_name) {
-      //             flightErrors.passenger_details[index].first_name = 'First name is required';
-      //             hasErrors = true;
-      //       } else {flightErrors.passenger_details[index].first_name = '';}
-      //       if(!info.last_name) {
-      //             flightErrors.passenger_details[index].last_name = 'Last name is required';
-      //             hasErrors = true;
-      //       } else {flightErrors.passenger_details[index].last_name = '';}
-      //       if(!info.dob) {
-      //             flightErrors.passenger_details[index].dob = 'Date of birth is required';
-      //             hasErrors = true;
-      //       } else {flightErrors.passenger_details[index].dob = '';}
-      //       if(!info.gender) {
-      //             flightErrors.passenger_details[index].gender = 'Gender is required';
-      //             hasErrors = true;
-      //       } else {flightErrors.passenger_details[index].gender = '';}
-      //       if(!info.title) {
-      //             flightErrors.passenger_details[index].title = 'Title is required';
-      //             hasErrors = true;
-      //       } else {flightErrors.passenger_details[index].title = '';}
-      //       if(!info.email) {
-      //             flightErrors.passenger_details[index].email = 'Email is required';
-      //             hasErrors = true;
-      //       } else if(!regexConstants.emailPattern.test(info.email)) {
-      //             flightErrors.passenger_details[index].email = 'Invalid email';
-      //             hasErrors = true;
-      //       } else {flightErrors.passenger_details[index].email = '';}
-      //       if(!info.phone_number) {
-      //             flightErrors.passenger_details[index].phone_number = 'Phone number is required';
-      //             hasErrors = true;
-      //       } else if(!regexConstants.phonePattern.test(info.phone_number)) {
-      //             flightErrors.passenger_details[index].phone_number = 'Invalid phone number';
-      //             hasErrors = true;
-      //       } else {flightErrors.passenger_details[index].phone_number = '';}
-      //       if(dr) {
-      //             if(!info.number) {
-      //                   flightErrors.passenger_details[index].number = 'Document number is required';
-      //                   hasErrors = true;
-      //             } else {flightErrors.passenger_details[index].number = '';}
-      //             if(!info.issuing_date) {
-      //                   flightErrors.passenger_details[index].issuing_date = 'Issuing date is required';
-      //                   hasErrors = true;
-      //             } else {flightErrors.passenger_details[index].issuing_date = '';}
-      //             if(!info.expiry_date) {
-      //                   flightErrors.passenger_details[index].expiry_date = 'Expiry date is required';
-      //                   hasErrors = true;
-      //             } else if(new Date(info.expiry_date).getTime() < new Date(flightDetails?.outbound[0]?.departure_time).getTime()) {
-      //                   flightErrors.passenger_details[index].expiry_date = `Document already expired before the flight date (${formatDate(flightDetails?.outbound[0]?.departure_time)})`;
-      //                   hasErrors = true;
-      //             } else {flightErrors.passenger_details[index].expiry_date = '';}
-      //             if(!info.issuing_country) {
-      //                   flightErrors.passenger_details[index].issuing_country = 'Issuing country is required';
-      //                   hasErrors = true;
-      //             } else {flightErrors.passenger_details[index].issuing_country = '';}
-      //             // if(!info.documents?.nationality_country) {
-      //             //       flightErrors.passenger_details[index].nationality_country = 'Nationality is required';
-      //             //       hasErrors = true;
-      //             // } else {flightErrors.passenger_details[index].nationality_country = '';}
-      //             if(!info.document_type) {
-      //                   flightErrors.passenger_details[index].document_type = 'Document type is required';
-      //                   hasErrors = true;
-      //             } else {flightErrors.passenger_details[index].document_type = '';}
-      //             if(!info.holder) {
-      //                   flightErrors.passenger_details[index].holder = 'Document holder is required';
-      //                   hasErrors = true;
-      //             } else {flightErrors.passenger_details[index].holder = '';}
-      //       }
-      // })
       values.passenger_details.map((info, index) => {
             const passengerErrorObject = generateInitialPassengerPayload();
             if(!info.passenger_type) {
@@ -508,4 +434,58 @@ export const updateBookingData = (data: IFlightBookingPayload, documentRequired:
             },
             passenger_details: passenterDetails
       }
+}
+
+export const chooseRelationship = (e: any, values: IFlightBookingPayload, setValues: Function) => {
+      const relationship = e.target?.value;
+      const firstPassenger = values.passenger_details[0];
+      if(relationship !== 'self') {
+            if(values.contact_details.c_email === firstPassenger.email) {
+                  firstPassenger.email = '';
+            }
+            if(values.contact_details.c_first_name === firstPassenger.first_name) {
+                  firstPassenger.first_name = '';
+            }
+            if(values.contact_details.c_last_name === firstPassenger.last_name) {
+                  firstPassenger.last_name = '';
+            }
+            if(values.contact_details.c_phone_number === firstPassenger.phone_number) {
+                  firstPassenger.phone_number = '';
+            }
+            return;
+      }
+      if(values.contact_details.c_email) {
+            firstPassenger.email = values.contact_details.c_email;
+      }
+      if(values.contact_details.c_first_name) {
+            firstPassenger.first_name = values.contact_details.c_first_name;
+      }
+      if(values.contact_details.c_last_name) {
+            firstPassenger.last_name = values.contact_details.c_last_name;
+      }
+      if(values.contact_details.c_phone_number) {
+            firstPassenger.phone_number = values.contact_details.c_phone_number;
+      }
+      console.log({values});
+}
+
+export const updateToRelationship = (e: any, values: IFlightBookingPayload, setValues: Function, field: string) => {
+      const value = e.target?.value;
+      const firstPassenger = values.passenger_details[0];
+      if(values.contact_details.c_relationship_to_p === 'self') {
+            if(field === 'c_email') {
+                  firstPassenger.email = value;
+            }
+            if(field === 'c_first_name') {
+                  firstPassenger.first_name = value;
+            }
+            if(field === 'c_last_name') {
+                  firstPassenger.last_name = value;
+            }
+            if(field === 'c_phone_number') {
+                  firstPassenger.phone_number = value;
+            }
+            return;
+      }
+      console.log({values});
 }

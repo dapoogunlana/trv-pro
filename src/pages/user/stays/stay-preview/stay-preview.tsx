@@ -6,7 +6,7 @@ import { routeConstants } from '../../../../services/constants/route-constants';
 import { FlightPreviwImg as StayPreviwImg, PlaneTripIcon } from '../../../../assets/images';
 import { formatDate, formatNumber } from '../../../../services/utils/data-manipulation-utilits';
 import { sendRequest } from '../../../../services/utils/request';
-import { formatTime, getStayToAndFrom, processPassangerPriceList, sampleStays } from '../stay-search/stay-search-service';
+import { formatTime, getStayToAndFrom, processPassengerPriceList, sampleStays } from '../stay-search/stay-search-service';
 import './stay-preview.scss';
 
 function StayPreviewPage(props: any) {
@@ -277,7 +277,7 @@ function StayPreviewPage(props: any) {
                       <div className='spread-info' key={index}>
                         {/* price_summary */}
                         {
-                        processPassangerPriceList(price).map((item, index) => <React.Fragment key={index}>
+                        processPassengerPriceList(price).map((item, index) => <React.Fragment key={index}>
                           <h6 className='sentence-case f300'>{item.key}</h6>
                           <h6 className='number-light'>{formatNumber(item.value)}</h6>
                         </React.Fragment>)

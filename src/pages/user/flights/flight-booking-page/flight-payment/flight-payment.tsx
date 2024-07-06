@@ -17,7 +17,7 @@ interface IFlightProps {
 function FlightPayment(props: IFlightProps) {
 
   const navigate = useNavigate();
-  const [processing, setProcessing] = useState <0 | 1 | 2>(0);
+  const [processing, setProcessing] = useState <0 | 1 | 2 | 3>(0);
 
   const recordPayment = (response: any) => {
     setProcessing(1);
@@ -35,14 +35,16 @@ function FlightPayment(props: IFlightProps) {
       },
       (res: any) => {
         toast.success('Booking complete');
-        setProcessing(2);
-        navigate(`/${routeConstants.myBookings}`)
+        setProcessing(3);
       },
       (err: any) => {
         toast.error(err.error || 'Request failed');
         setProcessing(2);
       }
     );
+  }
+  const goToBookings = () => {
+    navigate(`/${routeConstants.myBookings}`)
   }
   const closePayment = (error: any) => {
     setProcessing(0);
@@ -77,13 +79,13 @@ function FlightPayment(props: IFlightProps) {
     <div className='flight-payment loader-holder'>
       <div className='center-info-col pb-4 max300'>
         {
-          processing === 2 &&
-          <div className='center-info-col pb-4 max300'>
-            <p className='text-center black-tx mb-3'>
-              There was a problem in saving your transaction record
+          processing === 0 && 
+          <>
+            <p className='text-center black-tx'>
+              Your flight data has been captured, Please make your payment to complete your booking
             </p>
-            <button className='paystack-button' onClick={recordPayment}>Retry</button>
-          </div>
+            <PaystackButton {...paystackProps} className={'paystack-button' + (processing !== 0 ? ' deactivated' : '' )} />
+          </>
         }
         {
           processing === 1 &&
@@ -95,13 +97,22 @@ function FlightPayment(props: IFlightProps) {
           </div>
         }
         {
-          processing === 0 && 
-          <>
-            <p className='text-center black-tx'>
-              Please make your payment to complete your booking
+          processing === 2 &&
+          <div className='center-info-col pb-4 max300'>
+            <p className='text-center black-tx mb-3'>
+              There was a problem in saving your transaction record
             </p>
-            <PaystackButton {...paystackProps} className={'paystack-button' + (processing !== 0 ? ' deactivated' : '' )} />
-          </>
+            <button className='paystack-button' onClick={recordPayment}>Retry</button>
+          </div>
+        }
+        {
+          processing === 3 &&
+          <div className='center-info-col pb-4 max300'>
+            <p className='text-center black-tx mb-3'>
+              Booking complete
+            </p>
+            <button className='paystack-button' onClick={goToBookings}>View Records</button>
+          </div>
         }
       </div>
     </div>

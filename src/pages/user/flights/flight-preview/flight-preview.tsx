@@ -6,7 +6,7 @@ import MiniLoader from '../../../../components/block-components/mini-loader/mini
 import { routeConstants } from '../../../../services/constants/route-constants';
 import { formatDate, formatNumber } from '../../../../services/utils/data-manipulation-utilits';
 import { sendRequest } from '../../../../services/utils/request';
-import { formatTime, getFlightToAndFrom, processPassangerPriceList, sampleFlights } from '../flight-search/flight-search-service';
+import { formatTime, getFlightToAndFrom, processPassengerPriceList, sampleFlights } from '../flight-search/flight-search-service';
 import FlightImageSlideSect from './flight-image-slide/flight-image-slide';
 import './flight-preview.scss';
 
@@ -112,9 +112,12 @@ function FlightPreviewPage(props: any) {
               <div className='preview-image'>
                 <img src={FlightPreviwImg} alt="" />
               </div>
-              <div className='spread-info-web pt-5'>
-                <h5 className='f600 increased sentence-case'>basic {flightDetails.outbound[0]?.cabin_type?.toLocaleLowerCase()} features</h5>
-                <div className='spread-info'>
+              <div className='spread-info-web pt-5 pb-2'>
+                <h5 className='f600 increased sentence-case mb-0'>basic {flightDetails.outbound[0]?.cabin_type?.toLocaleLowerCase()} features</h5>
+                <p className='sentence-case mb-0'>
+                  Class: <span className='f600'>{flightDetails.outbound[0]?.cabin_type.toLocaleLowerCase()}</span>
+                </p>
+                {/* <div className='spread-info'>
                   <span className='cabin-type-indicator'>
                     <input type="checkbox" 
                       checked={flightDetails.outbound[0]?.cabin_type.toLocaleLowerCase() === 'economy'} 
@@ -142,7 +145,7 @@ function FlightPreviewPage(props: any) {
                     />
                     Business Class
                   </span>
-                </div>
+                </div> */}
               </div>
               <FlightImageSlideSect imageList={[...flightFeatureImageList, ...flightFeatureImageList, ...flightFeatureImageList]} />
             </div>
@@ -201,6 +204,20 @@ function FlightPreviewPage(props: any) {
                       <p className='mb-0'>
                         <span className='f400 reduced-im faint-tx'>{trip.airport_to_details?.city ? `(${trip.airport_to_details.city})` : ''}</span>
                       </p>
+                    </div>
+                  </div>
+                  <div className='row text-center'>
+                    <div className='col-lg-4 col-6 mt-2'>
+                      <p className='reduced mb-0'>Flight Number</p>
+                      <span className='number-medium'>{trip.flight_number}</span>
+                    </div>
+                    <div className='col-lg-4 col-6 mt-2'>
+                      <p className='reduced mb-0'>Layover Duration</p>
+                      <span className=' number-medium'>{Math.floor(trip.layover/60)}Hs, {trip.layover % 60}Ms</span>
+                    </div>
+                    <div className='col-lg-4 col-md-6 mt-2'>
+                      <p className='reduced mb-0'>Cabin Type</p>
+                      <span className='number-medium sentence-case'>{trip.cabin_type}</span>
                     </div>
                   </div>
                 </div>
@@ -267,6 +284,20 @@ function FlightPreviewPage(props: any) {
                       </p>
                     </div>
                   </div>
+                  <div className='row text-center'>
+                    <div className='col-lg-4 col-6 mt-2'>
+                      <p className='reduced mb-0'>Flight Number</p>
+                      <span className='number-medium'>{trip.flight_number}</span>
+                    </div>
+                    <div className='col-lg-4 col-6 mt-2'>
+                      <p className='reduced mb-0'>Layover Duration</p>
+                      <span className=' number-medium'>{Math.floor(trip.layover/60)}Hs, {trip.layover % 60}Ms</span>
+                    </div>
+                    <div className='col-lg-4 col-md-6 mt-2'>
+                      <p className='reduced mb-0'>Cabin Type</p>
+                      <span className='number-medium sentence-case'>{trip.cabin_type}</span>
+                    </div>
+                  </div>
                 </div>
               ))
             }
@@ -280,7 +311,7 @@ function FlightPreviewPage(props: any) {
                       <div className='spread-info' key={index}>
                         {/* price_summary */}
                         {
-                        processPassangerPriceList(price).map((item, index) => <React.Fragment key={index}>
+                        processPassengerPriceList(price).map((item, index) => <React.Fragment key={index}>
                           <h6 className='sentence-case f300'>{item.key}</h6>
                           <h6 className='number-light'>{formatNumber(item.value)}</h6>
                         </React.Fragment>)

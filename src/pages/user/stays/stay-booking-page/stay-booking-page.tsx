@@ -10,7 +10,7 @@ import StayPayment from './stay-payment/stay-payment';
 import './stay-booking-page.scss';
 import { sendRequest } from '../../../../services/utils/request';
 import { useNavigate, useParams } from 'react-router';
-import { getStayToAndFrom, processPassangerPriceList } from '../stay-search/stay-search-service';
+import { getStayToAndFrom, processPassengerPriceList } from '../stay-search/stay-search-service';
 import { routeConstants } from '../../../../services/constants/route-constants';
 import { acceptOnlyNumbers, formatNumber, generateMaxDate, generateMinDate } from '../../../../services/utils/data-manipulation-utilits';
 import { useSelector } from 'react-redux';
@@ -97,7 +97,7 @@ function StayBookingPage(props: any) {
   const setupTouchedAndErrors = (details: any) => {
     const errorData = bookingErrors;
     const touchedData = bookingTouched;
-    processPassangerPriceList(details.travelers_price)?.map(() => {
+    processPassengerPriceList(details.travelers_price)?.map(() => {
       errorData.passenger_details.push(initialPassengerPayload);
       touchedData.passenger_details.push(initialPassengerTouchedData);
     })
@@ -117,9 +117,9 @@ function StayBookingPage(props: any) {
 
   const setFieldTouched = (title: string, index: number) => {
     const touchedData = {...bookingTouched};
-    const passanger: any = {...touchedData.passenger_details[index]};
-    passanger[title] = true;
-    touchedData.passenger_details[index] = passanger;
+    const passenger: any = {...touchedData.passenger_details[index]};
+    passenger[title] = true;
+    touchedData.passenger_details[index] = passenger;
     setBookingTouched(touchedData);
   }
 
@@ -345,7 +345,7 @@ function StayBookingPage(props: any) {
                           <div className='row'>
                             <div className='col-md-6'>
                               <div className='form-input'>
-                                <label>Passanger Type</label>
+                                <label>Passenger Type</label>
                                 <input
                                   type="text"
                                   name={"passenger.passenger_type" + index}
@@ -527,7 +527,7 @@ function StayBookingPage(props: any) {
                                 </div>
                                 <div className='col-md-6'>
                                   <div className='form-input'>
-                                    <label>Is The Passanger The Holder of This Document?</label>
+                                    <label>Is The Passenger The Holder of This Document?</label>
                                     <select
                                       name={"passenger.holder" + index}
                                       value={passenger.holder}
@@ -561,7 +561,7 @@ function StayBookingPage(props: any) {
                                         ? "im-error" : ""
                                       }
                                     >
-                                      <option disabled value="">Chose Document Type</option>
+                                      <option disabled value="">Choose Document Type</option>
                                       <option value="passport">Passport</option>
                                       <option value="national_idcard">National ID Card</option>
                                       <option value="others">Others</option>

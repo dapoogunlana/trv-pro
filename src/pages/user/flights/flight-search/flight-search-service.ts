@@ -42,7 +42,7 @@
     return result;
   }
 
-  export const processPassangerPriceList = (price: any) => {
+  export const processPassengerPriceList = (price: any) => {
     const prices = [];
     for(const item in price) {
       if(item && price[item]) {

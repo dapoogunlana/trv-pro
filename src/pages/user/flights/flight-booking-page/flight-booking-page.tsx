@@ -5,12 +5,12 @@ import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import MiniLoader from '../../../../components/block-components/mini-loader/mini-loader';
 import { apiLinks } from '../../../../config/environment';
-import { activateAllTouchFields, flightPaymentInitialData, IFlightBookingPayload, IFlightBookingTouchedPayload, IFlightPaymentData, initialContactPayload, initialContactTouchedData, initialFlightBookingPayload, initialPassengerPayload, initialPassengerTouchedData, IPassengerPayload, updateBookingData, validateForErrors } from './flight-booking-service';
+import { activateAllTouchFields, chooseRelationship, flightPaymentInitialData, IFlightBookingPayload, IFlightBookingTouchedPayload, IFlightPaymentData, initialContactPayload, initialContactTouchedData, initialFlightBookingPayload, initialPassengerPayload, initialPassengerTouchedData, IPassengerPayload, updateBookingData, updateToRelationship, validateForErrors } from './flight-booking-service';
 import FlightPayment from './flight-payment/flight-payment';
 import './flight-booking-page.scss';
 import { sendRequest } from '../../../../services/utils/request';
 import { useNavigate, useParams } from 'react-router';
-import { getFlightToAndFrom, processPassangerPriceList } from '../flight-search/flight-search-service';
+import { getFlightToAndFrom, processPassengerPriceList } from '../flight-search/flight-search-service';
 import { routeConstants } from '../../../../services/constants/route-constants';
 import { acceptOnlyNumbers, formatNumber, generateMaxDate, generateMinDate } from '../../../../services/utils/data-manipulation-utilits';
 import { useSelector } from 'react-redux';
@@ -41,11 +41,12 @@ function FlightBookingPage(props: any) {
         setFlightDetails(res.data);
         setupTouchedAndErrors(res.data);
         getPassengers(res.data?.price_summary || []);
-        if(user?.email) {
-          setLoading(1);
-        } else {
-          setLoading(3);
-        }
+        // if(user?.email) {
+        //   setLoading(1);
+        // } else {
+        //   setLoading(3);
+        // }
+        setLoading(1);
       },
       (err: any) => {
         setLoading(2);
@@ -97,7 +98,7 @@ function FlightBookingPage(props: any) {
   const setupTouchedAndErrors = (details: any) => {
     const errorData = bookingErrors;
     const touchedData = bookingTouched;
-    processPassangerPriceList(details.travelers_price)?.map(() => {
+    processPassengerPriceList(details.travelers_price)?.map(() => {
       errorData.passenger_details.push(initialPassengerPayload);
       touchedData.passenger_details.push(initialPassengerTouchedData);
     })
@@ -117,9 +118,9 @@ function FlightBookingPage(props: any) {
 
   const setFieldTouched = (title: string, index: number) => {
     const touchedData = {...bookingTouched};
-    const passanger: any = {...touchedData.passenger_details[index]};
-    passanger[title] = true;
-    touchedData.passenger_details[index] = passanger;
+    const passenger: any = {...touchedData.passenger_details[index]};
+    passenger[title] = true;
+    touchedData.passenger_details[index] = passenger;
     setBookingTouched(touchedData);
   }
 
@@ -159,11 +160,11 @@ function FlightBookingPage(props: any) {
     window.scrollTo({behavior: 'auto', left: 0, top: 0});
   }, [props])
 
-  useEffect(() => {
-    if(loading === 3) {
-      setLoading(1)
-    }
-  }, [user])
+  // useEffect(() => {
+  //   if(loading === 3) {
+  //     setLoading(1)
+  //   }
+  // }, [user])
 
   
   return (
@@ -189,7 +190,12 @@ function FlightBookingPage(props: any) {
         <div className='flight-booking-page'>
         <Formik
           initialValues={{
-            contact_details: {...initialContactPayload, c_email: `${user.email}`},
+            contact_details: {
+              ...initialContactPayload,
+              c_email: `${user.email || ''}`,
+              c_first_name: `${user.first_name || ''}`,
+              c_last_name: `${user.last_name || ''}`,
+            },
             passenger_details: setupPassenterDetails()
           }}
           onSubmit={(values, control) => sumbitFlightBooking(values, control)}
@@ -229,11 +235,11 @@ function FlightBookingPage(props: any) {
                             <label>Email</label>
                             <input
                               type="text"
-                              disabled
+                              disabled={!!user.email}
                               name="contact_details.c_email"
                               placeholder="Enter email"
                               value={values.contact_details.c_email}
-                              onChange={handleChange}
+                              onChange={(e) => {handleChange(e); updateToRelationship(e, values, setValues, 'c_email')}}
                               onBlur={handleBlur}
                               className={
                                 touched.contact_details?.c_email && bookingErrors.contact_details.c_email
@@ -251,10 +257,11 @@ function FlightBookingPage(props: any) {
                             <label>First Name</label>
                             <input
                               type="text"
+                              disabled={!!user.first_name}
                               name="contact_details.c_first_name"
-                              placeholder="Enter email"
+                              placeholder="Enter first name"
                               value={values.contact_details.c_first_name}
-                              onChange={handleChange}
+                              onChange={(e) => {handleChange(e); updateToRelationship(e, values, setValues, 'c_first_name')}}
                               onBlur={handleBlur}
                               className={
                                 touched.contact_details?.c_first_name && bookingErrors.contact_details?.c_first_name
@@ -272,10 +279,11 @@ function FlightBookingPage(props: any) {
                             <label>Last Name</label>
                             <input
                               type="text"
+                              disabled={!!user.last_name}
                               name="contact_details.c_last_name"
-                              placeholder="Enter email"
+                              placeholder="Enter last name"
                               value={values.contact_details.c_last_name}
-                              onChange={handleChange}
+                              onChange={(e) => {handleChange(e); updateToRelationship(e, values, setValues, 'c_last_name')}}
                               onBlur={handleBlur}
                               className={
                                 touched.contact_details?.c_last_name && bookingErrors.contact_details?.c_last_name
@@ -294,9 +302,9 @@ function FlightBookingPage(props: any) {
                             <input
                               type="text"
                               name="contact_details.c_phone_number"
-                              placeholder="Enter email"
+                              placeholder="Enter phone number"
                               value={values.contact_details.c_phone_number}
-                              onChange={handleChange}
+                              onChange={(e) => {handleChange(e); updateToRelationship(e, values, setValues, 'c_phone_number')}}
                               onBlur={handleBlur}
                               className={
                                 touched.contact_details?.c_phone_number && bookingErrors.contact_details.c_phone_number
@@ -315,7 +323,7 @@ function FlightBookingPage(props: any) {
                             <select
                               name="contact_details.c_relationship_to_p"
                               value={values.contact_details.c_relationship_to_p}
-                              onChange={handleChange}
+                              onChange={(e) => {handleChange(e); chooseRelationship(e, values, setValues)}}
                               onBlur={handleBlur}
                               className={
                                 touched.contact_details?.c_relationship_to_p && bookingErrors.contact_details.c_relationship_to_p
@@ -345,7 +353,7 @@ function FlightBookingPage(props: any) {
                           <div className='row'>
                             <div className='col-md-6'>
                               <div className='form-input'>
-                                <label>Passanger Type</label>
+                                <label>Passenger Type</label>
                                 <input
                                   type="text"
                                   name={"passenger.passenger_type" + index}
@@ -396,6 +404,7 @@ function FlightBookingPage(props: any) {
                                   value={passenger.first_name}
                                   onChange={e => setFieldChange(e, values, setValues, 'first_name', index)}
                                   onBlur={() => setFieldTouched('first_name', index)}
+                                  disabled={index === 0 && values.contact_details.c_relationship_to_p === 'self'}
                                   className={
                                     bookingTouched.passenger_details[index]?.first_name && bookingErrors.passenger_details[index]?.first_name
                                     ? "im-error" : ""
@@ -417,6 +426,7 @@ function FlightBookingPage(props: any) {
                                   value={passenger.last_name}
                                   onChange={e => setFieldChange(e, values, setValues, 'last_name', index)}
                                   onBlur={() => setFieldTouched('last_name', index)}
+                                  disabled={index === 0 && values.contact_details.c_relationship_to_p === 'self'}
                                   className={
                                     bookingTouched.passenger_details[index]?.last_name && bookingErrors.passenger_details[index]?.last_name
                                     ? "im-error" : ""
@@ -438,6 +448,7 @@ function FlightBookingPage(props: any) {
                                   value={passenger.email}
                                   onChange={e => setFieldChange(e, values, setValues, 'email', index)}
                                   onBlur={() => setFieldTouched('email', index)}
+                                  disabled={index === 0 && values.contact_details.c_relationship_to_p === 'self'}
                                   className={
                                     bookingTouched.passenger_details[index]?.email && bookingErrors.passenger_details[index]?.email
                                     ? "im-error" : ""
@@ -459,6 +470,7 @@ function FlightBookingPage(props: any) {
                                   value={passenger.phone_number}
                                   onChange={e => setFieldChange(e, values, setValues, 'phone_number', index)}
                                   onBlur={() => setFieldTouched('phone_number', index)}
+                                  disabled={index === 0 && values.contact_details.c_relationship_to_p === 'self'}
                                   maxLength={11}
                                   onKeyUp={acceptOnlyNumbers}
                                   className={
@@ -527,7 +539,7 @@ function FlightBookingPage(props: any) {
                                 </div>
                                 <div className='col-md-6'>
                                   <div className='form-input'>
-                                    <label>Is The Passanger The Holder of This Document?</label>
+                                    <label>Is The Passenger The Holder of This Document?</label>
                                     <select
                                       name={"passenger.holder" + index}
                                       value={passenger.holder}
@@ -561,7 +573,7 @@ function FlightBookingPage(props: any) {
                                         ? "im-error" : ""
                                       }
                                     >
-                                      <option disabled value="">Chose Document Type</option>
+                                      <option disabled value="">Choose Document Type</option>
                                       <option value="passport">Passport</option>
                                       <option value="national_idcard">National ID Card</option>
                                       <option value="others">Others</option>
