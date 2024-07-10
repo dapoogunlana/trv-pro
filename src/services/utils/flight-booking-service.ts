@@ -15,13 +15,9 @@ export interface ILaugageData {
 }
 
 export interface IFlightClassData {
-    adults18_64Count: number;
-    studentsOver18Count: number;
-    seniorsOver65Count: number;
-    youths12_17Count: number;
-    children2_11Count: number;
-    toddlersInOwnSeatUnder2Count: number;
-    infantsOnLapUnder2Count: number;
+    adultCount: number;
+    childrenCount: number;
+    infantCount: number;
     cabinClass: 'Economy' | 'Premium' | 'Business' | 'First';
     allPassengerCount: number;
   }
@@ -29,7 +25,6 @@ export interface IFlightClassData {
 export interface ICombinedFlightSearchData {
     location: ILocationData | undefined;
     date: IDateData | undefined;
-    luggageCounts: ILaugageData | undefined;
     flightClass: IFlightClassData | undefined;
     flightType: 'return' | 'one-way';
 }
@@ -37,7 +32,6 @@ export interface ICombinedFlightSearchData {
 export let storedCombinedFlightData: ICombinedFlightSearchData = {
     location: {from: undefined, to: undefined},
     date: { startDate: undefined, endDate: undefined, key: 'selection' },
-    luggageCounts: {checkedInCount: 0, handLuggageCount: 0},
     flightClass: undefined,
     flightType: 'return',
 }
@@ -46,7 +40,6 @@ export const generateNewCombinedFlightData = (): ICombinedFlightSearchData => {
     return {
         location: {from: undefined, to: undefined},
         date: { startDate: undefined, endDate: undefined, key: 'selection' },
-        luggageCounts: {checkedInCount: 0, handLuggageCount: 0},
         flightClass: undefined,
         flightType: 'return',
     }

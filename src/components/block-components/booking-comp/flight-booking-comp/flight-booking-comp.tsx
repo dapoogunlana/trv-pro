@@ -6,19 +6,16 @@ import DateSelectionComp from './date-selection/date-selection';
 import './flight-booking-comp.scss';
 import FlightClassSelectionComp from './flight-class-selection/flight-class-selection';
 import LocationSelectionComp from './location-selection/location-selection';
-import LuggageSelectionComp from './luggage-selection/luggage-selection';
 import {
   generateNewCombinedFlightData,
   ICombinedFlightSearchData,
   IDateData,
   IFlightClassData,
-  ILaugageData,
   ILocationData,
   storedCombinedFlightData,
   updateCombinedFlightData,
 } from '../../../../services/utils/flight-booking-service';
 import { toast } from 'react-toastify';
-import { calculateAdult } from '../../../../pages/user/flights/flight-search/flight-search-service';
 
 interface IFlightBooking {
   cleanSelection?: boolean;
@@ -36,7 +33,6 @@ function FlightBookingComp({cleanSelection, hidecategories, searchFlights}: IFli
   const [flightType, setFlightType] = useState<'return' | 'one-way'>(combinedFlightData.flightType);
   const [location, setLocation] = useState<ILocationData | undefined>(combinedFlightData.location);
   const [date, setDate] = useState<IDateData | undefined>(combinedFlightData.date);
-  const [luggageCounts, setLuggageCounts] = useState<ILaugageData | undefined>(combinedFlightData.luggageCounts);
   const [flightClass, setFlightClass] = useState<IFlightClassData | undefined>(combinedFlightData.flightClass);
 
   const [canProceed, setCanProceed] = useState(true);
@@ -54,16 +50,13 @@ function FlightBookingComp({cleanSelection, hidecategories, searchFlights}: IFli
   const updateDate = (dateObj: { startDate: Date | undefined, endDate: Date | undefined, key: string| undefined }) => {
     setDate(dateObj);
   }
-  const updateLuggageCounts = (counts: {checkedInCount: number, handLuggageCount: number}) => {
-    setLuggageCounts(counts);
-  }
   const updateFlightClass = (counts: any) => {
     setFlightClass(counts);
   }
 
   const searchForFlights = (values: FormikValues, controls: any) => {
     if(!canProceed) {
-      toast.error('Please complete flight details: ' + errorListString);
+      toast.error('Review inputs: ' + errorListString);
       return;
     }
     if (searchFlights){
@@ -86,14 +79,13 @@ function FlightBookingComp({cleanSelection, hidecategories, searchFlights}: IFli
   const compileCombinedData = () => {
     const tempCombination = {
       location: (location?.from && location?.to) ? location : undefined ,
-      date: date?.startDate ? date : undefined,
-      luggageCounts: (luggageCounts?.checkedInCount || luggageCounts?.handLuggageCount) ? luggageCounts : undefined,
+      date: ((flightType === 'return' && date?.startDate && date?.endDate) || (flightType === 'one-way' && date?.startDate)) ? date : undefined,
       flightClass: flightClass?.allPassengerCount ? flightClass: undefined,
       flightType: flightType,
     }
     const errors: string[] = [];
     setCombinedFlightData(tempCombination);
-    if (tempCombination.location && tempCombination.date && calculateAdult(tempCombination.flightClass, true) && tempCombination.luggageCounts) {
+    if (tempCombination.location && tempCombination.date && ((tempCombination.flightClass?.adultCount || 0) >= (tempCombination.flightClass?.infantCount || 0))) {
       setCanProceed(true);
       updateCombinedFlightData(tempCombination);
     } else {
@@ -103,11 +95,8 @@ function FlightBookingComp({cleanSelection, hidecategories, searchFlights}: IFli
       if(!tempCombination.date) {
         errors.push('Date Information')
       }
-      if(!calculateAdult(tempCombination.flightClass, true)) {
-        errors.push('Passanger Information')
-      }
-      if(!tempCombination.luggageCounts) {
-        errors.push('Luggage Information')
+      if((tempCombination.flightClass?.adultCount || 0) < (tempCombination.flightClass?.infantCount || 0)) {
+        errors.push('Infants can not exceed adults on a trip')
       }
       setCanProceed(false);
       updateCombinedFlightData(generateNewCombinedFlightData());
@@ -121,7 +110,7 @@ function FlightBookingComp({cleanSelection, hidecategories, searchFlights}: IFli
 
   useEffect(() => {
     compileCombinedData();
-  }, [location, date, luggageCounts, flightClass]);
+  }, [location, date, flightClass]);
 
   return (
     <div className='flight-booking-comp'>
@@ -159,16 +148,16 @@ function FlightBookingComp({cleanSelection, hidecategories, searchFlights}: IFli
         </div>
       </div>
       <div className='row'>
-        <div className='col-lg-3 col-sm-6'>
+        <div className={flightType === 'return' ? 'col-lg-5 col-sm-12' : 'col-lg-6 col-sm-12'}>
           <LocationSelectionComp location={location} setLocation={updateLocation} />
         </div>
-        <div className='col-lg-3 col-sm-6'>
+        <div className={flightType === 'return' ? 'col-lg-5 col-sm-8' : 'col-lg-4 col-sm-8'}>
           <DateSelectionComp date={date} setDate={updateDate} multiple={flightType === 'return'} />
         </div>
-        <div className='col-lg-3 col-sm-6'>
+        {/* <div className='col-lg-3 col-sm-6'>
           <LuggageSelectionComp luggageCounts={luggageCounts} setLuggageCounts={updateLuggageCounts} />
-        </div>
-        <div className='col-lg-3 col-sm-6'>
+        </div> */}
+        <div className='col-lg-2 col-sm-4'>
           <FlightClassSelectionComp flightClass={flightClass} setFlightClass={updateFlightClass} />
         </div>
       </div>

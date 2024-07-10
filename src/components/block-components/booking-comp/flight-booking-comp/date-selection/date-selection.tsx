@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Formik, FormikValues } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { clipToLength, formatDate, formatDateMini, generateDateRestriction } from '../../../../../services/utils/data-manipulation-utilits';
+import { clipToLength, formatDate, formatDateMin, generateDateRestriction } from '../../../../../services/utils/data-manipulation-utilits';
 import { sendRequest } from '../../../../../services/utils/request';
 import TypeSuggestComponent from '../../../../base-components/type-suggest/type-suggest';
 import AppPopup from '../../../app-popup/app-popup';
@@ -20,39 +20,48 @@ interface iDateProps {
 
 function DateSelectionComp(props: iDateProps) {
 
-  const [showPopup, setShowPopup] = useState<0 | 1 | 2>(0);
+  const [showStartPopup, setShowStartPopup] = useState<0 | 1 | 2>(0);
+  const [showEndPopup, setShowEndPopup] = useState<0 | 1 | 2>(0);
   const [initialized, setInitialized] = useState(false)
   const [selectionRange, setSelectionRange] = useState<IDateData>(props.date?.startDate ? props.date : { startDate: new Date(), endDate: new Date(), key: 'selection' });
   const [confirmedSelectionRange, setConfirmedSelectionRange] = useState<IDateData>(props.date || { startDate: undefined, endDate: undefined, key: 'selection' });
   const [selectionDate, setSelectionDate] = useState(props.date?.startDate || undefined);
+  const [startDate, setStartDate] = useState(props.date?.startDate || undefined);
+  const [endDate, setEndDate] = useState(props.date?.endDate || undefined);
   const [activeDate, setActiveDate] = useState(false);
 
-  const toggleShowPopup = (status?: 0 | 1 | 2) => {
-    setShowPopup(status || 0);
+  const toggleShowStartPopup = (status?: 0 | 1 | 2) => {
+    setShowStartPopup(status || 0);
   }
-  const monthDisplayCount = window.innerWidth > 991 ? 2 : 1;
-  const handleSelect = (date: any) => {
-    setSelectionDate(date);
-    setActiveDate(date ? true : false);
+  const toggleShowEndPopup = (status?: 0 | 1 | 2) => {
+    setShowEndPopup(status || 0);
   }
-  const handleRangeSelect = (ranges: any) => {
-    setSelectionRange(ranges.selection)
-    setActiveDate(ranges.selection.startDate !== ranges.selection.endDate);
-    if(ranges.selection.startDate !== ranges.selection.endDate) {
-      setConfirmedSelectionRange(ranges.selection);
-    } else {
-      setConfirmedSelectionRange({ startDate: undefined, endDate: undefined, key: 'selection' });
-    }
+  // const monthDisplayCount = window.innerWidth > 991 ? 2 : 1;
+  // const handleSelect = (date: any) => {
+  //   setSelectionDate(date);
+  //   setActiveDate(date ? true : false);
+  // }
+  const handleStartSelect = (date: any) => {
+    setStartDate(date);
+    setEndDate(undefined);
+    toggleShowStartPopup(1);
   }
-  const resetDates = () => {
-    setSelectionRange({ startDate: new Date(), endDate: new Date(), key: 'selection' });
-    setConfirmedSelectionRange({ startDate: undefined, endDate: undefined, key: 'selection' });
-    setSelectionDate(undefined);
-    setActiveDate(false);
+  const handleEndSelect = (date: any) => {
+    setEndDate(date);
+    toggleShowEndPopup(1);
   }
-  
-  const confirmDate = () => {
-    toggleShowPopup(1);
+  // const resetDates = () => {
+  //   setSelectionRange({ startDate: new Date(), endDate: new Date(), key: 'selection' });
+  //   setConfirmedSelectionRange({ startDate: undefined, endDate: undefined, key: 'selection' });
+  //   setSelectionDate(undefined);
+  //   setActiveDate(false);
+  // }
+  const resetStartDates = () => {
+    setStartDate(undefined);
+    setEndDate(undefined);
+  }
+  const resetEndDates = () => {
+    setEndDate(undefined);
   }
 
   useEffect(() => {
@@ -62,86 +71,85 @@ function DateSelectionComp(props: iDateProps) {
   })
   useEffect(() => {
     if(initialized){
-      resetDates();
-      setActiveDate(false);
+      resetStartDates();
+      resetEndDates();
+      props.setDate({startDate: undefined, endDate: undefined});
     }
   }, [props.multiple])
 
   useEffect(() => {
     if(initialized){
-      if(props.multiple) {
-        props.setDate(confirmedSelectionRange);
-      } else {
-        props.setDate({startDate: selectionDate});
-      }
+      // if(props.multiple) {
+      //   if(startDate && endDate) {
+      //     props.setDate({startDate, endDate});
+      //   }
+      // } else {
+      //   props.setDate({startDate});
+      // }
+      props.setDate({startDate, endDate});
     }
-  }, [confirmedSelectionRange, selectionDate])
+  }, [startDate, endDate])
 
   return (
-    <div className='pt-3 pb-2'>
-      <AppPopup
-        switch={
-          <div className='selector' 
-            onClick={() => toggleShowPopup(2)} 
-            title={
-              props.multiple ?
-              `${formatDate(confirmedSelectionRange.startDate, '...')} - ${formatDate(confirmedSelectionRange.endDate, '...')}` :
-              formatDate(selectionDate, '...')
-            }
-          >
-            <div className='label'>
-              {
-                props.multiple ?
-                <span>Departure - Return</span> :
-                <span>Departure</span>
-              }
-            </div>
-            <p className='mb-0'>
-              {
-                props.multiple ?
-                <span>{formatDateMini(confirmedSelectionRange.startDate, '...')} - {formatDateMini(confirmedSelectionRange.endDate, '...')}</span> :
-                formatDateMini(selectionDate, '...')
-              }
-            </p>
-            <FontAwesomeIcon icon={'calendar-alt'} className='fainter-tx' />
-          </div>
-        }
-        switchClass='w100-flat'
-        showPopup={showPopup}
-        onClosePopup={() => toggleShowPopup()}
-      >
-        <div className='date-case'>
-          {
-            props.multiple ?
-            <div className='range-holder'>
-              <DateRangePicker
-                  ranges={[selectionRange]}
-                  onChange={handleRangeSelect}
-                  months={monthDisplayCount}
-                  direction="horizontal"
-                  minDate={new Date(generateDateRestriction(0, 0, 1))}
-              />
-            </div> :
-            <div className='single-date-holder'>
-              <Calendar
-                  date={selectionDate}
-                  onChange={handleSelect}
-                  minDate={new Date(generateDateRestriction(0, 0, 1))}
-              />
+    <div className='pt-3 pb-2 row px-2'>
+      <div className={props.multiple ? 'col-6 px-1' : 'col-12 px-1'}>
+        <AppPopup
+          switch={
+            <div className='selector' onClick={() => toggleShowStartPopup(2)} title={formatDate(startDate, '...')}>
+              <div className='label'><span>Departure</span></div>
+              <p className='mb-0 number-medium'>{formatDateMin(startDate, '...')}</p>
+              <FontAwesomeIcon icon={'calendar-alt'} className='fainter-tx' />
             </div>
           }
-          <div className='text-center'>
-            <button className='reset-button' onClick={resetDates}>Reset Date</button>
-            {
-              activeDate &&
-              <>
-                &nbsp; &nbsp; 
-                <button className='reset-button' onClick={confirmDate}>Ok</button>
-              </>
-            }
+          switchClass='w100-flat'
+          showPopup={showStartPopup}
+          onClosePopup={() => toggleShowStartPopup()}
+        >
+          <div className='date-case'>
+            <div className='single-date-holder'>
+              <Calendar
+                  date={startDate}
+                  onChange={handleStartSelect}
+                  minDate={new Date(generateDateRestriction(0, 0, 1))}
+              />
+            </div>
+            <div className='text-center'>
+              <button className='reset-button' onClick={resetStartDates}>Reset Date</button>
+            </div>
           </div>
-        </div>
-      </AppPopup>
+        </AppPopup>
+      </div>
+      {
+        props.multiple ?
+        <div className='col-6 px-1'>
+          <AppPopup
+            switch={
+              <div className='selector' onClick={() => toggleShowEndPopup(2)} title={formatDate(endDate, '...')}>
+                <div className='label'><span>Return</span></div>
+                <p className='mb-0 number-medium'>{formatDateMin(endDate, '...')}</p>
+                <FontAwesomeIcon icon={'calendar-alt'} className='fainter-tx' />
+              </div>
+            }
+            switchClass='w100-flat'
+            showPopup={showEndPopup}
+            onClosePopup={() => toggleShowEndPopup()}
+          >
+            <div className='date-case'>
+              <div className='single-date-holder'>
+                <Calendar
+                    date={endDate}
+                    onChange={handleEndSelect}
+                    minDate={startDate || new Date(generateDateRestriction(0, 0, 1))}
+                />
+              </div>
+              <div className='text-center'>
+                <button className='reset-button' onClick={resetEndDates}>Reset Date</button>
+              </div>
+            </div>
+          </AppPopup>
+        </div> :
+        <></>
+      }
     </div>
   );
 }

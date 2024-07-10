@@ -100,7 +100,27 @@ export function formatDateMini(date: any, returnValue?: string) {
       
       if (convertedDate) {
         const dateList = convertedDate.split('/');
+        console.log({dateList, convertedDate})
         return `${dateList[1]}-${dateList[0]}-${dateList[2].substring(2)}`;
+      } else {
+        return returnValue || '-';
+      }
+    } else {
+      return returnValue || '-';
+    }
+  } catch(e) {
+    return returnValue || '-';
+  }
+}
+export function formatDateMin(date: any, returnValue?: string) {
+  try{
+    if (date) {
+      const convertedDate =  new Date(date).toLocaleDateString();
+      
+      if (convertedDate) {
+        const dateList = convertedDate.split('/');
+        console.log({dateList, convertedDate})
+        return `${dateList[1]}-${dateList[0]}-${dateList[2]}`;
       } else {
         return returnValue || '-';
       }
@@ -203,11 +223,23 @@ export function filterUnsecureHTML(inputString: string) {
   }
   const outputString = inputString
     .replace(/</g, '&lt;')
-    .replace(/</g, '&gt;')
+    .replace(/>/g, '&gt;')
     .replace(/{{{/g, '<a target="_blank" href="')
     .replace(/}}}/g, '">')
     .replace(/{}/g, '</a>')
     .replace(/{/g, '')
     .replace(/}/g, '');
   return outputString;
+}
+
+export const formatDateToUTC = (date: any) => {
+  if(!date) {
+    return '';
+  }
+  try{
+    const newDate = new Date(date.getTime() - (new Date().getTimezoneOffset() * 60 * 1000)).toISOString().split('T')[0];
+    return newDate;
+  } catch(e) {
+    return '';
+  }
 }

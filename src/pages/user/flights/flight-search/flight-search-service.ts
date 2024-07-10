@@ -15,29 +15,11 @@
     return `${hour} : ${timeArray[1]} ${section}`;
   }
 
-  export const calculateAdult = (fData: any, digit = false) => {
-    let count = 0;
-    count += (fData?.allPassengerCount || 0)
-    - (fData?.children2_11Count || 0)
-    - (fData?.toddlersInOwnSeatUnder2Count || 0)
-    - (fData?.infantsOnLapUnder2Count || 0)
-    let result = digit ? count : count + '';
-    return result;
-  }
-
   export const calculateMinors = (fData: any, digit = false) => {
     let count = 0;
     count +=  (fData?.toddlersInOwnSeatUnder2Count || 0)
     + (fData?.infantsOnLapUnder2Count || 0)
     + (fData?.children2_11Count || 0)
-    let result = digit ? count : count + '';
-    return result;
-  }
-
-  export const calculateInfant = (fData: any, digit = false) => {
-    let count = 0;
-    count +=  (fData?.toddlersInOwnSeatUnder2Count || 0)
-    + (fData?.infantsOnLapUnder2Count || 0)
     let result = digit ? count : count + '';
     return result;
   }

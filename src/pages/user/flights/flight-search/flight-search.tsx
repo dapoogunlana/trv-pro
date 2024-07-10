@@ -9,8 +9,8 @@ import { sendRequest } from '../../../../services/utils/request';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router';
 import { routeConstants } from '../../../../services/constants/route-constants';
-import { formatNumber } from '../../../../services/utils/data-manipulation-utilits';
-import { calculateAdult, calculateInfant, formatTime, getFlightToAndFrom, sampleFlights } from './flight-search-service';
+import { formatDateToUTC, formatNumber } from '../../../../services/utils/data-manipulation-utilits';
+import { formatTime, getFlightToAndFrom } from './flight-search-service';
 import FlightSearchFilter from './flight-search-filter/flight-search-filter';
 
 function FlightSearchPage(props: any) {
@@ -35,12 +35,12 @@ function FlightSearchPage(props: any) {
         body: {
           origin: fData.location?.from?.iata_code,
           destination: fData.location?.to?.iata_code,
-          departure_date: fData.date?.startDate?.toISOString().split('T')[0],
-          adults: fData.flightClass ? calculateAdult(fData.flightClass) : 0,
+          departure_date: formatDateToUTC(fData.date?.startDate),
+          adults: fData.flightClass ? fData.flightClass.adultCount : 0,
           cabin: fData.flightClass?.cabinClass.toLocaleLowerCase(),
-          children: `${fData.flightClass?.children2_11Count || 0}`,
-          infants: fData.flightClass ? calculateInfant(fData.flightClass) : 0,
-          return_date: fData.date?.endDate ? fData.date?.endDate?.toISOString().split('T')[0] : ""
+          children: `${fData.flightClass?.childrenCount || 0}`,
+          infants: fData.flightClass ? fData.flightClass.infantCount : 0,
+          return_date: fData.date?.endDate ? formatDateToUTC(fData.date?.endDate) : ""
         },
       },
       (res: any) => {
@@ -74,7 +74,7 @@ function FlightSearchPage(props: any) {
     // window.scrollTo(0, 0);
   }, [init]);
   useEffect(() => {
-    if (fData.location && fData.date && fData.flightClass && fData.luggageCounts) {
+    if (fData.location && fData.date && fData.flightClass) {
       fetchFlights(fData);
     }
   }, [props]);

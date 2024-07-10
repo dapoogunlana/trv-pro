@@ -25,6 +25,7 @@ interface iLocationProps {
 function LocationSelectionComp(props: iLocationProps) {
 
   const [showPopup, setShowPopup] = useState<0 | 1 | 2>(0);
+  const [showEndPopup, setShowEndPopup] = useState<0 | 1 | 2>(0);
   // const [airportList, setAirportList] = useState<any[]>([]);
   const [location, setLocation] = useState<ILocationSelection>(props.location || {from: undefined, to: undefined});
   const [confirmedLocation, setConfirmedLocation] = useState<ILocationSelection>(props.location || {from: undefined, to: undefined});
@@ -56,7 +57,6 @@ function LocationSelectionComp(props: iLocationProps) {
       currentLocation.to = data;
     }
     setLocation(currentLocation);
-    setConfirmedLocation({from: undefined, to: undefined});
   }
 
   const confirmLocation = () => {
@@ -69,64 +69,45 @@ function LocationSelectionComp(props: iLocationProps) {
   }, [props.componentState])
 
   useEffect(() => {
-    props.setLocation(confirmedLocation);
-  }, [confirmedLocation])
+    if(location.from && location.to){
+      props.setLocation(location);
+    } else {
+      props.setLocation({from: undefined, to: undefined});
+    }
+  }, [location])
 
   return (
-    <div className='pt-3 pb-2'>
-      <AppPopup
-        switch={
-          <div className='selector' onClick={() => toggleShowPopup(2)} title={`${confirmedLocation.from?.name || '...'} - ${confirmedLocation.to?.name || '...'}`}>
-            <div className='label'>From - To</div>
-            <p className='mb-0'>
-              {clipToLength(confirmedLocation.from?.name, 10) || '...'} - {clipToLength(confirmedLocation.to?.name, 10) || '...'}
-            </p>
-            <FontAwesomeIcon icon={'arrow-right-arrow-left'} />
+    <div className='pt-3 pb-2 location-holder'>
+      <div className='row px-2'>
+        <div className='col-sm-6 px-1'>
+          <div className={'location-selection' + (location.to ? ' selected-label' : '')}>
+            <div className='label'>Take off</div>
+            <TypeSuggestComponent
+              data={airportList}
+              typePlaceholder='Enter Take off'
+              floatOption initialValue={location.from?.name}
+              selected={(data: any) => updateSelection(data, 'from')}
+              subKey='name'
+              subKey2='city'
+              listLength={20}
+            />
           </div>
-        }
-        switchClass='w100-flat'
-        showPopup={showPopup}
-        onClosePopup={() => toggleShowPopup()}
-      >
-        <div className='location-case'>
-          <div className='row'>
-            <div className='col-sm-6'>
-              <div className='location-selection'>
-                <p className='reduced mb-0 mt-2'>Take off</p>
-                <TypeSuggestComponent
-                  data={airportList}
-                  typePlaceholder='Enter Take off'
-                  floatOption initialValue={location.from?.name}
-                  selected={(data: any) => updateSelection(data, 'from')}
-                  subKey='name'
-                  subKey2='city'
-                  listLength={20}
-                />
-              </div>
-            </div>
-            <div className='col-sm-6'>
-              <div className='location-selection'>
-                <p className='reduced mb-0 mt-2'>Destination</p>
-                <TypeSuggestComponent
-                  data={airportList}
-                  typePlaceholder='Enter Destination'
-                  floatOption initialValue={location.to?.name}
-                  selected={(data: any) => updateSelection(data, 'to')}
-                  subKey='name'
-                  subKey2='city'
-                  listLength={20}
-                />
-              </div>
-            </div>
-          </div>
-          {
-            location.from && location.to &&
-            <div className='pt-3 text-center'>
-              <button className='confirm-location-button' onClick={confirmLocation}>Confirm Location</button>
-            </div>
-          }
         </div>
-      </AppPopup>
+        <div className='col-sm-6 px-1'>
+          <div className={'location-selection' + (location.to ? ' selected-label' : '')}>
+            <div className='label'>Destination</div>
+            <TypeSuggestComponent
+              data={airportList}
+              typePlaceholder='Enter Destination'
+              floatOption initialValue={location.to?.name}
+              selected={(data: any) => updateSelection(data, 'to')}
+              subKey='name'
+              subKey2='city'
+              listLength={20}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -13,7 +13,7 @@ function BannerSect(props: {searchFlights: Function}) {
   }
 
   useEffect(() => {
-    if (fData.location && fData.date && fData.flightClass && fData.luggageCounts) {
+    if (fData.location && fData.date && fData.flightClass) {
       setFlightsSearched(true);
     }
   }, [props]);

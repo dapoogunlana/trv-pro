@@ -1,7 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
-import { calculateAdult, calculateMinors } from '../../../../../pages/user/flights/flight-search/flight-search-service';
-import { clipToLength } from '../../../../../services/utils/data-manipulation-utilits';
 import { IFlightClassData } from '../../../../../services/utils/flight-booking-service';
 import IncrementalCountComponent from '../../../../base-components/incremental-count/incremental-count';
 import AppPopup from '../../../app-popup/app-popup';
@@ -15,13 +13,9 @@ interface iFlightClassProps {
 function FlightClassSelectionComp(props: iFlightClassProps) {
 
   const [showPopup, setShowPopup] = useState<0 | 1 | 2>(0);
-  const [adults18_64Count, setAdults18_64Count] = useState(props.flightClass?.adults18_64Count || 0);
-  const [studentsOver18Count, setStudentsOver18Count] = useState(props.flightClass?.studentsOver18Count || 0);
-  const [seniorsOver65Count, setSeniorsOver65Count] = useState(props.flightClass?.seniorsOver65Count || 0);
-  const [youths12_17Count, setYouths12_17Count] = useState(props.flightClass?.youths12_17Count || 0);
-  const [children2_11Count, setChildren2_11Count] = useState(props.flightClass?.children2_11Count || 0);
-  const [toddlersInOwnSeatUnder2Count, setToddlersInOwnSeatUnder2Count] = useState(props.flightClass?.toddlersInOwnSeatUnder2Count || 0);
-  const [infantsOnLapUnder2Count, setInfantsOnLapUnder2Count] = useState(props.flightClass?.infantsOnLapUnder2Count || 0);
+  const [adultCount, setAdultCount] = useState(props.flightClass?.adultCount || 1);
+  const [childrenCount, setChildrenCount] = useState(props.flightClass?.childrenCount || 0);
+  const [infantCount, setInfantCount] = useState(props.flightClass?.infantCount || 0);
   const [allPassengerCount, setAllPassengerCount] = useState(props.flightClass?.allPassengerCount || 0);
   const [cabinClass, setCabinClass] = useState<'Economy' | 'Premium' | 'Business' | 'First'>(props.flightClass?.cabinClass || 'Economy');
 
@@ -29,26 +23,14 @@ function FlightClassSelectionComp(props: iFlightClassProps) {
     setShowPopup(status || 0);
   }
 
-  const updateAdults18_64Count = (count: number) => {
-    setAdults18_64Count(count);
+  const updateAdultCount = (count: number) => {
+    setAdultCount(count);
   }
-  const updateStudentsOver18Count = (count: number) => {
-    setStudentsOver18Count(count);
+  const updateChildrenCount = (count: number) => {
+    setChildrenCount(count);
   }
-  const updateSeniorsOver65Count = (count: number) => {
-    setSeniorsOver65Count(count);
-  }
-  const updateYouths12_17Count = (count: number) => {
-    setYouths12_17Count(count);
-  }
-  const updateChildren2_11Count = (count: number) => {
-    setChildren2_11Count(count);
-  }
-  const updateToddlersInOwnSeatUnder2Count = (count: number) => {
-    setToddlersInOwnSeatUnder2Count(count);
-  }
-  const updateInfantsOnLapUnder2Count = (count: number) => {
-    setInfantsOnLapUnder2Count(count);
+  const updateInfantCount = (count: number) => {
+    setInfantCount(count);
   }
 
   const updateCabinClass = (cabinClass: 'Economy' | 'Premium' | 'Business' | 'First') => {
@@ -57,52 +39,32 @@ function FlightClassSelectionComp(props: iFlightClassProps) {
 
   const calculateAllPassengerCount = () => {
     const all = 
-      adults18_64Count +
-      studentsOver18Count +
-      seniorsOver65Count +
-      youths12_17Count +
-      children2_11Count +
-      toddlersInOwnSeatUnder2Count +
-      infantsOnLapUnder2Count;
+      adultCount +
+      childrenCount +
+      infantCount
     setAllPassengerCount(all);
   }
 
   const sendFlightUpdates = () => {
     props.setFlightClass({
-      adults18_64Count,
-      studentsOver18Count,
-      seniorsOver65Count,
-      youths12_17Count,
-      children2_11Count,
-      toddlersInOwnSeatUnder2Count,
-      infantsOnLapUnder2Count,
+      adultCount,
+      childrenCount,
+      infantCount,
       cabinClass,
       allPassengerCount,
     });
   }
   
-  const confirmPassangerCounts = () => {
+  const confirmPassengerCounts = () => {
     toggleShowPopup(1);
-  }
-
-  const sendAdults = () => {
-    return calculateAdult({allPassengerCount, children2_11Count, toddlersInOwnSeatUnder2Count, infantsOnLapUnder2Count}, true);
-  }
-
-  const sendMinors = () => {
-    return calculateMinors({allPassengerCount, children2_11Count, toddlersInOwnSeatUnder2Count, infantsOnLapUnder2Count}, true);
   }
 
   useEffect(() => {
     calculateAllPassengerCount();
   }, [
-    adults18_64Count,
-    studentsOver18Count,
-    seniorsOver65Count,
-    youths12_17Count,
-    children2_11Count,
-    toddlersInOwnSeatUnder2Count,
-    infantsOnLapUnder2Count
+    adultCount,
+    childrenCount,
+    infantCount,
   ])
   useEffect(() => {
     sendFlightUpdates();
@@ -114,12 +76,12 @@ function FlightClassSelectionComp(props: iFlightClassProps) {
         switch={
           <div className='selector' onClick={() => toggleShowPopup(2)} 
             title={
-              `${sendAdults()} Adult${sendAdults() === 1 ? '' : 's'}, ` +
-              `${sendMinors()} Minor${sendMinors() === 1 ? '' : 's'}, ${cabinClass}`
+              `${adultCount} Adult${adultCount === 1 ? '' : 's'}, ` +
+              `${(childrenCount + infantCount)} Minor${(childrenCount + infantCount) === 1 ? '' : 's'}, ${cabinClass}`
             }
           >
-            <div className='label'>Passanger - Class</div>
-            <p className='mb-0 reduced-info'>{allPassengerCount} Passenger{allPassengerCount === 1 ? '' : 's'}, {clipToLength(cabinClass, 19)}</p>
+            <div className='label'>Passenger - Class</div>
+            <p className='mb-0 reduced-info'>{allPassengerCount} Passenger{allPassengerCount === 1 ? '' : 's'}</p>
             <FontAwesomeIcon icon={'chevron-down'} className='fainter-tx' />
           </div>
         }
@@ -129,39 +91,23 @@ function FlightClassSelectionComp(props: iFlightClassProps) {
       >
         <div className='flight-class-case'>
           <div className='sect-holder'>
-            <div className='label'>Passanger</div>
+            <div className='label'>Passenger</div>
             <div className='passenger-sect'>
-              <span className='faint-tx'>Adults 18 - 64</span>
-              <IncrementalCountComponent updateCount={updateAdults18_64Count} count={adults18_64Count} />
+              <span className='faint-tx'>Adults</span>
+              <IncrementalCountComponent updateCount={updateAdultCount} minimum={1} count={adultCount} />
             </div>
             <div className='passenger-sect'>
-              <span className='faint-tx'>Students over 18</span>
-              <IncrementalCountComponent updateCount={updateStudentsOver18Count} count={studentsOver18Count} />
+              <span className='faint-tx'>Children 2 - 17</span>
+              <IncrementalCountComponent updateCount={updateChildrenCount} count={childrenCount} />
             </div>
             <div className='passenger-sect'>
-              <span className='faint-tx'>Seniors over 65</span>
-              <IncrementalCountComponent updateCount={updateSeniorsOver65Count} count={seniorsOver65Count} />
-            </div>
-            <div className='passenger-sect'>
-              <span className='faint-tx'>Youths 12 - 17</span>
-              <IncrementalCountComponent updateCount={updateYouths12_17Count} count={youths12_17Count} />
-            </div>
-            <div className='passenger-sect'>
-              <span className='faint-tx'>Children 2 - 11</span>
-              <IncrementalCountComponent updateCount={updateChildren2_11Count} count={children2_11Count} />
-            </div>
-            <div className='passenger-sect'>
-              <span className='faint-tx'>Toddlers in own seat under 2</span>
-              <IncrementalCountComponent updateCount={updateToddlersInOwnSeatUnder2Count} count={toddlersInOwnSeatUnder2Count} />
-            </div>
-            <div className='passenger-sect'>
-              <span className='faint-tx'>Infants on lap under 2</span>
-              <IncrementalCountComponent updateCount={updateInfantsOnLapUnder2Count} count={infantsOnLapUnder2Count} />
+              <span className='faint-tx'>Infants</span>
+              <IncrementalCountComponent updateCount={updateInfantCount} count={infantCount} />
             </div>
           </div>
           <div className='separator'></div>
           <div className='sect-holder pb-3'>
-            <div className='label'>Passanger</div>
+            <div className='label'>Cabin Class</div>
             <div 
               className={'flight-class-sect' + (cabinClass === 'Economy' ? ' selected' : '')}
               onClick={() => updateCabinClass('Economy')}
@@ -215,9 +161,9 @@ function FlightClassSelectionComp(props: iFlightClassProps) {
               <span className=''>First Class</span>
             </div>
             {
-              (allPassengerCount - children2_11Count - toddlersInOwnSeatUnder2Count - infantsOnLapUnder2Count) > 0 ?
-              <button className='flight-button py-1 px-3' onClick={confirmPassangerCounts}>OK</button> :
-              <p className='reduced red-tx italic'>You need an adult present to book a flight</p>
+              adultCount >= infantCount ?
+              <button className='flight-button py-1 px-3' onClick={confirmPassengerCounts}>OK</button> :
+              <p className='reduced red-tx italic'>You need an adult present for every infant, infants can not exceed adults</p>
             }
           </div>
         </div>

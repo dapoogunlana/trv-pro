@@ -104,7 +104,7 @@ function StayBookingComp({cleanSelection, hidecategories, searchStays}: IStayBoo
         errors.push('Date Information')
       }
       if(!calculateAdult(tempCombination.stayClass, true)) {
-        errors.push('Passanger Information')
+        errors.push('Passenger Information')
       }
       if(!tempCombination.luggageCounts) {
         errors.push('Luggage Information')

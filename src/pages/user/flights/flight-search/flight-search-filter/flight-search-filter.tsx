@@ -139,8 +139,9 @@ function FlightSearchFilter({list, updateList, children, status}: IFilterProps) 
       if(!listPirce || listPirce > flight?.amount) {
         listPirce = flight?.amount;
       }
-      if(!fastestTime || fastestTime > flight?.total_duration) {
+      if(!fastestTime || (fastestTime > flight?.total_duration)) {
         fastestTime = flight?.total_duration;
+        console.log({ffff: flight?.total_duration})
       }
       airlineObg[flight?.outbound[0]?.airline_details?.name] = {
         name: flight?.outbound[0]?.airline_details?.name,
@@ -156,6 +157,7 @@ function FlightSearchFilter({list, updateList, children, status}: IFilterProps) 
     }
     setAirlineList(airlines);
     clearFilter();
+    setSelectedTab('best');
   }, [list]);
 
   useEffect(() => {

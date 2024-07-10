@@ -19,11 +19,11 @@
     }
     .selected{
         input{
-            background-color: $faint-blue-border;
+            // background-color: $faint-blue-border;
             color: $purple-bg;
             font-weight: 700;
-            border-color: $faint-blue-border;
-            box-shadow: 0 2px 6px 0 $faint-blue-border;
+            // border-color: $faint-blue-border;
+            // box-shadow: 0 2px 6px 0 $faint-blue-border;
             &:focus{
                 background-color: $white;
                 color: $black;

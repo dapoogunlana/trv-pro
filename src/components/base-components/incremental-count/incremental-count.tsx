@@ -8,6 +8,7 @@ interface iIncrementalCountProp {
   holdUpdateKey?: string;
   increased?: boolean;
   negativeCount?: boolean;
+  minimum?: number;
 }
 
 const IncrementalCountComponent = (props: iIncrementalCountProp) => {
@@ -18,6 +19,10 @@ const IncrementalCountComponent = (props: iIncrementalCountProp) => {
     if(incremental){
       setCount(count + 1);
     } else {
+      if(props.minimum && (count === props.minimum || count < props.minimum)) {
+        setCount(props.minimum);
+        return;
+      }
       if(props.negativeCount) {
         setCount(count - 1);
       } else {
