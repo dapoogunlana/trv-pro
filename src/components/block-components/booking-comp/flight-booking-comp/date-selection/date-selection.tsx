@@ -43,7 +43,9 @@ function DateSelectionComp(props: iDateProps) {
   // }
   const handleStartSelect = (date: any) => {
     setStartDate(date);
-    setEndDate(undefined);
+    if(endDate && endDate <= date){
+      setEndDate(undefined);
+    }
     toggleShowStartPopup(1);
   }
   const handleEndSelect = (date: any) => {

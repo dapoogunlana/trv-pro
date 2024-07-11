@@ -4,10 +4,12 @@ import { Formik, FormikProps, FormikValues } from "formik";
 import { sendRequest } from "../../../../services/utils/request";
 import { toast } from "react-toastify";
 import "./verify-email-form.scss";
+import { iStoreState, IUserData } from "../../../../services/constants/interfaces/store-schemas";
+import { useSelector } from "react-redux";
 
 function VerifyEmailForm({userVerified}: {userVerified?: Function}) {
   const [response, setResponse] = useState<any>();
-  const [showPassword, setShowPassword] = useState(false);
+  const user: IUserData = useSelector((state: iStoreState) => state.user);
 
   const submitRequest = (values: any, controls: any) => {
     sendRequest(
@@ -16,7 +18,7 @@ function VerifyEmailForm({userVerified}: {userVerified?: Function}) {
         method: "POST",
         body: {
           otp: values.otp,
-          userId: sessionStorage.getItem("userId"),
+          userId: user.userId,
         },
       },
       (res: any) => {

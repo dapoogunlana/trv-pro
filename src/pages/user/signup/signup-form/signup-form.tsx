@@ -7,10 +7,13 @@ import { toast } from "react-toastify";
 import { regexConstants } from "../../../../services/constants/validation-regex";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./signup-form.scss";
+import { useDispatch } from "react-redux";
+import { userLogin } from "../../../../services/actions-reducers/user-data";
 
 function AdminSignupForm({poceedToVerify, switchToLogin}: {poceedToVerify?: Function, switchToLogin?: Function}) {
   const [response, setResponse] = useState<any>();
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
 
   const submitRequest = (values: any, controls: any) => {
     sendRequest(
@@ -20,32 +23,15 @@ function AdminSignupForm({poceedToVerify, switchToLogin}: {poceedToVerify?: Func
         body: {
           first_name: values.first_name,
           last_name: values.last_name,
-          // name: `${values.first_name} ${values.last_name}`,
           email: values.email,
           password: values.password,
           referred_by: values.referred_by,
         },
       },
       (res: any) => {
-        sessionStorage.setItem("userId", res.userId);
+        dispatch(userLogin({"userId": res?.userId}));
         toast.success(res.message);
         if(poceedToVerify) {
-          // sendRequest(
-          //   {
-          //     url: "user-auth/resend-verification-otp",
-          //     method: "POST",
-          //     body: {
-          //       userId: res.userId,
-          //     },
-          //   },
-          //   (res: any) => {
-          //     poceedToVerify();
-          //     controls.setSubmitting(false);
-          //   },
-          //   () => {
-          //     controls.setSubmitting(false);
-          //   }
-          // );
           poceedToVerify();
         }
         controls.setSubmitting(false);

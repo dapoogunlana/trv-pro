@@ -52,8 +52,6 @@ function LoginForm({poceedToVerify, logUserIn, switchToRegister, passwordReset}:
       (res: any, headers: any) => {
         toast.success(res.message);
         if(res.user) {
-          // sessionStorage.setItem("userId", res.user?.id);
-          // sessionStorage.setItem("userInfo", JSON.stringify(res.user));
             dispatch(userLogin(res.user));
           if(logUserIn) {
             logUserIn();
@@ -66,7 +64,6 @@ function LoginForm({poceedToVerify, logUserIn, switchToRegister, passwordReset}:
         setResponse(err?.error || err?.message || 'Request Failed');
         if(err?.message === 'Unverified email') {
           if(poceedToVerify) {
-            // sessionStorage.setItem("userId", err.userId);
             dispatch(userLogin({"userId": err?.userId}));
             sendRequest(
               {

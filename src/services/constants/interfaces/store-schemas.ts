@@ -8,11 +8,12 @@ export interface IAirportData {
 }
 
 export interface IUserData {
-    email?: String;
+    email?: string;
     email_verified?: Boolean;
-    first_name?: String;
-    id: String;
-    last_name?: String;
+    first_name?: string;
+    id: string;
+    last_name?: string;
+    userId?: string
 }
 
 export interface iStoreState {

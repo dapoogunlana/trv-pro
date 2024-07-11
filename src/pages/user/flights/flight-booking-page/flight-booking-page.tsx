@@ -132,9 +132,10 @@ function FlightBookingPage(props: any) {
   const sumbitFlightBooking = (values: IFlightBookingPayload, control: FormikHelpers<any>) => {
     const payload = updateBookingData(values, flightDetails.document_required);
     setBookingData(payload);
+    const bookLink = user.email ? "flight/book-flight-auth/" : "flight/book-flight-no-auth/";
     sendRequest(
       {
-        url: "flight/book-flight/" + flightId,
+        url: bookLink + flightId,
         method: "POST",
         body: payload,
       },
