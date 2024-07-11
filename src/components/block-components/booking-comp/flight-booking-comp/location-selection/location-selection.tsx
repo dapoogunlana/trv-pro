@@ -77,9 +77,9 @@ function LocationSelectionComp(props: iLocationProps) {
   }, [location])
 
   return (
-    <div className='pt-3 pb-2 location-holder'>
+    <div className='location-holder'>
       <div className='row px-2'>
-        <div className='col-sm-6 px-1'>
+        <div className='pt-3 col-sm-6 px-1'>
           <div className={'location-selection' + (location.to ? ' selected-label' : '')}>
             <div className='label'>Take off</div>
             <TypeSuggestComponent
@@ -93,7 +93,7 @@ function LocationSelectionComp(props: iLocationProps) {
             />
           </div>
         </div>
-        <div className='col-sm-6 px-1'>
+        <div className='pt-3 pb-2 col-sm-6 px-1'>
           <div className={'location-selection' + (location.to ? ' selected-label' : '')}>
             <div className='label'>Destination</div>
             <TypeSuggestComponent
