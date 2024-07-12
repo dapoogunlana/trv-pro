@@ -52,7 +52,7 @@ function FlightPayment(props: IFlightProps) {
 
   const [paystackProps, setPaystackProps] = useState<PaystackButtonProps>({
     email: props.data.email,
-    amount: props.data.amount,
+    amount: Math.ceil(props.data.amount),
     publicKey: apiLinks.paystackPublicKey,
     text: 'Pay Now',
     label: 'Borderless Travels',

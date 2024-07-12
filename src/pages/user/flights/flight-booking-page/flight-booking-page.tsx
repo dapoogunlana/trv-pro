@@ -143,7 +143,7 @@ function FlightBookingPage(props: any) {
         toast.success('Your flight data has been captured, please make payment to complete booking');
         setFlightPaymentData({
           email: values.contact_details.c_email,
-          amount: flightDetails.pricing?.payable * 100,
+          amount: flightDetails.amount * 100,
           booking_reference: res.data?.reference,
         });
         setOpenPayment(true);

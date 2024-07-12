@@ -312,12 +312,24 @@ function FlightPreviewPage(props: any) {
                         {/* price_summary */}
                         {
                         processPassengerPriceList(price).map((item, index) => <React.Fragment key={index}>
-                          <h6 className='sentence-case f300'>{item.key}</h6>
-                          <h6 className='number-light'>{formatNumber(item.value)}</h6>
+                          <h6 className='sentence-case f300 reduced-soft'>{item.key}</h6>
+                          <h6 className='number-light reduced-soft'>{formatNumber(item.value)}</h6>
                         </React.Fragment>)
                         }
                       </div>
                     ))}
+                    <div className='spread-info'>
+                      <h6 className='f300 reduced-soft'>Base Fare</h6>
+                      <h6 className='number-light reduced-soft'>{formatNumber(Math.ceil(flightDetails?.amount))}</h6>
+                    </div>
+                    <div className='spread-info'>
+                      <h6 className='f300 reduced-soft'>Service Charge</h6>
+                      <h6 className='number-light reduced-soft'>{formatNumber(Math.ceil(0))}</h6>
+                    </div>
+                    <div className='spread-info'>
+                      <h6 className='f300 reduced-soft'>Discount </h6>
+                      <h6 className='number-light reduced-soft'>{formatNumber(Math.ceil(0))}</h6>
+                    </div>
                     <div className='spread-info'>
                       <h6>Total</h6>
                       <h6 className='number-medium'>{formatNumber(Math.ceil(flightDetails?.amount))}</h6>
