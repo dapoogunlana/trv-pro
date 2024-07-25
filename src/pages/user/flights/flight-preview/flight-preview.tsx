@@ -1,8 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 import { FlightFeatureImage1, FlightFeatureImage2, FlightFeatureImage3, FlightFeatureImage4, FlightPreviwImg, PlaneTripIcon } from '../../../../assets/images';
 import MiniLoader from '../../../../components/block-components/mini-loader/mini-loader';
+import { iStoreState } from '../../../../services/constants/interfaces/store-schemas';
 import { routeConstants } from '../../../../services/constants/route-constants';
 import { formatDate, formatNumber } from '../../../../services/utils/data-manipulation-utilits';
 import { sendRequest } from '../../../../services/utils/request';
@@ -16,6 +18,7 @@ function FlightPreviewPage(props: any) {
   const flightId = useParams().id || '';
   const [loading, setLoading] = useState(0);
   const [flightDetails, setFlightDetails] = useState<any>({outbound: [], inbound: []});
+  const airportList = useSelector((state: iStoreState) => state.airportList);
 
   const flightFeatureImageList = [FlightFeatureImage1, FlightFeatureImage2, FlightFeatureImage3, FlightFeatureImage4];
 
@@ -57,6 +60,7 @@ function FlightPreviewPage(props: any) {
   useEffect(() => {
     window.scrollTo(0, 0);
     getFlightDetails();
+    console.log({airportList})
   }, [props])
   
   return (
@@ -183,11 +187,14 @@ function FlightPreviewPage(props: any) {
                       <FontAwesomeIcon icon={'restroom'} />
                     </div>
                   </div>
-                  <div className='spread-info w96 max800'>
+                  <div className='spread-info w96'>
                     <div className='text-center'>
                       <p className='mb-0'>
                         <span className='f500 mb-0 number-medium'>{formatTime(trip.departure_time)} </span>
                         <span className='f400 reduced-im faint-tx'>{trip.airport_from}</span>
+                      </p>
+                      <p className='mb-0'>
+                        <span className='f400 reduced-im faint-tx'>{airportList?.find(airport => airport.iata_code === trip.airport_from)?.name}</span>
                       </p>
                       <p className='mb-0'>
                         <span className='f400 reduced-im faint-tx'>{trip.airport_from_details?.city ? `(${trip.airport_from_details.city})` : ''}</span>
@@ -200,6 +207,9 @@ function FlightPreviewPage(props: any) {
                       <p className='mb-0'>
                         <span className='f500 mb-0 number-medium'>{formatTime(trip.arrival_time)} </span>
                         <span className='f400 reduced-im faint-tx'>{trip.airport_to}</span>
+                      </p>
+                      <p className='mb-0'>
+                        <span className='f400 reduced-im faint-tx'>{airportList?.find(airport => airport.iata_code === trip.airport_to)?.name}</span>
                       </p>
                       <p className='mb-0'>
                         <span className='f400 reduced-im faint-tx'>{trip.airport_to_details?.city ? `(${trip.airport_to_details.city})` : ''}</span>
@@ -261,11 +271,14 @@ function FlightPreviewPage(props: any) {
                       <FontAwesomeIcon icon={'restroom'} />
                     </div>
                   </div>
-                  <div className='spread-info w96 max800'>
+                  <div className='spread-info w96'>
                     <div className='text-center'>
                       <p className='mb-0'>
                         <span className='f500 mb-0 number-medium'>{formatTime(trip.departure_time)} </span>
                         <span className='f400 reduced-im faint-tx'>{trip.airport_from}</span>
+                      </p>
+                      <p className='mb-0'>
+                        <span className='f400 reduced-im faint-tx'>{airportList?.find(airport => airport.iata_code === trip.airport_from)?.name}</span>
                       </p>
                       <p className='mb-0'>
                         <span className='f400 reduced-im faint-tx'>{trip.airport_from_details?.city ? `(${trip.airport_from_details.city})` : ''}</span>
@@ -278,6 +291,9 @@ function FlightPreviewPage(props: any) {
                       <p className='mb-0'>
                         <span className='f500 mb-0 number-medium'>{formatTime(trip.arrival_time)} </span>
                         <span className='f400 reduced-im faint-tx'>{trip.airport_to}</span>
+                      </p>
+                      <p className='mb-0'>
+                        <span className='f400 reduced-im faint-tx'>{airportList?.find(airport => airport.iata_code === trip.airport_to)?.name}</span>
                       </p>
                       <p className='mb-0'>
                         <span className='f400 reduced-im faint-tx'>{trip.airport_to_details?.city ? `(${trip.airport_to_details.city})` : ''}</span>
