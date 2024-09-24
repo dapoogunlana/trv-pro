@@ -7,6 +7,7 @@ import './profile-tab.scss';
 function ProfilePage() {
 
   const [activeKey, setActiveKey] = useState('Overview');
+  const [userType, setUserType] = useState<'user' | 'host'>('host')
 
   const changKey = (key: any) => {
     setActiveKey(key);
@@ -17,16 +18,39 @@ function ProfilePage() {
   });
   
   return (
-    <div className='profile'>
-    <Tabs  >
-      <Tab eventKey="Overview" title="Overview" key={1}>
-        <ProfileOverviewPage />
-      </Tab>
-      <Tab eventKey="Settings" title="Account Settings" key={2}>
-        <ProfileSettingsPage />
-      </Tab>
-    </Tabs>
-    </div>
+    <>
+    {userType === 'user' && 
+      <div className='user-profile'>
+        <Tabs  >
+          <Tab eventKey="Overview" title="Overview" key={1}>
+            <ProfileOverviewPage />
+          </Tab>
+          <Tab eventKey="Settings" title="Account Settings" key={2}>
+            <ProfileSettingsPage />
+          </Tab>
+        </Tabs>
+      </div>
+    }
+    {userType === 'host' && 
+      <div className='host-profile'>
+        <div className='host-holder'>
+          <div className='row'>
+            <div className='col-xl-3'>
+              <div className='profile-tab-card'></div>
+            </div>
+          </div>
+        </div>
+        <Tabs  >
+          <Tab eventKey="Overview" title="Overview" key={1}>
+            <ProfileOverviewPage />
+          </Tab>
+          <Tab eventKey="Settings" title="Account Settings" key={2}>
+            <ProfileSettingsPage />
+          </Tab>
+        </Tabs>
+      </div>
+    }
+    </>
   );
 }
 

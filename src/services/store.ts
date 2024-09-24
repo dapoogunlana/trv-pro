@@ -26,7 +26,7 @@ const middlewares = [saggaMiddleware];
 
 export const store = configureStore({
     reducer: persistedReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(...middlewares),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}).concat(...middlewares),
 });
 
 export const persistor = persistStore(store)

@@ -31,7 +31,7 @@ function Header(props: any) {
   return (
     <>
       <div className="header">
-        <div className="spread-info">
+        <div className="spread-info overlap-sidebar-index">
           <FontAwesomeIcon icon={'bars'} className="menu-icon" onClick={props.toggleSidebarVisible} />
           <div className="logo">
             <img src={LogoBlack} alt="" />

@@ -81,8 +81,30 @@
                     align-items: center;
                     justify-content: center;
                     transition: 0.3s ease;
+                    position: relative;
                     i{
                         color: $primary-blue;
+                    }
+                    .sidebar-icon-popup{
+                        position: absolute;
+                        padding: 3px 8px;
+                        border-radius: 6px;
+                        box-shadow: 0 0 8px 2px $black-faint3;
+                        background-color: $white;
+                        left: 130%;
+                        top: 10%;
+                        transform: scale(0);
+                        transition: 0.3s ease;
+                        pointer-events: none;
+                        span{
+                            font-size: 0.7em;
+                            line-height: 1;
+                        }
+                    }
+                    &:hover{
+                        .icon-pop{
+                            transform: scale(1);
+                        }
                     }
                     @include mediaM(750px) {
                         width: 36px;

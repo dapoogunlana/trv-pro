@@ -9,21 +9,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./signup-form.scss";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../../../services/actions-reducers/user-data";
+import { acceptOnlyNumbers } from "../../../../services/utils/data-manipulation-utilits";
 
 function AdminSignupForm({poceedToVerify, switchToLogin}: {poceedToVerify?: Function, switchToLogin?: Function}) {
   const [response, setResponse] = useState<any>();
   const [showPassword, setShowPassword] = useState(false);
+  const [userMode, setUserMode] = useState<'user' | 'host'>('user');
   const dispatch = useDispatch();
 
   const submitRequest = (values: any, controls: any) => {
     sendRequest(
       {
-        url: "user-auth/signup",
+        url: `${userMode}-auth/signup`,
         method: "POST",
         body: {
           first_name: values.first_name,
           last_name: values.last_name,
           email: values.email,
+          // phone_number: values.phone_number,   
           password: values.password,
           referred_by: values.referred_by,
         },
@@ -38,8 +41,8 @@ function AdminSignupForm({poceedToVerify, switchToLogin}: {poceedToVerify?: Func
       },
       (err: any) => {
         controls.setSubmitting(false);
-        toast.error(err.error);
-        setResponse(err.error || err.message);
+        toast.error(err?.error || err?.message || 'Unable to connect');
+        setResponse(err?.error || err?.message || 'Unable to connect');
       }
     );
   };
@@ -76,6 +79,11 @@ function AdminSignupForm({poceedToVerify, switchToLogin}: {poceedToVerify?: Func
     } else if (!regexConstants.emailPattern.test(values.email)) {
       errors.email = "Invalid email";
     }
+    // if (!values.phone_number) {
+    //   errors.phone_number = "Phone number is required";
+    // } else if (!regexConstants.phonePattern.test(values.phone_number)) {
+    //   errors.phone_number = "Invalid phone number";
+    // }
     if (!values.password) {
       errors.password = "Password is required";
     } else if (values.password.length < 3) {
@@ -89,17 +97,20 @@ function AdminSignupForm({poceedToVerify, switchToLogin}: {poceedToVerify?: Func
     return errors;
   };
 
-  useEffect(() => {});
+  useEffect(() => {
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
+  },[userMode]);
 
   return (
     <div className="dialogue-container">
-      <h6>Sign Up</h6>
+      <h6>{userMode === 'host' && <span>Host </span>}Sign Up</h6>
       <p className="brief">Enter details to create your account</p>
       <Formik
         initialValues={{
           first_name: "",
           last_name: "",
           email: "",
+          // phone_number: "",
           password: "",
           confirm_password: "",
           referred_by: "",
@@ -113,6 +124,7 @@ function AdminSignupForm({poceedToVerify, switchToLogin}: {poceedToVerify?: Func
             first_name: string;
             last_name: string;
             email: string;
+            // phone_number: string;
             password: string;
             confirm_password: string;
             referred_by: string;
@@ -195,6 +207,29 @@ function AdminSignupForm({poceedToVerify, switchToLogin}: {poceedToVerify?: Func
                   )}
                 </div>
               </div>
+              {/* <div className="col-md-12">
+                <div className="reg-card">
+                  <label className="text-left">Phone Number</label>
+                  <input
+                    type="text"
+                    placeholder="Enter your phone number"
+                    id="phone_number"
+                    value={values.phone_number}
+                    onBlur={handleBlur}
+                    onFocus={() => (errors.phone_number = "")}
+                    onChange={handleChange}
+                    onKeyUp={acceptOnlyNumbers}
+                    className={
+                      errors.phone_number && touched.phone_number ? "im-error" : ""
+                    }
+                  />
+                  {errors.phone_number && touched.phone_number && (
+                    <p className="reduced error-popup pt-1 mb-0">
+                      {errors.phone_number}
+                    </p>
+                  )}
+                </div>
+              </div> */}
               <div className="col-md-6">
                 <div className="reg-card">
                   <label className="text-left">Password</label>
@@ -288,6 +323,14 @@ function AdminSignupForm({poceedToVerify, switchToLogin}: {poceedToVerify?: Func
               Already have an account? 
               <span onClick={goToLogin}> Sign in</span>
             </p>
+            {userMode === 'user' && <p className="mb-0 alternate-action">
+              Want to rent out properties instead? 
+              <span onClick={() => setUserMode('host')}> Host sign up</span>
+            </p>}
+            {userMode === 'host' && <p className="mb-0 alternate-action">
+              Register as a regular user instead? 
+              <span onClick={() => setUserMode('user')}> Sign up</span>
+            </p>}
         </div>
       </div>
     </div>

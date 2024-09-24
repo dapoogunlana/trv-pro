@@ -69,6 +69,13 @@ import SkyflexWorksIcon2 from './icons/skyflex-works-icon-2.svg';
 import SkyflexWorksIcon3 from './icons/skyflex-works-icon-3.svg';
 import SkyflexWorksIcon4 from './icons/skyflex-works-icon-4.svg';
 
+import SkyRewardsHeroPlanIcons from './sky-rewards-hero-planes.svg';
+import SkyRewardsHowImg1 from './sky-rewards-how-img1.png';
+import SkyRewardsHowImg2 from './sky-rewards-how-img2.png';
+import SkyRewardsHowImg3 from './sky-rewards-how-img3.png';
+import SkyRewardsWhyImg1 from './sky-rewards-why-img1.png';
+import SkyRewardsWhyImg2 from './sky-rewards-why-img2.png';
+
 import ContactBannerImg from './contact-banner-img.png';
 import ProfilePicture from './profile-picture.png';
 import FlightTrackerBg from './flight-tracker-bg.jpg';
@@ -167,6 +174,13 @@ export {
     SkyflexWorksIcon2,
     SkyflexWorksIcon3,
     SkyflexWorksIcon4,
+
+    SkyRewardsHeroPlanIcons,
+    SkyRewardsHowImg1,
+    SkyRewardsHowImg2,
+    SkyRewardsHowImg3,
+    SkyRewardsWhyImg1,
+    SkyRewardsWhyImg2,
 
     ContactBannerImg,
     ProfilePicture,

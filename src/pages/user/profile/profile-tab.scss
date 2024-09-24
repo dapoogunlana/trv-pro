@@ -1,7 +1,7 @@
 @import "../../../assets/styles/variables.scss";
 
 
-.profile{
+.user-profile{
     background-color: #ffffff;
     width: 100%;
     .nav-tabs{
@@ -26,4 +26,9 @@
     h1{
         min-height: 50vh;
     }
+}
+
+.host-profile{
+    background-color: #91d6fd;
+    width: 100%;
 }

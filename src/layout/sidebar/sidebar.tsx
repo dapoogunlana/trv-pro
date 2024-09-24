@@ -51,6 +51,9 @@ function Sidebar(props: any) {
                 <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
                   <div className="sibebar-icon">
                     < FontAwesomeIcon icon={'user'} />
+                    <div className={"sidebar-icon-popup" + (props.sidebarVisible ? '' : ' icon-pop')}>
+                      <span>My&nbsp;Profile</span>
+                    </div>
                   </div>
                   <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
                     <p className="mb-0 pt-2">My&nbsp;Profile</p>
@@ -68,6 +71,9 @@ function Sidebar(props: any) {
             <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
               <div className="sibebar-icon">
                 < FontAwesomeIcon icon={'plane'} />
+                <div className={"sidebar-icon-popup" + (props.sidebarVisible ? '' : ' icon-pop')}>
+                  <span>Flights</span>
+                </div>
               </div>
               <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
                 <p className="mb-0 pt-2">Flights</p>
@@ -78,6 +84,9 @@ function Sidebar(props: any) {
             <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
               <div className="sibebar-icon">
                 < FontAwesomeIcon icon={'bed'} />
+                <div className={"sidebar-icon-popup" + (props.sidebarVisible ? '' : ' icon-pop')}>
+                  <span>Stays</span>
+                </div>
               </div>
               <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
                 <p className="mb-0 pt-2">Stays</p>
@@ -88,6 +97,9 @@ function Sidebar(props: any) {
             <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
               <div className="sibebar-icon">
                 < FontAwesomeIcon icon={'car'} />
+                <div className={"sidebar-icon-popup" + (props.sidebarVisible ? '' : ' icon-pop')}>
+                  <span>Book&nbsp;Ride</span>
+                </div>
               </div>
               <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
                 <p className="mb-0 pt-2">Book&nbsp;Ride</p>
@@ -98,6 +110,9 @@ function Sidebar(props: any) {
             <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
               <div className="sibebar-icon">
                 < FontAwesomeIcon icon={'gift'} />
+                <div className={"sidebar-icon-popup" + (props.sidebarVisible ? '' : ' icon-pop')}>
+                  <span>Rewards</span>
+                </div>
               </div>
               <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
                 <p className="mb-0 pt-2">Rewards</p>
@@ -108,6 +123,9 @@ function Sidebar(props: any) {
             <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
               <div className="sibebar-icon">
                 < FontAwesomeIcon icon={'handshake-angle'} />
+                <div className={"sidebar-icon-popup" + (props.sidebarVisible ? '' : ' icon-pop')}>
+                  <span>Deals</span>
+                </div>
               </div>
               <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
                 <p className="mb-0 pt-2">Deals</p>
@@ -123,6 +141,9 @@ function Sidebar(props: any) {
             <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
               <div className="sibebar-icon">
                 < FontAwesomeIcon icon={'globe'} />
+                <div className={"sidebar-icon-popup" + (props.sidebarVisible ? '' : ' icon-pop')}>
+                  <span>Explore</span>
+                </div>
               </div>
               <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
                 <p className="mb-0 pt-2">Explore</p>
@@ -133,6 +154,9 @@ function Sidebar(props: any) {
             <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
               <div className="sibebar-icon">
                 < FontAwesomeIcon icon={'info'} />
+                <div className={"sidebar-icon-popup" + (props.sidebarVisible ? '' : ' icon-pop')}>
+                  <span>Travel&nbsp;Info</span>
+                </div>
               </div>
               <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
                 <p className="mb-0 pt-2">Travel&nbsp;Info</p>
@@ -143,6 +167,9 @@ function Sidebar(props: any) {
             <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
               <div className="sibebar-icon">
                 < FontAwesomeIcon icon={'map-location-dot'} />
+                <div className={"sidebar-icon-popup" + (props.sidebarVisible ? '' : ' icon-pop')}>
+                  <span>Flight&nbsp;Tracker</span>
+                </div>
               </div>
               <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
                 <p className="mb-0 pt-2">Flight&nbsp;Tracker</p>
@@ -161,6 +188,9 @@ function Sidebar(props: any) {
                 <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
                   <div className="sibebar-icon">
                     < FontAwesomeIcon icon={'suitcase-rolling'} />
+                    <div className={"sidebar-icon-popup" + (props.sidebarVisible ? '' : ' icon-pop')}>
+                      <span>My&nbsp;Bookings</span>
+                    </div>
                   </div>
                   <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
                     <p className="mb-0 pt-2">My&nbsp;Bookings</p>
@@ -178,6 +208,9 @@ function Sidebar(props: any) {
             <div className={"menu-grid" + (props.sidebarVisible ? ' menu-grid-active' : '')}  onClick={props.offSidebarVisible}>
               <div className="sibebar-icon">
                 < FontAwesomeIcon icon={'message'} />
+                <div className={"sidebar-icon-popup" + (props.sidebarVisible ? '' : ' icon-pop')}>
+                  <span>Feedback</span>
+                </div>
               </div>
               <div className={" " + (props.sidebarVisible ? 'menu-active' : 'menu-default')}>
                 <p className="mb-0 pt-2">Feedback</p>
