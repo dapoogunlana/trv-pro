@@ -6,15 +6,18 @@ import { toast } from "react-toastify";
 import "./verify-email-form.scss";
 import { iStoreState, IUserData } from "../../../../services/constants/interfaces/store-schemas";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { userLogin } from "../../../../services/actions-reducers/user-data";
 
 function VerifyEmailForm({userVerified}: {userVerified?: Function}) {
   const [response, setResponse] = useState<any>();
   const user: IUserData = useSelector((state: iStoreState) => state.user);
+  const dispatch = useDispatch();
 
   const submitRequest = (values: any, controls: any) => {
     sendRequest(
       {
-        url: "user-auth/verify-email",
+        url: user?.userMode + "-auth/verify-email",
         method: "POST",
         body: {
           otp: values.otp,
@@ -23,6 +26,7 @@ function VerifyEmailForm({userVerified}: {userVerified?: Function}) {
       },
       (res: any) => {
         sessionStorage.setItem("userInfo", JSON.stringify(res.user));
+        dispatch(userLogin({...res.user, userMode: user?.userMode}));
         toast.success(res.message);
         if(userVerified) {
           userVerified(res.user);

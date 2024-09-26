@@ -6,10 +6,13 @@ import { sendRequest } from "../../../../services/utils/request";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./reset-password-form.scss";
+import { iStoreState, IUserData } from "../../../../services/constants/interfaces/store-schemas";
+import { useSelector } from "react-redux";
 
 function ResetPasswordForm({resetComplete, switchToLogin}: {resetComplete?: Function, switchToLogin?: Function}) {
   const [response, setResponse] = useState<any>();
   const [showPassword, setShowPassword] = useState(false);
+  const user: IUserData = useSelector((state: iStoreState) => state.user);
 
   const goToLogin = () => {
     if(switchToLogin){
@@ -20,7 +23,7 @@ function ResetPasswordForm({resetComplete, switchToLogin}: {resetComplete?: Func
   const submitRequest = (values: any, controls: any) => {
     sendRequest(
       {
-        url: "user-auth/reset-password",
+        url: `${user?.userMode || 'user'}-auth/reset-password`,
         method: "POST",
         body: {
           password: values.password,
@@ -67,7 +70,7 @@ function ResetPasswordForm({resetComplete, switchToLogin}: {resetComplete?: Func
 
   return (
     <div className="dialogue-container">
-      <h6>Reset Password</h6>
+      <h6>Reset {user.userMode === 'host' && <> Host </>} Password</h6>
       <p className="brief"></p>
       <Formik
         initialValues={{

@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
-import ProfileOverviewPage from './profile-overview/profile-overview';
-import ProfileSettingsPage from './profile-settings/profile-settings';
+import ProfileOverviewPage from './user-profile/profile-overview/profile-overview';
+import ProfileSettingsPage from './user-profile/profile-settings/profile-settings';
 import './profile-tab.scss';
+import { useSelector } from 'react-redux';
+import { iStoreState } from '../../../services/constants/interfaces/store-schemas';
 
 function ProfilePage() {
 
   const [activeKey, setActiveKey] = useState('Overview');
-  const [userType, setUserType] = useState<'user' | 'host'>('host')
+  // const [userType, setUserType] = useState<'user' | 'host'>('host')
+  const userType: 'user' | 'host' = useSelector((state: iStoreState) => state?.user?.userMode || 'user');
 
   const changKey = (key: any) => {
     setActiveKey(key);

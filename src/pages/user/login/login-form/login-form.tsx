@@ -14,6 +14,8 @@ import { useDispatch } from "react-redux";
 import { userLogin } from "../../../../services/actions-reducers/user-data";
 import axios from "axios";
 import { apiLinks } from "../../../../config/environment";
+import { iStoreState, IUserData } from "../../../../services/constants/interfaces/store-schemas";
+import { useSelector } from "react-redux";
 
 interface ILoginForm {
   poceedToVerify?: Function;
@@ -29,6 +31,8 @@ function LoginForm({poceedToVerify, logUserIn, switchToRegister, passwordReset}:
 
   const [response, setResponse] = useState<any>();
   const [showPassword, setShowPassword] = useState(false);
+  const user: IUserData = useSelector((state: iStoreState) => state.user);
+  const [userMode, setUserMode] = useState<'user' | 'host'>(user?.userMode || 'user');
 
   const goToRegister = () => {
     if(switchToRegister){
@@ -39,7 +43,7 @@ function LoginForm({poceedToVerify, logUserIn, switchToRegister, passwordReset}:
   const submitRequest = (values: any, controls: any) => {
     sendRequest(
       {
-        url: "user-auth/login",
+        url: `${userMode}-auth/login`,
         method: "POST",
         body: {
           loginId: values.email,
@@ -52,7 +56,7 @@ function LoginForm({poceedToVerify, logUserIn, switchToRegister, passwordReset}:
       (res: any, headers: any) => {
         toast.success(res.message);
         if(res.user) {
-            dispatch(userLogin(res.user));
+            dispatch(userLogin({...res.user, userMode}));
           if(logUserIn) {
             logUserIn();
           }
@@ -64,7 +68,7 @@ function LoginForm({poceedToVerify, logUserIn, switchToRegister, passwordReset}:
         setResponse(err?.error || err?.message || 'Request Failed');
         if(err?.message === 'Unverified email') {
           if(poceedToVerify) {
-            dispatch(userLogin({"userId": err?.userId}));
+            dispatch(userLogin({"userId": err?.userId, userMode}));
             sendRequest(
               {
                 url: "user-auth/resend-verification-otp",
@@ -126,11 +130,15 @@ function LoginForm({poceedToVerify, logUserIn, switchToRegister, passwordReset}:
     }
   }
 
-  useEffect(() => {});
+
+  useEffect(() => {
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+    dispatch(userLogin({userMode}));
+  },[userMode]);
 
   return (
     <div className="dialogue-container">
-      <h6>Log In</h6>
+      <h6>{userMode === 'host' && <span>Host </span>}Log In</h6>
       <p className="brief">Enter details to log in to your account</p>
       <Formik
         initialValues={{
@@ -240,7 +248,15 @@ function LoginForm({poceedToVerify, logUserIn, switchToRegister, passwordReset}:
           </div>
         </div>
         <div className="col-md-12 py-2">
-            <p className="mb-0 alternate-action">
+            {userMode === 'user' && <p className="mb-0 alternate-action">
+             Log in as a
+              <span onClick={() => setUserMode('host')}> Host</span>
+            </p>}
+            {userMode === 'host' && <p className="mb-0 alternate-action">
+            Log in as a 
+              <span onClick={() => setUserMode('user')}> User</span>
+            </p>}
+            <p className="mb-0 alternate-action pt-2">
               Don't yet have an account? 
               <span onClick={goToRegister}> Sign Up</span>
             </p>

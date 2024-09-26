@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { ClassElement } from 'typescript';
-import { ProfilePicture } from '../../../../assets/images';
-import CompactDataTables from '../../../../components/block-components/compact-data-table/compact-data-table';
-import { formatDate, formatNumber } from '../../../../services/utils/data-manipulation-utilits';
+import { ProfilePicture } from '../../../../../assets/images';
+import CompactDataTables from '../../../../../components/block-components/compact-data-table/compact-data-table';
+import { formatDate, formatNumber } from '../../../../../services/utils/data-manipulation-utilits';
 import './profile-overview.scss';
 
 function ProfileOverviewPage(props: any) {

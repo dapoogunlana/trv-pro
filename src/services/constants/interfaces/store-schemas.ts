@@ -13,7 +13,8 @@ export interface IUserData {
     first_name?: string;
     id: string;
     last_name?: string;
-    userId?: string
+    userId?: string;
+    userMode?: 'user' | 'host';
 }
 
 export interface iStoreState {

@@ -32,7 +32,7 @@ function AdminSignupForm({poceedToVerify, switchToLogin}: {poceedToVerify?: Func
         },
       },
       (res: any) => {
-        dispatch(userLogin({"userId": res?.userId}));
+        dispatch(userLogin({"userId": res?.userId, userMode}));
         toast.success(res.message);
         if(poceedToVerify) {
           poceedToVerify();

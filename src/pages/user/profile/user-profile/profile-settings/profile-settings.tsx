@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
 import React, { useEffect, useRef, useState } from 'react';
-import { ProfilePicture } from '../../../../assets/images';
-import { regexConstants } from '../../../../services/constants/validation-regex';
-import { sendRequest } from '../../../../services/utils/request';
+import { ProfilePicture } from '../../../../../assets/images';
+import { regexConstants } from '../../../../../services/constants/validation-regex';
+import { sendRequest } from '../../../../../services/utils/request';
 import './profile-settings.scss';
 
 interface IUserInfo {

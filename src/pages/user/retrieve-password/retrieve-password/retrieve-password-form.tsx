@@ -5,9 +5,12 @@ import { sendRequest } from "../../../../services/utils/request";
 import { toast } from "react-toastify";
 import "./retrieve-password-form.scss";
 import { regexConstants } from "../../../../services/constants/validation-regex";
+import { iStoreState, IUserData } from "../../../../services/constants/interfaces/store-schemas";
+import { useSelector } from "react-redux";
 
 function RetrievePasswordForm({retrievalInitiated, switchToLogin}: {retrievalInitiated?: Function, switchToLogin?: Function}) {
   const [response, setResponse] = useState<any>();
+  const user: IUserData = useSelector((state: iStoreState) => state.user);
 
   const goToLogin = () => {
     if(switchToLogin){
@@ -18,7 +21,7 @@ function RetrievePasswordForm({retrievalInitiated, switchToLogin}: {retrievalIni
   const submitRequest = (values: any, controls: any) => {
     sendRequest(
       {
-        url: "user-auth/forgot-password",
+        url: `${user?.userMode || 'user'}-auth/forgot-password`,
         method: "POST",
         body: {
           email: values.email,
@@ -56,7 +59,7 @@ function RetrievePasswordForm({retrievalInitiated, switchToLogin}: {retrievalIni
 
   return (
     <div className="dialogue-container">
-      <h6>Password Recovery</h6>
+      <h6>Password {user.userMode === 'host' && <> Host </>} Recovery</h6>
       <p className="brief"></p>
       <Formik
         initialValues={{
