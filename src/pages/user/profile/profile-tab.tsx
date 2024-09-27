@@ -5,6 +5,7 @@ import ProfileSettingsPage from './user-profile/profile-settings/profile-setting
 import './profile-tab.scss';
 import { useSelector } from 'react-redux';
 import { iStoreState } from '../../../services/constants/interfaces/store-schemas';
+import HostProfilePage from './host-profile/host-profile-tab';
 
 function ProfilePage() {
 
@@ -36,21 +37,7 @@ function ProfilePage() {
     }
     {userType === 'host' && 
       <div className='host-profile'>
-        <div className='host-holder'>
-          <div className='row'>
-            <div className='col-xl-3'>
-              <div className='profile-tab-card'></div>
-            </div>
-          </div>
-        </div>
-        <Tabs  >
-          <Tab eventKey="Overview" title="Overview" key={1}>
-            <ProfileOverviewPage />
-          </Tab>
-          <Tab eventKey="Settings" title="Account Settings" key={2}>
-            <ProfileSettingsPage />
-          </Tab>
-        </Tabs>
+        <HostProfilePage/>
       </div>
     }
     </>

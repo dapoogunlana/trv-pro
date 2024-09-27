@@ -57,7 +57,7 @@ function VerifyEmailForm({userVerified}: {userVerified?: Function}) {
 
   return (
     <div className="dialogue-container">
-      <h6>Verify Email</h6>
+      <h6>Verify {user.userMode === 'host' && <> Host </>} Email</h6>
       <p className="brief">Enter the code sent to registered email address</p>
       <Formik
         initialValues={{
