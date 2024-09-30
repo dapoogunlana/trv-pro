@@ -56,6 +56,33 @@
                         padding: 5px;
                         text-align: center;
                         border-radius: 0.4em;
+                        background: rgba(0, 121, 191, 0);
+                        border: 1px solid $white;
+                        color: $white;
+                        transition: 0.3s ease;
+                        &:hover{
+                            border-color: $secondary-blue;
+                            background-color: $secondary-blue;
+                        }
+                        &:active{
+                            border-color: $secondary-blue-hover;
+                            background-color: $secondary-blue-hover;
+                            transform: translateY(3px) scale(1.05);
+                        }
+                    }
+                }
+                .active-tab{
+                    button{
+                        background-color: $secondary-blue;
+                        border-color: $secondary-blue;
+                        &:hover{
+                            border-color: $secondary-blue-hover;
+                            background-color: $secondary-blue-hover;
+                        }
+                        &:active{
+                            border-color: $black;
+                            background-color: $black;
+                        }
                     }
                 }
                 @include mediaM(850px){

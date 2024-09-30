@@ -52,13 +52,13 @@ function HostProfilePage() {
             <h4 className='f700 mb-4'>{'My Tabs'}</h4>
             <div className='tab-grid'>
               <div className={'tab-button-sect ' + (activeTab === 'summary' ? 'active-tab' : '')}>
-                <button onClick={goHome}>Home</button>
+                <button onClick={() => setActiveTab('summary')}>Home</button>
               </div>
-              <div className={'tab-button-sect ' + (activeTab === 'summary' ? 'active-tab' : '')}>
-                <button onClick={goHome}>Reviews</button>
+              <div className={'tab-button-sect ' + (activeTab === 'reviews' ? 'active-tab' : '')}>
+                <button onClick={() => setActiveTab('reviews')}>Reviews</button>
               </div>
-              <div className={'tab-button-sect ' + (activeTab === 'summary' ? 'active-tab' : '')}>
-                <button onClick={goHome}>Contact Details</button>
+              <div className={'tab-button-sect ' + (activeTab === 'contact' ? 'active-tab' : '')}>
+                <button onClick={() => setActiveTab('contact')}>Contact Details</button>
               </div>
               <div className='tab-button-sect'>
                 <button onClick={goHome}>New Property</button>

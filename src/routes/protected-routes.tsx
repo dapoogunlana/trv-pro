@@ -15,6 +15,7 @@ const ProctedRoutes = () => {
     // const token = sessionStorage.getItem('token');
     const dispatch = useDispatch();
     const verified = useSelector((state: iStoreState) => state?.user?.email_verified);
+    const userType: 'user' | 'host' = useSelector((state: iStoreState) => state?.user?.userMode || 'user');
     const [overlayMode, setOverlayMode] = useState<0 | 1 | 2>(2);
     const [initialized, setInitialized] = useState(false);
 
@@ -25,7 +26,7 @@ const ProctedRoutes = () => {
     const getUser = () => {
       sendRequest(
         {
-          url: "user-profile/user",
+          url: userType === 'user' ? 'user-profile/user' : 'host-profile/profile',
           method: "GET",
         },
         (res: any) => {},
