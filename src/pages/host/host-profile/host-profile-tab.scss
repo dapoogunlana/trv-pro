@@ -1,4 +1,4 @@
-@import "../../../../assets/styles/variables.scss";
+@import "../../../assets/styles/variables.scss";
 
 
 .host-holder{
@@ -18,7 +18,7 @@
             }
         }
         .profile-tab-card{
-            background-image: url(../../../../assets/images/profile-Pattern.jpg);
+            background-image: url(../../../assets/images/profile-Pattern.jpg);
             background-size: cover;
             background-position: center;
             border-radius: 1.3em;

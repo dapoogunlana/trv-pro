@@ -42,6 +42,9 @@ const PartnersPage = lazy(() => import("../pages/user/partners/partners"));
 const HelpPage = lazy(() => import("../pages/user/help/help"));
 const FaqPage = lazy(() => import("../pages/user/faq/faq"));
 
+// Host Routes
+const AddShortletPage = lazy(() => import("../pages/host/add-stay/add-shortlet/add-shortlet"));
+
 function UserRoute() {
   return (
     <Suspense fallback={<Loader/>}>
@@ -84,6 +87,10 @@ function UserRoute() {
             <Route path={routeConstants.profile} element={<ProfilePage/>}></Route>
             <Route path={routeConstants.myBookings} element={<MyBookingsPage/>}></Route>
             <Route path={`${routeConstants.flightTicket}/:reference`} element={<FlightTicketPage/>}></Route>
+
+            {/* Hoat Routes */}
+            <Route path={`${routeConstants.addShortlet}`} element={<AddShortletPage/>}></Route>
+            <Route path={`${routeConstants.editShortlet}/:id`} element={<AddShortletPage/>}></Route>
           </Route>
           <Route path={routeConstants.all} element={<Navigate to={routeConstants.home2}/>}></Route>
         </Route>

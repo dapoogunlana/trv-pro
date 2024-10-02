@@ -42,4 +42,7 @@
      flightTicket: 'flight-ticket',
      feedBack: 'feed-back',
      industryNews: 'news',
+
+     addShortlet: 'add-shortlet',
+     editShortlet: 'edit-shortlet',
  };

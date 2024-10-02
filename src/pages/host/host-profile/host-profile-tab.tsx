@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
-import ProfileOverviewPage from './../user-profile/profile-overview/profile-overview';
-import ProfileSettingsPage from './../user-profile/profile-settings/profile-settings';
+import ProfileOverviewPage from '../../user/profile/user-profile/profile-overview/profile-overview';
+import ProfileSettingsPage from '../../user/profile/user-profile/profile-settings/profile-settings';
 import './host-profile-tab.scss';
 import { useSelector } from 'react-redux';
-import { iStoreState } from '../../../../services/constants/interfaces/store-schemas';
+import { iStoreState } from '../../../services/constants/interfaces/store-schemas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ProfileSect from './profile-sect/profile-sect';
+import ReviewsSect from './reviews-sect/reviews-sect';
+import PropertiesSect from './properties-sect/properties-sect';
+import { useNavigate } from 'react-router';
+import { routeConstants } from '../../../services/constants/route-constants';
 
 function HostProfilePage() {
 
-  const [activeTab, setActiveTab] = useState<'summary' | 'reviews' | 'contact'>('summary');
+  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState<'profile' | 'reviews' | 'properties'>('profile');
 
-  const goHome = () => {}
+  const goToNewProperty = () => {
+    navigate(`/${routeConstants.addShortlet}`);
+  }
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -51,21 +59,26 @@ function HostProfilePage() {
           <div className='profile-tab-card h-balance'>
             <h4 className='f700 mb-4'>{'My Tabs'}</h4>
             <div className='tab-grid'>
-              <div className={'tab-button-sect ' + (activeTab === 'summary' ? 'active-tab' : '')}>
-                <button onClick={() => setActiveTab('summary')}>Home</button>
+              <div className={'tab-button-sect ' + (activeTab === 'profile' ? 'active-tab' : '')}>
+                <button onClick={() => setActiveTab('profile')}>Profile</button>
               </div>
               <div className={'tab-button-sect ' + (activeTab === 'reviews' ? 'active-tab' : '')}>
                 <button onClick={() => setActiveTab('reviews')}>Reviews</button>
               </div>
-              <div className={'tab-button-sect ' + (activeTab === 'contact' ? 'active-tab' : '')}>
-                <button onClick={() => setActiveTab('contact')}>Contact Details</button>
+              <div className={'tab-button-sect ' + (activeTab === 'properties' ? 'active-tab' : '')}>
+                <button onClick={() => setActiveTab('properties')}>Properties</button>
               </div>
               <div className='tab-button-sect'>
-                <button onClick={goHome}>New Property</button>
+                <button onClick={goToNewProperty}>New Property</button>
               </div>
             </div>
           </div>
         </div>
+      </div>
+      <div className='host-tab-content'>
+        {activeTab === 'profile' && <ProfileSect/>}
+        {activeTab === 'reviews' && <ReviewsSect/>}
+        {activeTab === 'properties' && <PropertiesSect/>}
       </div>
     </div>
   );

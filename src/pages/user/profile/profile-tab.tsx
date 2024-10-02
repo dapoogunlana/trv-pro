@@ -5,7 +5,7 @@ import ProfileSettingsPage from './user-profile/profile-settings/profile-setting
 import './profile-tab.scss';
 import { useSelector } from 'react-redux';
 import { iStoreState } from '../../../services/constants/interfaces/store-schemas';
-import HostProfilePage from './host-profile/host-profile-tab';
+import HostProfilePage from '../../host/host-profile/host-profile-tab';
 
 function ProfilePage() {
 
