@@ -1,22 +1,63 @@
 
-import { Formik, FormikHelpers, FormikProps } from 'formik';
+import { Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { iBasicInfo } from '../add-shortlet-data';
 import { countryList } from '../.././../../..//services/constants/country-list';
 import './basic-info.scss';
+import { regexConstants } from '../../../../../services/constants/validation-regex';
+import { acceptOnlyNumbers } from '../../../../../services/utils/data-manipulation-utilits';
 
-function BasicInfoSect({data}: {data: iBasicInfo}) {
+function BasicInfoSect({data, proceed}: {data: iBasicInfo, proceed: Function}) {
 
   const [response, setResponse] = useState<any>();
+  const [stateList, setStateList] = useState<any[]>(countryList);
+  const [lgaList, setLgaList] = useState<any[]>(countryList);
+  
+
+  const validate = (values: FormikValues) => {
+    const errors: any = {};
+    if(!values.apartment_name) {
+      errors.apartment_name = 'Apartment_name is required';
+    }
+    if(!values.country) {
+      errors.country = 'Country is required';
+    }
+    if(!values.state) {
+      errors.state = 'State is required';
+    }
+    if(!values.lga) {
+      errors.lga = 'Lga is required';
+    }
+    if(!values.address) {
+      errors.address = 'Address is required';
+    }
+    if(!values.email) {
+      errors.email = 'Email address is required';
+    } else if(!regexConstants.emailPattern.test(values.email)) {
+      errors.email = 'Invalid email address';
+    }
+    if(!values.phone) {
+      errors.phone = 'Phone number is required';
+    } else if(!regexConstants.phonePattern.test(values.phone)) {
+      errors.phone = 'Invalid phone number';
+    }
+    if(!values.website) {
+      errors.website = 'Website is required';
+    }
+    return errors;
+  }
 
   const submitRegistration = (values: any, controls: FormikHelpers<any>) => {
     setResponse(' Baby code')
       controls.setSubmitting(false);
+      proceed(values);
   }
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  });
+  const cancel = () => {
+    window.history.back();
+  }
+
+  useEffect(() => {});
   
   return (
     <div className='basic-info'>
@@ -24,29 +65,20 @@ function BasicInfoSect({data}: {data: iBasicInfo}) {
         <h5 className='f700 center-info'>Basic Information</h5>
         <div className='reg-box'>
             <Formik initialValues={{
-                firstName: '',
-                lastName: '',
-                email: '',
-                country: '',
-                phoneNo: ''
+                apartment_name: data.apartment_name || '',
+                country: data.country || '',
+                state: data.state || '',
+                lga: data.lga || '',
+                address: data.address || '',
+                email: data.email || '',
+                phone: data.phone || '',
+                website: data.website || '',
             }}
+            validate={validate}
             onSubmit={(values: any, controls : any) => submitRegistration(values, controls)}
-            // validationSchema={Yup.object().shape({
-            //     firstName: Yup.string().required('First name is required'),
-            //     lastName: Yup.string().required('Last name is required'),
-            //     email: Yup.string().required('Email is required').matches(regexConstants.emailPattern, 'Invalid email'),
-            //     country: Yup.string().required('Last name is required'),
-            //     phoneNo: Yup.string().required('Phone number is required').min(8, 'Phone number must be at least 8 characters'),
-            // })}
             >
                 {
-                    (props: FormikProps<{
-                        firstName: string,
-                        lastName: string,
-                        email: string,
-                        country: string,
-                        phoneNo: string,
-                    }>) => {
+                    (props: FormikProps<iBasicInfo>) => {
                         const {
                             values,
                             errors,
@@ -60,20 +92,20 @@ function BasicInfoSect({data}: {data: iBasicInfo}) {
                         return (
                             <form action="" onSubmit={handleSubmit}>
                                 <div className='reg-card'>
-                                    <label>Hotel Name</label>
+                                    <label>Apartment Name</label>
                                     <input
                                         type="text"
-                                        placeholder='Enter your first name'
-                                        id='firstName'
-                                        value={values.firstName}
+                                        placeholder='Enter apartment name'
+                                        id='apartment_name'
+                                        value={values.apartment_name}
                                         onBlur={handleBlur}
-                                        onFocus={() => errors.firstName = ''}
+                                        onFocus={() => errors.apartment_name = ''}
                                         onChange={handleChange}
-                                        className={(errors.firstName && touched.firstName) ? 'im-error' : ''}
+                                        className={(errors.apartment_name && touched.apartment_name) ? 'im-error' : ''}
                                     />
                                     {
-                                        errors.firstName && touched.firstName &&
-                                        <p className='reduced error-popup pt-1 mb-0'>{errors.firstName}</p>
+                                        errors.apartment_name && touched.apartment_name &&
+                                        <p className='reduced error-popup pt-1 mb-0'>{errors.apartment_name}</p>
                                     }
                                 </div>
                                 <div className='row'>
@@ -86,9 +118,9 @@ function BasicInfoSect({data}: {data: iBasicInfo}) {
                                             onBlur={handleBlur}
                                             onFocus={() => errors.country = ''}
                                             onChange={handleChange}
-                                            className={(errors.country && touched.country) ? 'im-error' : ''}
+                                            className={((errors.country && touched.country) ? 'im-error' : '') + (!values.country ? ' fainter-tx2' : '')}
                                         >
-                                            <option value="">Choose your country</option>
+                                            <option value="">Choose property country</option>
                                             {countryList.map((country, index) => {
                                                 return <option value={country?.name} key={index}>{country?.name}</option>
                                             })}
@@ -103,21 +135,21 @@ function BasicInfoSect({data}: {data: iBasicInfo}) {
                                     <div className='reg-card'>
                                         <label>State/Province</label>
                                         <select
-                                            id='country'
-                                            value={values.country}
+                                            id='state'
+                                            value={values.state}
                                             onBlur={handleBlur}
-                                            onFocus={() => errors.country = ''}
+                                            onFocus={() => errors.state = ''}
                                             onChange={handleChange}
-                                            className={(errors.country && touched.country) ? 'im-error' : ''}
+                                            className={((errors.state && touched.state) ? 'im-error' : '') + (!values.state ? ' fainter-tx2' : '')}
                                         >
-                                            <option value="">Choose your country</option>
-                                            {countryList.map((country, index) => {
-                                                return <option value={country?.name} key={index}>{country?.name}</option>
+                                            <option value="">Choose property State/Province</option>
+                                            {stateList.map((state, index) => {
+                                                return <option value={state?.name} key={index}>{state?.name}</option>
                                             })}
                                         </select>
                                         {
-                                            errors.country && touched.country &&
-                                            <p className='reduced error-popup pt-1 mb-0'>{errors.country}</p>
+                                            errors.state && touched.state &&
+                                            <p className='reduced error-popup pt-1 mb-0'>{errors.state}</p>
                                         }
                                     </div>
                                   </div>
@@ -125,21 +157,21 @@ function BasicInfoSect({data}: {data: iBasicInfo}) {
                                     <div className='reg-card'>
                                         <label>LGA/County</label>
                                         <select
-                                            id='country'
-                                            value={values.country}
+                                            id='lga'
+                                            value={values.lga}
                                             onBlur={handleBlur}
-                                            onFocus={() => errors.country = ''}
+                                            onFocus={() => errors.lga = ''}
                                             onChange={handleChange}
-                                            className={(errors.country && touched.country) ? 'im-error' : ''}
+                                            className={((errors.lga && touched.lga) ? 'im-error' : '') + (!values.lga ? ' fainter-tx2' : '')}
                                         >
-                                            <option value="">Choose your country</option>
-                                            {countryList.map((country, index) => {
-                                                return <option value={country?.name} key={index}>{country?.name}</option>
+                                            <option value="">Choose property LGA/County</option>
+                                            {lgaList.map((lga, index) => {
+                                                return <option value={lga?.name} key={index}>{lga?.name}</option>
                                             })}
                                         </select>
                                         {
-                                            errors.country && touched.country &&
-                                            <p className='reduced error-popup pt-1 mb-0'>{errors.country}</p>
+                                            errors.lga && touched.lga &&
+                                            <p className='reduced error-popup pt-1 mb-0'>{errors.lga}</p>
                                         }
                                     </div>
                                   </div>
@@ -148,24 +180,24 @@ function BasicInfoSect({data}: {data: iBasicInfo}) {
                                     <label>Full Address</label>
                                     <input
                                         type="text"
-                                        placeholder='Enter your last name'
-                                        id='lastName'
-                                        value={values.lastName}
+                                        placeholder='Enter property address'
+                                        id='address'
+                                        value={values.address}
                                         onBlur={handleBlur}
-                                        onFocus={() => errors.lastName = ''}
+                                        onFocus={() => errors.address = ''}
                                         onChange={handleChange}
-                                        className={(errors.lastName && touched.lastName) ? 'im-error' : ''}
+                                        className={(errors.address && touched.address) ? 'im-error' : ''}
                                     />
                                     {
-                                        errors.lastName && touched.lastName &&
-                                        <p className='reduced error-popup pt-1 mb-0'>{errors.lastName}</p>
+                                        errors.address && touched.address &&
+                                        <p className='reduced error-popup pt-1 mb-0'>{errors.address}</p>
                                     }
                                 </div>
                                 <div className='reg-card'>
                                     <label>Email Address</label>
                                     <input
                                         type="email"
-                                        placeholder='enter your email'
+                                        placeholder='Enter property email'
                                         id='email'
                                         value={values.email}
                                         onBlur={handleBlur}
@@ -183,45 +215,46 @@ function BasicInfoSect({data}: {data: iBasicInfo}) {
                                     <div className='reg-card'>
                                         <label>Phone Number</label>
                                         <input
-                                            type="email"
-                                            placeholder='Enter your phone number'
-                                            id='phoneNo'
-                                            value={values.phoneNo}
+                                            type="text"
+                                            placeholder='Enter property phone number'
+                                            id='phone'
+                                            value={values.phone}
                                             onBlur={handleBlur}
-                                            onFocus={() => errors.phoneNo = ''}
+                                            onKeyUp={acceptOnlyNumbers}
+                                            onFocus={() => errors.phone = ''}
                                             onChange={handleChange}
-                                            className={(errors.phoneNo && touched.phoneNo) ? 'im-error' : ''}
+                                            className={(errors.phone && touched.phone) ? 'im-error' : ''}
                                         />
                                         {
-                                            errors.phoneNo && touched.phoneNo &&
-                                            <p className='reduced error-popup pt-1 mb-0'>{errors.phoneNo}</p>
+                                            errors.phone && touched.phone &&
+                                            <p className='reduced error-popup pt-1 mb-0'>{errors.phone}</p>
                                         }
                                     </div>
                                   </div>
                                   <div className='col-md-6'>
                                     <div className='reg-card'>
-                                        <label>Hotel Website</label>
+                                        <label>Property Website</label>
                                         <input
                                             type="text"
-                                            placeholder='Enter your phone number'
-                                            id='phoneNo'
-                                            value={values.phoneNo}
+                                            placeholder='Enter property website'
+                                            id='website'
+                                            value={values.website}
                                             onBlur={handleBlur}
-                                            onFocus={() => errors.phoneNo = ''}
+                                            onFocus={() => errors.website = ''}
                                             onChange={handleChange}
-                                            className={(errors.phoneNo && touched.phoneNo) ? 'im-error' : ''}
+                                            className={(errors.website && touched.website) ? 'im-error' : ''}
                                         />
                                         {
-                                            errors.phoneNo && touched.phoneNo &&
-                                            <p className='reduced error-popup pt-1 mb-0'>{errors.phoneNo}</p>
+                                            errors.website && touched.website &&
+                                            <p className='reduced error-popup pt-1 mb-0'>{errors.website}</p>
                                         }
                                     </div>
                                   </div>
                                 </div>
                                 <div className='text-center pt-3 pb-2'>
                                     <div className='spread-info'>
-                                      <button className='recede-button'>Go Back</button>
-                                      <button type='submit' className='proceed-button' disabled={isSubmitting}>{isSubmitting ? 'Processing..' : 'Submit'}</button>
+                                      <button type='button' className='recede-button px-4' onClick={cancel}>Cancel</button>
+                                      <button type='submit' className='proceed-button px-3' disabled={isSubmitting}>{isSubmitting ? 'Processing..' : 'Save & Next'}</button>
                                     </div>
                                     {
                                         response && <div className=''>{response}</div>

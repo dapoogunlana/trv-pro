@@ -6,15 +6,38 @@ import './add-shortlet.scss';
 import AdvancedInfoSect from './advanced-indo/advanced-info';
 import PublishPropertySect from './publish-property/publish-property';
 
-function AddShortletPage() {
+function AddShortletPage(props: any) {
 
   const [selectedTab, setSelectedTab] = useState<'basic information' | 'advance information' | 'publish property'>('basic information');
   const [basicInfoData, setBasicInfoData] = useState<iBasicInfo>(sampleBasicInfo);
   const [advancedInfoData, setAdvancedInfoData] = useState<iAdvancedInfo>(sampleAdvancedInfo);
 
+  const alterSelectedTab = (tab: 'basic information' | 'advance information' | 'publish property') => {
+    window.scrollTo(0, 0);
+    setSelectedTab(tab);
+  }
+
+  const proceedToAdvanced = (data: iBasicInfo) => {
+    setBasicInfoData(data)
+    console.log({amber: data});
+    alterSelectedTab('advance information');
+  }
+
+  const revertToBasic = () => {
+    alterSelectedTab('basic information');
+  }
+
+  const proceedToPublish = () => {
+    alterSelectedTab('publish property');
+  }
+
+  const revertToAdvanced = () => {
+    alterSelectedTab('advance information');
+  }
+
   useEffect(() => {
     window.scrollTo(0, 0);
-  });
+  }, [props]);
   
   return (
     <div className='add-shortlet'>
@@ -39,9 +62,9 @@ function AddShortletPage() {
         </div>
       </div>
       <>
-        {selectedTab === 'basic information' && <BasicInfoSect data={basicInfoData} />}
-        {selectedTab === 'advance information' && <AdvancedInfoSect data={advancedInfoData} />}
-        {selectedTab === 'publish property' && <PublishPropertySect basicData={basicInfoData} advancedData={advancedInfoData} />}
+        {selectedTab === 'basic information' && <BasicInfoSect data={basicInfoData} proceed={proceedToAdvanced} />}
+        {selectedTab === 'advance information' && <AdvancedInfoSect data={advancedInfoData} proceed={proceedToPublish} revert={revertToBasic} />}
+        {selectedTab === 'publish property' && <PublishPropertySect basicData={basicInfoData} advancedData={advancedInfoData} revert={revertToAdvanced} />}
       </>
     </div>
   );
