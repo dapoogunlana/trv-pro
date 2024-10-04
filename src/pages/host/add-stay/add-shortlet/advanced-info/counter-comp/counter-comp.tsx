@@ -1,20 +1,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { boolean } from "yup/lib/locale";
-import './incremental-count.scss';
+import './counter-comp.scss';
 
-interface iIncrementalCountProp {
+interface iCounterProp {
+  children: any;
   updateCount: Function;
   count?: number;
   holdUpdateKey?: string;
   increased?: boolean;
   negativeCount?: boolean;
   minimum?: number;
-  verticalCount?: boolean;
-  forcedWhite?: boolean;
+  className?: string;
 }
 
-const IncrementalCountComponent = (props: iIncrementalCountProp) => {
+const CounterComponent = (props: iCounterProp) => {
 
   const [count, setCount] = useState<number>(props.count || 0);
 
@@ -51,11 +51,11 @@ const IncrementalCountComponent = (props: iIncrementalCountProp) => {
   
 
   return (
-    <div className={"incremental-count" + (props.increased ? ' increased-counts' : '') + (props.verticalCount ? ' vertical-count' : '') + (props.forcedWhite ? ' forced-white' : '')}>
+    <div className={"counter-comp" + (props.increased ? ' increased-counts' : '')}>
       <div className="change" onClick={() => updateCount(false)}>
         <FontAwesomeIcon className="change-icon" icon={'minus'} />
       </div>
-      <span>{count}</span>
+      <span className={props.className || ''}>{count} {props.children}</span>
       <div className="change" onClick={() => updateCount(true)}>
         <FontAwesomeIcon className="change-icon" icon={'plus'} />
       </div>
@@ -68,4 +68,4 @@ const IncrementalCountComponent = (props: iIncrementalCountProp) => {
     </div>
   );
 }
-export default IncrementalCountComponent;
+export default CounterComponent;

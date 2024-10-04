@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import BasicInfoSect from './-basic-info/basic-info';
 import { iAdvancedInfo, iBasicInfo, sampleAdvancedInfo, sampleBasicInfo } from './add-shortlet-data';
 import './add-shortlet.scss';
-import AdvancedInfoSect from './advanced-indo/advanced-info';
+import AdvancedInfoSect from './advanced-info/advanced-info';
 import PublishPropertySect from './publish-property/publish-property';
 
 function AddShortletPage(props: any) {
@@ -18,16 +18,18 @@ function AddShortletPage(props: any) {
   }
 
   const proceedToAdvanced = (data: iBasicInfo) => {
-    setBasicInfoData(data)
+    setBasicInfoData(data);
     console.log({amber: data});
     alterSelectedTab('advance information');
   }
 
-  const revertToBasic = () => {
+  const revertToBasic = (data: iAdvancedInfo) => {
+    setAdvancedInfoData(data);
     alterSelectedTab('basic information');
   }
 
-  const proceedToPublish = () => {
+  const proceedToPublish = (data: iAdvancedInfo) => {
+    setAdvancedInfoData(data);
     alterSelectedTab('publish property');
   }
 

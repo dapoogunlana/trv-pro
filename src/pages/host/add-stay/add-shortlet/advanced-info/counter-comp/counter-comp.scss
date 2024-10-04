@@ -1,19 +1,21 @@
-@import '../../../assets/styles/variables.scss';
+@import '../../../../../../assets/styles/variables.scss';
 
-.incremental-count{
+.counter-comp{
     width: 100%;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     .change{
-        width: 20px;
-        height: 20px;
+        width: 40px;
+        height: 40px;
         border-radius: 2px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border: 1.5px solid $black-faint2;
+        // border: 1.5px solid $black-faint2;
+        border-radius: 50%;
+        background-color: $grey-lightest;
         cursor: pointer;
         transition: 0.2s ease;
         .change-icon{

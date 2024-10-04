@@ -38,6 +38,12 @@ h3{
     font-size: 2.1rem;
   }
 }
+.h4b{
+  font-weight: 700;
+  @include mediaW(110px){
+    font-size: 2.1rem;
+  }
+}
 .h1b{
     font-weight: 900;
     @include mediaW(550px) {
