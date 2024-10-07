@@ -44,6 +44,52 @@
                 transform: scale(1.05);
             }
         }
+        .image-container{
+            width: 100%;
+            border-radius: 0.6em;
+            border: 1.5px dashed $black-faint3;
+            padding: 0.3em 1em;
+            .image-holder{
+                border: 3px solid $white;
+                box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2), inset 0 2px 6px 0 rgba(0, 0, 0, 0.1);
+                position: relative;
+                transition: 0.3s ease;
+                margin: 0.7em 0;
+                img{ 
+                    width: 100%;
+                }
+                .remove-image{
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    // border: 0.6px solid $white;
+                    box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.4);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: $white;
+                    background-color: $red;
+                    position: absolute;
+                    right: 10px;
+                    top: 10px;
+                    opacity: 0;
+                    transition: 0.3s ease;
+                    &:hover{
+                        background-color: $red-hover;
+                    }
+                    &:active{
+                        background-color: $red-active;
+                        scale: 1.1;
+                    }
+                }
+                &:hover{
+                    scale: 1.2;
+                    .remove-image{
+                        opacity: 1;
+                    }
+                }
+            }
+        }
     }
     .full-list{
         background-color: $white;

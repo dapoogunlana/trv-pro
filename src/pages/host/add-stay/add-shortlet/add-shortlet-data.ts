@@ -62,7 +62,7 @@ export interface iAdvancedInfo {
     private_pool: number,
     lockbox: number,
     self_checkin: number,
-    images: File[]
+    images: Blob[]
 }
 
 export const sampleBasicInfo: iBasicInfo = {
@@ -129,4 +129,69 @@ export const sampleAdvancedInfo: iAdvancedInfo = {
     self_checkin: 0,
     images: []
 
+}
+
+export const preparePropertyData = (basicInfo: iBasicInfo, advancedInfo: iAdvancedInfo) => {
+    const formData = new FormData();
+    formData.append('apartment_name', basicInfo.apartment_name);
+    formData.append('country', basicInfo.country);
+    formData.append('state', basicInfo.state);
+    formData.append('lga', basicInfo.lga);
+    formData.append('address', basicInfo.address);
+    formData.append('email', basicInfo.email);
+    formData.append('phone', basicInfo.phone);
+    formData.append('website', basicInfo.website);
+    formData.append('single', advancedInfo.single.toString())
+    formData.append('suites', advancedInfo.suites.toString())
+    formData.append('executive', advancedInfo.executive.toString())
+    formData.append('double_chambers', advancedInfo.double_chambers.toString())
+    formData.append('description', advancedInfo.description)
+    formData.append('bedrooms', advancedInfo.bedrooms.toString())
+    formData.append('bathrooms', advancedInfo.bathrooms.toString())
+    formData.append('parking', advancedInfo.parking.toString())
+    formData.append('pool', advancedInfo.pool.toString())
+    formData.append('bathtube', advancedInfo.bathtube.toString())
+    formData.append('bidet', advancedInfo.bidet.toString())
+    formData.append('body_soap', advancedInfo.body_soap.toString())
+    formData.append('cleaning_products', advancedInfo.cleaning_products.toString())
+    formData.append('hot_water', advancedInfo.hot_water.toString())
+    formData.append('bed_linens', advancedInfo.bed_linens.toString())
+    formData.append('clothing_storage', advancedInfo.clothing_storage.toString())
+    formData.append('drying_rack', advancedInfo.drying_rack.toString())
+    formData.append('essentials', advancedInfo.essentials.toString())
+    formData.append('extra_pillows', advancedInfo.extra_pillows.toString())
+    formData.append('free_dryer', advancedInfo.free_dryer.toString())
+    formData.append('free_washer', advancedInfo.free_washer.toString())
+    formData.append('hangers', advancedInfo.hangers.toString())
+    formData.append('iron', advancedInfo.iron.toString())
+    formData.append('darkening_shades', advancedInfo.darkening_shades.toString())
+    formData.append('archade_games', advancedInfo.archade_games.toString())
+    formData.append('bluetooth', advancedInfo.bluetooth.toString())
+    formData.append('reading', advancedInfo.reading.toString())
+    formData.append('game_console', advancedInfo.game_console.toString())
+    formData.append('ping_pong_table', advancedInfo.ping_pong_table.toString())
+    formData.append('pool_table', advancedInfo.pool_table.toString())
+    formData.append('tv', advancedInfo.tv.toString())
+    formData.append('ac', advancedInfo.ac.toString())
+    formData.append('fans', advancedInfo.fans.toString())
+    formData.append('monoxide_alarm', advancedInfo.monoxide_alarm.toString())
+    formData.append('fire_extinguisher', advancedInfo.fire_extinguisher.toString())
+    formData.append('first_aid_kit', advancedInfo.first_aid_kit.toString())
+    formData.append('security_cameras', advancedInfo.security_cameras.toString())
+    formData.append('smoke_alarm', advancedInfo.smoke_alarm.toString())
+    formData.append('dedicated_workspace', advancedInfo.dedicated_workspace.toString())
+    formData.append('wifi', advancedInfo.wifi.toString())
+    formData.append('bbq_grill', advancedInfo.bbq_grill.toString())
+    formData.append('outdoor_dining', advancedInfo.outdoor_dining.toString())
+    formData.append('outdoor_furniture', advancedInfo.outdoor_furniture.toString())
+    formData.append('patio_balcony', advancedInfo.patio_balcony.toString())
+    formData.append('backyard_fenced', advancedInfo.backyard_fenced.toString())
+    formData.append('carpot', advancedInfo.carpot.toString())
+    formData.append('street_parking', advancedInfo.street_parking.toString())
+    formData.append('private_pool', advancedInfo.private_pool.toString())
+    formData.append('lockbox', advancedInfo.lockbox.toString())
+    formData.append('self_checkin', advancedInfo.self_checkin.toString())
+    formData.append('images', advancedInfo.images[0])
+
+    return formData;
 }
