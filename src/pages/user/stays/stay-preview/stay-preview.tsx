@@ -6,7 +6,7 @@ import { routeConstants } from '../../../../services/constants/route-constants';
 import { FlightPreviwImg as StayPreviwImg, PlaneTripIcon } from '../../../../assets/images';
 import { formatDate, formatNumber } from '../../../../services/utils/data-manipulation-utilits';
 import { sendRequest } from '../../../../services/utils/request';
-import { formatTime, getStayToAndFrom, processPassengerPriceList, sampleStays } from '../stay-search/stay-search-service';
+import { formatTime } from '../stay-search/stay-search-service';
 import './stay-preview.scss';
 
 function StayPreviewPage(props: any) {
@@ -23,7 +23,7 @@ function StayPreviewPage(props: any) {
     
     sendRequest(
       {
-        url: "flight/confirm-price/" + stayId,
+        url: "shortlet/fetch-shortlet/" + stayId,
         method: "GET",
       },
       (res: any) => {
@@ -80,12 +80,12 @@ function StayPreviewPage(props: any) {
         <div className='stay-preview'>
           <div className='preview-sect'>
             <h5>
-              <span className='orange-tx'>{getStayToAndFrom(stayDetails).from} </span> <span className='px-2 fainter-tx'> &gt; </span>
-              <span className='orange-tx'> {getStayToAndFrom(stayDetails).to} </span> <span className='px-2 fainter-tx'> &gt; </span>
-              <span className='increased-soft'> {stayDetails.outbound[0]?.airline_details?.name}</span>
+              <span className='orange-tx'>{stayDetails} </span> <span className='px-2 fainter-tx'> &gt; </span>
+              <span className='orange-tx'> {stayDetails} </span> <span className='px-2 fainter-tx'> &gt; </span>
+              <span className='increased-soft'> {stayDetails.outbound?.airline_details?.name}</span>
             </h5>
             <div className='spread-info-web pt-3 pb-2'>
-              <h2 className='f700'>{stayDetails.outbound[0]?.airline_details?.name} {stayDetails.fare_basis}</h2>
+              <h2 className='f700'>{stayDetails.outbound?.airline_details?.name} {stayDetails.fare_basis}</h2>
               <h2 className='pt-2 orange-tx increased-x number-bold'>
                 <span className='reduced-im'>{stayDetails.currency}</span> {formatNumber(Math.ceil(stayDetails.amount))}
               </h2>
@@ -94,7 +94,7 @@ function StayPreviewPage(props: any) {
             <div className='spread-info-web pb-3'>
               <p className='faint-tx py-2 mb-0'>
                 <FontAwesomeIcon icon={'map-marker'} />-- &nbsp;
-                {stayDetails.outbound[0]?.airport_from_details?.country}
+                {stayDetails.outbound?.airport_from_details?.country}
               </p>
               <div className='description-grid-50'>
                 <div className='center-info save-stay'>
@@ -111,11 +111,11 @@ function StayPreviewPage(props: any) {
                 <img src={StayPreviwImg} alt="" />
               </div>
               <div className='spread-info-web pt-5'>
-                <h5 className='f600 increased sentence-case'>basic {stayDetails.outbound[0]?.cabin_type?.toLocaleLowerCase()} features</h5>
+                <h5 className='f600 increased sentence-case'>basic {stayDetails.outbound?.cabin_type?.toLocaleLowerCase()} features</h5>
                 <div className='spread-info'>
                   <span className='cabin-type-indicator'>
                     <input type="checkbox" 
-                      checked={stayDetails.outbound[0]?.cabin_type.toLocaleLowerCase() === 'economy'} 
+                      checked={stayDetails.outbound?.cabin_type.toLocaleLowerCase() === 'economy'} 
                       onChange={(e) => e.preventDefault()}
                       name="" 
                       id="" 
@@ -124,7 +124,7 @@ function StayPreviewPage(props: any) {
                   </span>
                   <span className='cabin-type-indicator'>
                     <input type="checkbox" 
-                      checked={stayDetails.outbound[0]?.cabin_type.toLocaleLowerCase() === 'first class'} 
+                      checked={stayDetails.outbound?.cabin_type.toLocaleLowerCase() === 'first class'} 
                       onChange={(e) => e.preventDefault()}
                       name="" 
                       id="" 
@@ -133,7 +133,7 @@ function StayPreviewPage(props: any) {
                   </span>
                   <span className='cabin-type-indicator'>
                     <input type="checkbox" 
-                      checked={stayDetails.outbound[0]?.cabin_type.toLocaleLowerCase() === 'business class'} 
+                      checked={stayDetails.outbound?.cabin_type.toLocaleLowerCase() === 'business class'} 
                       onChange={(e) => e.preventDefault()}
                       name="" 
                       id="" 
@@ -144,11 +144,11 @@ function StayPreviewPage(props: any) {
               </div>
             </div>
             <div className='policy-card mb-4'>
-              <h5 className='f600 increased'>{stayDetails.outbound[0]?.airline_details?.name} Airline Policies</h5>
+              <h5 className='f600 increased'>{stayDetails.outbound?.airline_details?.name} Airline Policies</h5>
               <p className='text-center mb-1'>No policies available</p>
             </div>
             {
-              stayDetails.outbound.map((trip: any, tripIndex: number) => (
+              stayDetails.outbound?.map((trip: any, tripIndex: number) => (
                 <div className='mb-4 trip-card' key={tripIndex}>
                   <div className='spread-info pb-i'>
                     <p className='f400 mb-0 number-medium'>{formatDate(trip.departure_time)}</p>
@@ -204,7 +204,7 @@ function StayPreviewPage(props: any) {
               ))
             }
             {
-              stayDetails.inbound.length > 0 &&
+              stayDetails.inbound?.length > 0 &&
               <div className='py-2'>
                 <hr className='text-center'/>
                 <h6 className='text-center mb-0'>Return Trip</h6>
@@ -212,7 +212,7 @@ function StayPreviewPage(props: any) {
               </div>
             }
             {
-              stayDetails.inbound.map((trip: any, tripIndex: number) => (
+              stayDetails.inbound?.map((trip: any, tripIndex: number) => (
                 <div className='mb-4 trip-card' key={tripIndex}>
                   <div className='spread-info pb-i'>
                     <p className='f400 mb-0 number-medium'>{formatDate(trip.departure_time)}</p>
@@ -276,12 +276,6 @@ function StayPreviewPage(props: any) {
                     {stayDetails?.travelers_price?.map((price: any, index: number) => (
                       <div className='spread-info' key={index}>
                         {/* price_summary */}
-                        {
-                        processPassengerPriceList(price).map((item, index) => <React.Fragment key={index}>
-                          <h6 className='sentence-case f300'>{item.key}</h6>
-                          <h6 className='number-light'>{formatNumber(item.value)}</h6>
-                        </React.Fragment>)
-                        }
                       </div>
                     ))}
                     <div className='spread-info'>

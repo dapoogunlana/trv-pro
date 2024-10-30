@@ -629,8 +629,14 @@
 .reduced-xl {
   font-size: 0.5em;
 }
+.reduced-xl-im {
+  font-size: 0.5em !important;
+}
 .reduced-x {
   font-size: 0.65em;
+}
+.reduced-x-im {
+  font-size: 0.65em !important;
 }
 .reduced {
   font-size: 0.8em;
@@ -835,6 +841,21 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+.scroll-anchor{
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  left: 0;
+  pointer-events: none;
+  top: calc(-170px);
+  @include mediaM(850px){
+      top: calc(-80px);
+  }
+  @include mediaM(550px){
+      top: calc(-60px);
+  }
 }
 
 

@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import './flight-search-filter.scss';
+import './stay-search-filter.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IFilter, initialFilter, validateAirlineFIlterInputs } from './flight-filter-service';
+import { IFilter, initialFilter, validateAirlineFIlterInputs } from './stay-filter-service';
 import { timeConstants } from '../../../../../services/constants/general constants';
 import { formatNumber } from '../../../../../services/utils/data-manipulation-utilits';
+import { iFullShortletInfo } from '../../../../host/add-stay/add-shortlet/add-shortlet-data';
 
 interface IFilterProps {
-  list: any[];
+  list: iFullShortletInfo[];
   updateList: Function;
   children: any;
   status?: boolean;
 }
 
-function FlightSearchFilter({list, updateList, children, status}: IFilterProps) {
+function StaySearchFilter({list, updateList, children, status}: IFilterProps) {
 
   const [selectedTab, setSelectedTab] = useState<'cheapest' | 'best' | 'quickest'>('best');
   const [filterOpened, setFilterOpened] = useState(false);
@@ -22,7 +23,7 @@ function FlightSearchFilter({list, updateList, children, status}: IFilterProps) 
   const [quickestTime, setQuickestTime] = useState(0);
   const [cheapestPrice, setCheapestPrice] = useState(0);
   const [airlineList, setAirlineList] = useState<{name: string, code: string}[]>([]);
-  const [updatedList, setUpdatedList] = useState<any[]>([]);
+  const [updatedList, setUpdatedList] = useState<iFullShortletInfo[]>([]);
 
   const changeFilterState = (state: boolean) => {
     const selector = window.innerWidth > 991 ? false : state;
@@ -107,8 +108,8 @@ function FlightSearchFilter({list, updateList, children, status}: IFilterProps) 
       const tempList: any = [];
       filteredList.map((item: any) => {
         const earlyMark = `2024-06-04T${filter.earlyestTime}:00:00.000Z`;
-        const flightTime = `2024-06-04T${item?.outbound[0]?.departure_time?.split('T')[1]}.000Z`;
-        if(new Date(earlyMark).getTime() < new Date(flightTime).getTime()) {
+        const stayTime = `2024-06-04T${item?.outbound[0]?.departure_time?.split('T')[1]}.000Z`;
+        if(new Date(earlyMark).getTime() < new Date(stayTime).getTime()) {
           tempList.push(item);
         }
       });
@@ -118,8 +119,8 @@ function FlightSearchFilter({list, updateList, children, status}: IFilterProps) 
       const tempList: any = [];
       filteredList.map((item: any) => {
         const lateMark = `2024-06-04T${filter.latestTime}:00:00.000Z`;
-        const flightTime = `2024-06-04T${item?.outbound[0]?.departure_time?.split('T')[1]}.000Z`;
-        if(new Date(lateMark).getTime() > new Date(flightTime).getTime()) {
+        const stayTime = `2024-06-04T${item?.outbound[0]?.departure_time?.split('T')[1]}.000Z`;
+        if(new Date(lateMark).getTime() > new Date(stayTime).getTime()) {
           tempList.push(item);
         }
       });
@@ -135,18 +136,19 @@ function FlightSearchFilter({list, updateList, children, status}: IFilterProps) 
     const airlines: {name: string, code: string}[] = [];
     let listPirce = 0;
     let fastestTime = 0;
-    list.map((flight: any) => {
-      if(!listPirce || listPirce > flight?.amount) {
-        listPirce = flight?.amount;
-      }
-      if(!fastestTime || fastestTime > flight?.total_duration) {
-        fastestTime = flight?.total_duration;
-      }
-      airlineObg[flight?.outbound[0]?.airline_details?.name] = {
-        name: flight?.outbound[0]?.airline_details?.name,
-        code: flight?.outbound[0]?.airline_details?.code
-      };
-    });
+    // list.map((stay: iFullShortletInfo) => {
+    //   if(!listPirce || listPirce > stay?.amount) {
+    //     listPirce = stay?.amount;
+    //   }
+    //   if(!fastestTime || (fastestTime > stay?.total_duration)) {
+    //     fastestTime = stay?.total_duration;
+    //     console.log({ffff: stay?.total_duration})
+    //   }
+    //   airlineObg[stay?.outbound[0]?.airline_details?.name] = {
+    //     name: stay?.outbound[0]?.airline_details?.name,
+    //     code: stay?.outbound[0]?.airline_details?.code
+    //   };
+    // });
     setCheapestPrice(listPirce);
     setQuickestTime(fastestTime);
     for(let item in airlineObg) {
@@ -156,6 +158,7 @@ function FlightSearchFilter({list, updateList, children, status}: IFilterProps) 
     }
     setAirlineList(airlines);
     clearFilter();
+    setSelectedTab('best');
   }, [list]);
 
   useEffect(() => {
@@ -303,7 +306,9 @@ function FlightSearchFilter({list, updateList, children, status}: IFilterProps) 
             <div className={'category-tab' + (selectedTab ==='cheapest' ? ' active' : '')} onClick={() => updateSelectedTab('cheapest')}>
               <h6 className='mb-0'>Cheapest</h6>
               <p className='mb-0 number-light'>
-                <span className='reduced-im'>{list[0]?.currency} </span> 
+                <span className='reduced-im'>
+                  {/* {list[0]?.currency}  */}
+                </span> 
                 {formatNumber(Math.ceil(cheapestPrice))}
               </p>
             </div>
@@ -331,4 +336,4 @@ function FlightSearchFilter({list, updateList, children, status}: IFilterProps) 
   );
 }
 
-export default FlightSearchFilter;
+export default StaySearchFilter;

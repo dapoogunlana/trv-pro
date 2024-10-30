@@ -4,26 +4,43 @@ import ProfileOverviewPage from '../../user/profile/user-profile/profile-overvie
 import ProfileSettingsPage from '../../user/profile/user-profile/profile-settings/profile-settings';
 import './host-profile-tab.scss';
 import { useSelector } from 'react-redux';
-import { iStoreState } from '../../../services/constants/interfaces/store-schemas';
+import { iStoreState, IUserData } from '../../../services/constants/interfaces/store-schemas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProfileSect from './profile-sect/profile-sect';
 import ReviewsSect from './reviews-sect/reviews-sect';
 import PropertiesSect from './properties-sect/properties-sect';
 import { useNavigate } from 'react-router';
 import { routeConstants } from '../../../services/constants/route-constants';
+import { sendRequest } from '../../../services/utils/request';
+import { toast } from 'react-toastify';
 
-function HostProfilePage() {
+function HostProfilePage(props: any) {
 
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'profile' | 'reviews' | 'properties'>('profile');
+  const user: IUserData = useSelector((state: iStoreState) => state?.user);
+  const [notifications, setNotifications] = useState()
 
   const goToNewProperty = () => {
     navigate(`/${routeConstants.addShortlet}`);
   }
 
+  const getNotifications = () => {
+      sendRequest({
+          url: 'host-profile/notifications',
+          method: 'GET',
+      }, (res: any) => {
+          setNotifications(res);
+      }, (err: any) => {});
+  }
+
+  useEffect(() => {
+    getNotifications();
+  });
+
   useEffect(() => {
     window.scrollTo(0, 0);
-  });
+  }, [props]);
   
   return (
     <div className='host-holder'>
@@ -35,7 +52,7 @@ function HostProfilePage() {
                 <img src="" alt="" />
               </div>
               <div>
-                <h5 className='f700 mb-2'>{'Tunde Developer'}</h5>
+                <h5 className='f700 mb-2'>{user.first_name} {user.last_name}</h5>
                 <div className='spread-info-front'>
                   <FontAwesomeIcon icon={'star'} className='mr-2 reduced' />
                   <span className='reduced number-medium px-2'>({2}) Unread notifications</span>

@@ -1,6 +1,7 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import IncrementalCountComponent from '../../../../../components/base-components/incremental-count/incremental-count';
 import { iAdvancedInfo } from '../add-shortlet-data';
 import './advanced-info.scss';
@@ -48,28 +49,59 @@ function AdvancedInfoSect({data, revert, proceed}: {data: iAdvancedInfo, revert:
     revert({...facilityInfo, images: imageList});
   }
   const forward = () => {
+    if(imageList.length < 5) {
+      toast.error('Please upload at least 5 images to proceed')
+      document.getElementById('images')?.scrollIntoView();
+      return;
+    }
+    if(!facilityInfo.single && !facilityInfo.suites && !facilityInfo.executive && !facilityInfo.double_chambers) {
+      toast.error('please select at least 1 of the room categories');
+      document.getElementById('categories')?.scrollIntoView();
+      return;
+    }
+    if(!facilityInfo.description) {
+      toast.error('Please add some description for this facility');
+      document.getElementById('description')?.scrollIntoView();
+      return;
+    } else if(facilityInfo.description && facilityInfo.description.length < 20) {
+      toast.error('Description to short, please add more details to proceed');
+      document.getElementById('description')?.scrollIntoView();
+      return;
+    }
     proceed({...facilityInfo, images: imageList});
   }
 
   useEffect(() => {
-    console.log({facilityInfo})
+    // console.log({facilityInfo})
   }, [facilityInfo]);
 
   useEffect(() => {
-    const tempImages: any[] = []
+    const tempImages: any[] = [];
+    const tempImageObj: any = {};
     imageList.map((image, index) => {
       const fileReader = new FileReader();
       fileReader.onload = () => {
         tempImages.push(fileReader.result);
+        tempImageObj[index] = fileReader.result;
         if(tempImages.length === imageList.length) {
-          setImagePreviewList(tempImages);
-          console.log({tempImages})
-        } else{
-          console.log('{facilityInfo}')
+          // setImagePreviewList(tempImages);
+          const alternateList: any[] = [];
+          for(let img in tempImageObj) {
+            if(tempImageObj[img]){
+              alternateList.push(tempImageObj[img]);
+            }
+          }
+          setImagePreviewList(alternateList);
+          console.log({tempImages, tempImageObj});
+        } else {
+          console.log('{facilityInfo}');
         }
       }
       fileReader.readAsDataURL(image);
     })
+    if(imageList.length === 0) {
+      setImagePreviewList([]);
+    }
   }, [imageList]);
   
   return (
@@ -96,6 +128,7 @@ function AdvancedInfoSect({data, revert, proceed}: {data: iAdvancedInfo, revert:
           </div>
           <div className='col-12 pt-4'>
             <div className='image-container'>
+            <div className='scroll-anchor' id='images'></div>
               {
                 imagePreviewList.length > 0 ?
                 <div className='row'>
@@ -126,6 +159,7 @@ function AdvancedInfoSect({data, revert, proceed}: {data: iAdvancedInfo, revert:
       </div>
       <div className='full-list'>
         <div className='w90 max1100'>
+          <div className='scroll-anchor' id='categories'></div>
           <h4 className='blue-tx f700 pt-4'>Categories of Rooms in <span className='purple-tx'>Your Shortlet</span></h4>
           <div className='row pb-3'>
             <div className='col-xl-3 col-md-6 py-3'>
@@ -173,11 +207,18 @@ function AdvancedInfoSect({data, revert, proceed}: {data: iAdvancedInfo, revert:
 
           <h4 className='blue-tx f700 pt-4 pb-2'>Add a short description  <span className='orange-tx'>of your place.</span></h4>
           <div className='description-area'>
+            <div className='scroll-anchor' id='description'></div>
             <textarea 
               value={facilityInfo.description}
               placeholder='Show what makes your property stand out.'
               onChange={(ev: any) => updateFacilityInfo(ev.target.value, 'description')}
             ></textarea>
+            {!facilityInfo.description && <div>
+              <p className='mb-0 reduced-soft red-tx'>Please include description to be able to proceed</p>
+            </div>}
+            {facilityInfo.description && facilityInfo.description.length < 20 && <div>
+              <p className='mb-0 reduced-soft red-tx'>Description to short, please add more details to proceed</p>
+            </div>}
           </div>
 
           <h4 className='blue-tx f700 pt-4'>Add facilities available  <span className='purple-tx'>at your place.</span></h4>

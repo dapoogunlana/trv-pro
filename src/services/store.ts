@@ -4,7 +4,7 @@ import {persistStore, persistReducer} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import createSagaMiddleware from  "redux-saga";
 import rootSaga from "./sagas/root-saga";
-import userReducer from "./actions-reducers/user-data";
+import {userReducer} from "./actions-reducers/user-data";
 import airportListReducer from "./actions-reducers/airport-list";
 
 const combinedReducers: any = combineReducers({

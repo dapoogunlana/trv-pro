@@ -4,21 +4,16 @@ import { Formik, FormikProps, FormikValues } from "formik";
 import AppPopup from '../../app-popup/app-popup';
 import DateSelectionComp from './date-selection/date-selection';
 import './stays-booking-comp.scss';
-import FlightClassSelectionComp from './flight-class-selection/flight-class-selection';
 import LocationSelectionComp from './location-selection/location-selection';
-import LuggageSelectionComp from './luggage-selection/luggage-selection';
 import {
   generateNewCombinedStayData,
   ICombinedStaySearchData,
   IDateData,
-  IStayClassData,
-  ILaugageData,
   ILocationData,
   storedCombinedStayData,
   updateCombinedStayData,
 } from '../../../../services/utils/stay-booking-service';
 import { toast } from 'react-toastify';
-import { calculateAdult } from '../../../../pages/user/stays/stay-search/stay-search-service';
 
 interface IStayBooking {
   cleanSelection?: boolean;
@@ -33,19 +28,12 @@ function StayBookingComp({cleanSelection, hidecategories, searchStays}: IStayBoo
   );
 
   const [initialized, setInitialized] = useState(false);
-  const [stayType, setStayType] = useState<'return' | 'one-way'>(combinedStayData.stayType);
   const [location, setLocation] = useState<ILocationData | undefined>(combinedStayData.location);
   const [date, setDate] = useState<IDateData | undefined>(combinedStayData.date);
-  const [luggageCounts, setLuggageCounts] = useState<ILaugageData | undefined>(combinedStayData.luggageCounts);
-  const [stayClass, setStayClass] = useState<IStayClassData | undefined>(combinedStayData.stayClass);
 
   const [canProceed, setCanProceed] = useState(true);
   const [errorListString, setErrorListString] = useState('');
   const [showPromoCode, setShowPromoCode] = useState(false);
-
-  const updateStayType = (type: 'return' | 'one-way') => {
-    setStayType(type);
-  }
 
   const updateLocation = (locationObj: {address: string, geolocation: string}) => {
     setLocation(locationObj);
@@ -53,12 +41,6 @@ function StayBookingComp({cleanSelection, hidecategories, searchStays}: IStayBoo
 
   const updateDate = (dateObj: { startDate: Date | undefined, endDate: Date | undefined, key: string| undefined }) => {
     setDate(dateObj);
-  }
-  const updateLuggageCounts = (counts: {checkedInCount: number, handLuggageCount: number}) => {
-    setLuggageCounts(counts);
-  }
-  const updateStayClass = (counts: any) => {
-    setStayClass(counts);
   }
 
   const searchForStays = (values: FormikValues, controls: any) => {
@@ -87,13 +69,10 @@ function StayBookingComp({cleanSelection, hidecategories, searchStays}: IStayBoo
     const tempCombination = {
       location: location?.address ? location : undefined ,
       date: date?.startDate ? date : undefined,
-      luggageCounts: (luggageCounts?.checkedInCount || luggageCounts?.handLuggageCount) ? luggageCounts : undefined,
-      stayClass: stayClass?.allPassengerCount ? stayClass: undefined,
-      stayType: stayType,
     }
     const errors: string[] = [];
     setCombinedStayData(tempCombination);
-    if (tempCombination.location && tempCombination.date && calculateAdult(tempCombination.stayClass, true) && tempCombination.luggageCounts) {
+    if (tempCombination.location && tempCombination.date) {
       setCanProceed(true);
       updateCombinedStayData(tempCombination);
     } else {
@@ -102,12 +81,6 @@ function StayBookingComp({cleanSelection, hidecategories, searchStays}: IStayBoo
       }
       if(!tempCombination.date) {
         errors.push('Date Information')
-      }
-      if(!calculateAdult(tempCombination.stayClass, true)) {
-        errors.push('Passenger Information')
-      }
-      if(!tempCombination.luggageCounts) {
-        errors.push('Luggage Information')
       }
       setCanProceed(false);
       updateCombinedStayData(generateNewCombinedStayData());
@@ -121,57 +94,23 @@ function StayBookingComp({cleanSelection, hidecategories, searchStays}: IStayBoo
 
   useEffect(() => {
     compileCombinedData();
-  }, [location, date, luggageCounts, stayClass]);
+  }, [location, date]);
 
   return (
     <div className='stay-booking-comp'>
       <div className={'stay-type-selector' + (hidecategories ? '' : ' floated-type')}>
-        {/* <div onClick={() => updateStayType('multi')}>
-          <input
-            type="radio"
-            value={'multi'}
-            name='stay-type'
-            checked={stayType === 'multi'}
-            onChange={() => updateStayType('multi')}
-          />
-          <span>Multi city</span>
-        </div> */}
-        {/* <div onClick={() => updateStayType('return')}>
-          <input
-            type="radio"
-            value={'return'}
-            // defaultChecked
-            name='stay-type'
-            checked={stayType === 'return'}
-            onChange={() => updateStayType('return')}
-          />
-          <span>Return</span>
-        </div>
-        <div onClick={() => updateStayType('one-way')}>
-          <input
-            type="radio"
-            value={'one-way'}
-            name='stay-type'
-            checked={stayType === 'one-way'}
-            onChange={() => updateStayType('one-way')}
-          />
-          <span>One way</span>
-        </div> */}
         <button className='purple-button purple-shadow'>List Properties</button>
       </div>
       <div className='row'>
-        <div className='col-lg-4 col-sm-6'>
+        <div className='col-md-6'>
           <LocationSelectionComp location={location} setLocation={updateLocation} />
         </div>
-        <div className='col-lg-3 col-sm-6'>
+        {/* <div className='col-lg-3 col-sm-6'>
           <LuggageSelectionComp luggageCounts={luggageCounts} setLuggageCounts={updateLuggageCounts} />
-        </div>
-        <div className='col-lg-5 col-sm-12'>
+        </div> */}
+        <div className='col-md-6 col-sm-12'>
           <DateSelectionComp date={date} setDate={updateDate} />
         </div>
-        {/* <div className='col-lg-3 col-sm-6'>
-          <FlightClassSelectionComp flightClass={stayClass} setFlightClass={updateStayClass} />
-        </div> */}
       </div>
       <Formik
         initialValues={{code: ''}}
@@ -212,7 +151,7 @@ function StayBookingComp({cleanSelection, hidecategories, searchStays}: IStayBoo
                       Add Promo Code
                     </p>
                   }
-                  <button className='stay-button my-2'>
+                  <button className='stay-button my-2' type='submit'>
                     <FontAwesomeIcon className='reduced-soft' icon={'paper-plane'} /> Show Stays
                   </button>
                 </div>

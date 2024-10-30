@@ -1,7 +1,5 @@
 import { regexConstants } from "../../../../services/constants/validation-regex";
 import { formatDate, parseBoolean } from "../../../../services/utils/data-manipulation-utilits";
-import { IStayClassData } from "../../../../services/utils/stay-booking-service"
-
 
 export interface IStayPaymentData {
       amount: number;

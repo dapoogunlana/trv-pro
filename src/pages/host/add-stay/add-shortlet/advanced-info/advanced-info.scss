@@ -49,6 +49,7 @@
             border-radius: 0.6em;
             border: 1.5px dashed $black-faint3;
             padding: 0.3em 1em;
+            position: relative;
             .image-holder{
                 border: 3px solid $white;
                 box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2), inset 0 2px 6px 0 rgba(0, 0, 0, 0.1);
@@ -83,7 +84,9 @@
                     }
                 }
                 &:hover{
-                    scale: 1.2;
+                    scale: 1.06;
+                    z-index: 20;
+                    background-color: #F9F5FA;
                     .remove-image{
                         opacity: 1;
                     }
@@ -96,6 +99,7 @@
         width: 100%;
         min-height: 50vh;
         padding: 1em 0 2em;
+        position: relative;
         .selection-grid, .selection-grid-big{
             display: grid;
             grid-template-columns: 50px auto;
@@ -155,6 +159,7 @@
             }
         }
         .description-area{
+            position: relative;
             textarea{
                 width: 100%;
                 border: none;
@@ -167,6 +172,9 @@
                     outline: none;
                     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.144);
                 }
+            }
+            #description{
+                scroll-margin-top: 100px;
             }
         }
         .stack-flex{

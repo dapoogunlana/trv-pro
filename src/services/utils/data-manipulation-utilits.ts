@@ -100,7 +100,6 @@ export function formatDateMini(date: any, returnValue?: string) {
       
       if (convertedDate) {
         const dateList = convertedDate.split('/');
-        console.log({dateList, convertedDate})
         return `${dateList[1]}-${dateList[0]}-${dateList[2].substring(2)}`;
       } else {
         return returnValue || '-';
@@ -119,7 +118,6 @@ export function formatDateMin(date: any, returnValue?: string) {
       
       if (convertedDate) {
         const dateList = convertedDate.split('/');
-        console.log({dateList, convertedDate})
         return `${dateList[1]}-${dateList[0]}-${dateList[2]}`;
       } else {
         return returnValue || '-';

@@ -10,11 +10,13 @@ import { useSelector } from "react-redux";
 import { iStoreState } from "../../services/constants/interfaces/store-schemas";
 import { useDispatch } from "react-redux";
 import { userLogout } from "../../services/actions-reducers/user-data";
+import { sendRequest } from "../../services/utils/request";
 
 function Header(props: any) {
 
   const navigate = useNavigate();
   const userDetails = useSelector((state: iStoreState) => state?.user || {});
+  const userType: 'user' | 'host' = useSelector((state: iStoreState) => state?.user?.userMode || 'user');
   const dispatch = useDispatch();
 
   const navigateTo = (link: string) => {
@@ -22,8 +24,22 @@ function Header(props: any) {
   }
 
   const logOut = () => {
-    dispatch(userLogout());
-    navigateTo(`${routeConstants.home}`);
+    
+    sendRequest(
+      {
+        url: userType === 'user' ? 'user-auth/logout' : 'host-profile/logout',
+        method: "POST",
+        body: {},
+      },
+      () => {
+        dispatch(userLogout());
+        navigateTo(`${routeConstants.home}`);
+      },
+      () => {
+        dispatch(userLogout());
+        navigateTo(`${routeConstants.home}`);
+      }
+    );
   }
 
   useEffect(() => {}, [props]);

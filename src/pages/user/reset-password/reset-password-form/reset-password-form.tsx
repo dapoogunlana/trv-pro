@@ -13,6 +13,9 @@ function ResetPasswordForm({resetComplete, switchToLogin}: {resetComplete?: Func
   const [response, setResponse] = useState<any>();
   const [showPassword, setShowPassword] = useState(false);
   const user: IUserData = useSelector((state: iStoreState) => state.user);
+  const token = new URLSearchParams(document.location.search).get('token');
+  const id = new URLSearchParams(document.location.search).get('id');
+  const userType = new URLSearchParams(document.location.search).get('type') || user?.userMode;
 
   const goToLogin = () => {
     if(switchToLogin){
@@ -23,7 +26,7 @@ function ResetPasswordForm({resetComplete, switchToLogin}: {resetComplete?: Func
   const submitRequest = (values: any, controls: any) => {
     sendRequest(
       {
-        url: `${user?.userMode || 'user'}-auth/reset-password`,
+        url: `${userType || 'user'}-auth/reset-password?token=${token}&id=${id}`,
         method: "POST",
         body: {
           password: values.password,

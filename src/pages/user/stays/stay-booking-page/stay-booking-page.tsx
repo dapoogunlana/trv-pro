@@ -10,7 +10,6 @@ import StayPayment from './stay-payment/stay-payment';
 import './stay-booking-page.scss';
 import { sendRequest } from '../../../../services/utils/request';
 import { useNavigate, useParams } from 'react-router';
-import { getStayToAndFrom, processPassengerPriceList } from '../stay-search/stay-search-service';
 import { routeConstants } from '../../../../services/constants/route-constants';
 import { acceptOnlyNumbers, formatNumber, generateMaxDate, generateMinDate } from '../../../../services/utils/data-manipulation-utilits';
 import { useSelector } from 'react-redux';
@@ -97,10 +96,10 @@ function StayBookingPage(props: any) {
   const setupTouchedAndErrors = (details: any) => {
     const errorData = bookingErrors;
     const touchedData = bookingTouched;
-    processPassengerPriceList(details.travelers_price)?.map(() => {
-      errorData.passenger_details.push(initialPassengerPayload);
-      touchedData.passenger_details.push(initialPassengerTouchedData);
-    })
+    // processPassengerPriceList(details.travelers_price)?.map(() => {
+    //   errorData.passenger_details.push(initialPassengerPayload);
+    //   touchedData.passenger_details.push(initialPassengerTouchedData);
+    // })
     setBookingErrors(errorData);
     setBookingTouched(touchedData);
   }
@@ -213,8 +212,8 @@ function StayBookingPage(props: any) {
                   <div className='preview-sect'>
                     <div className='spread-info-web'>
                       <h5>
-                        <span className='orange-tx'>{getStayToAndFrom(stayDetails).from} </span> <span className='px-2 fainter-tx'> &gt; </span>
-                        <span className='orange-tx'> {getStayToAndFrom(stayDetails).to} </span> <span className='px-2 fainter-tx'> &gt; </span>
+                        <span className='orange-tx'>{stayDetails} </span> <span className='px-2 fainter-tx'> &gt; </span>
+                        <span className='orange-tx'> {stayDetails} </span> <span className='px-2 fainter-tx'> &gt; </span>
                         <span className='increased-soft'> {stayDetails.outbound[0]?.airline_details?.name}</span>
                       </h5>
                       <h2 className='pt-2 orange-tx increased number-bold'>

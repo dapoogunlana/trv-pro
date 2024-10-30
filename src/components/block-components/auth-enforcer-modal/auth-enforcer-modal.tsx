@@ -11,16 +11,33 @@ import { routeConstants } from "../../../services/constants/route-constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../../services/actions-reducers/user-data";
+import { sendRequest } from "../../../services/utils/request";
+import { useSelector } from "react-redux";
+import { iStoreState } from "../../../services/constants/interfaces/store-schemas";
 
 const AuthEnforcerModal = (props: { overlayMode: number, updateOverlayMode: Function, init: boolean, proceed?: Function }) => {
 
   const [authPage, setAuthPage] = useState<'login' | 'register' | 'verify' | 'forgot_password' | 'reset_password'>('login');
   const [closeClass, setCloseClass] = useState<'close-false' | 'close-true'>('close-false');
+  const userType: 'user' | 'host' = useSelector((state: iStoreState) => state?.user?.userMode || 'user');
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const logUserIn = (user?: any) => {
     if(user) {
+    
+    // sendRequest(
+    //   {
+    //     url: userType === 'user' ? 'user-auth/logout' : 'host-profile/logout',
+    //     method: "POST",
+    //     body: {},
+    //   },
+    //   () => {
+    //     dispatch(userLogout());
+    //     navigateTo(`${routeConstants.home}`);
+    //   },
+    //   () => {}
+    // );
       dispatch(userLogin(user));
     }
     setAuthPage('login');

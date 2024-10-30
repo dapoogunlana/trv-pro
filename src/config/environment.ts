@@ -14,6 +14,13 @@ export const externalLinkConstants = {
     presaleLink: 'http://presale.manilla.finance',
 }
  
+export const resourceLinks = {
+    shortletImages: 'https://borderless-travel-backend-v1.onrender.com/files/imgs/shortlets/',
+    hostAvatarImages: 'https://borderless-travel-backend-v1.onrender.com/files/imgs/posts/',
+    userAvatarImages: 'https://borderless-travel-backend-v1.onrender.com/files/imgs/users/',
+    jobApplicationDocs: 'https://borderless-travel-backend-v1.onrender.com/files/docs/job-applications/',
+};
+ 
 export const socialLinks = {
     facebook: '',
     instagram: '',

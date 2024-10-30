@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import BookingComp from '../../../../../components/block-components/booking-comp/booking-comp';
+import { storedCombinedStayData as sData } from '../../../../../services/utils/stay-booking-service';
 import './banner.scss';
 
 function BannerSect(props: {searchStays: Function}) {
 
-  const [staysSearched, setStaysSearched] = useState(false);
+  const [staysSearched, setStaysSearched] = useState(sData.location?.address && sData.date?.endDate ? true : false);
 
   const searchStays = (search: any) => {
     setStaysSearched(true);
@@ -24,6 +25,7 @@ function BannerSect(props: {searchStays: Function}) {
         </div>
       }
       <div className='booking-sect'>
+        <div className='back-paint'></div>
         <BookingComp hidecategories mode='STAYS' searchStays={searchStays} />
       </div>
     </div>

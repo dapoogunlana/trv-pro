@@ -21,7 +21,7 @@ function PublishPropertySect({basicData, advancedData, revert}: {basicData: iBas
     
     sendRequest(
       {
-        url: "host-profile/add-property",
+        url: "host-profile/add-listing",
         method: "POST",
         body: preparePropertyData(basicData, advancedData),
       },
@@ -79,9 +79,10 @@ function PublishPropertySect({basicData, advancedData, revert}: {basicData: iBas
         loading === 3 &&
         <div className='loader-holder-40'>
           <div className='error-box'>
-            <h3>Property added successfully, it would be activated after approval by an admin</h3>
+            <h3>Property added successfully</h3>
+            <p>It would be activated after approval by an admin</p>
             <div className='text-align-center button-holders'>
-              <button className='proceed-button' onClick={goBack}>Exit</button>
+              <button className='proceed-button px-4' onClick={goBack}>Exit</button>
             </div>
           </div>
         </div>

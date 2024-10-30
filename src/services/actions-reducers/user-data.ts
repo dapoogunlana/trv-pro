@@ -13,7 +13,7 @@ export const userLogout = () => {
     }
 }
 
-const userReducer = (state = {}, action: any) => {
+export const userReducer = (state = {}, action: any) => {
     switch(action.type) {
         case GET_USER_LOGIN:
             return {...state, ...action.payload};
