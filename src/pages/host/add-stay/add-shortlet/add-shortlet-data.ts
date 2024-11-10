@@ -13,9 +13,13 @@ export interface iBasicInfo {
 
 export interface iAdvancedInfo {
     single: number,
+    single_price?: string,
     suites: number,
+    suites_price?: string,
     executive: number,
+    executive_price?: string,
     double_chambers: number,
+    double_chambers_price?: string,
     description: string,
     bedrooms: number,
     bathrooms: number,

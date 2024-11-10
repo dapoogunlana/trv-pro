@@ -40,79 +40,87 @@
                 font-size: 0.9em;
             }
         }
-        .preview-image{
-            width: 100%;
-            img{
-                width: 100%;
-                border-radius: 12px;
-                box-shadow: 0 10px 20px 0 rgba(103, 4, 118, 0.25);
-            }
-        }
-        .cabin-type-indicator{
-            font-size: 0.8em;
-            padding: 0.1em 0.5em;
-            input{
-                margin-right: 0.7em;
-                transform: scale(1.5);
-                &:checked{
-                    accent-color: $orange;
-                }
-            }
-            @include mediaM(920px){
-                padding-top: 0.6em;
-            }
-        }
-        .policy-card{
-            background-color: #DEC3E7;
-            padding: 0.7em 1.1em;
-            border-radius: 8px;
-        }
-        .trip-card, .summary-card{
-            box-shadow: 0 10px 20px 0 rgba(103, 4, 118, 0.25);
-            padding: 1.1em;
-            border-radius: 12px;
-            .airline-badge{
-                border-radius: 5px;
-                border: 1px solid #8DD3BB;
-                display: grid;
-                grid-template-columns: 20% 4% 74%;
-                padding: 10px;
-                max-width: 250px;
-            }
-            .split{
-                width: 1px;
-                height: 20px;
-                background-color: $black-faint3;
-                margin: 0 1.2em;
-                @include mediaM(920px){
-                    margin: 0.4em 0.7em
-                }
-            }
-            .trip-icon{
-                width: 160px;
-                img{
+        .tab-grid{
+            display: grid;
+            grid-template-columns: 25% 25% 25% 25%;
+            margin: 0 -0.7em;
+            .grid-tab{
+                button{
                     width: 100%;
                 }
-                @include mediaM(750px){
-                    width: 50px;
-                    height: 2px;
-                    background-color: $black-faint2;
-                    img{
-                        display: none;
+                padding: 0.7em;
+                button{
+                    font-size: 0.9em;
+                    font-weight: 600;
+                    padding: 8px 21px;
+                    width: 100%;
+                    border-radius: 6px;
+                    border: 1px solid $purple-bg;
+                    color: $purple-bg;
+                    background-color: $white;
+                    &:hover{
+                        @include base-button($purple-bg, $purple-bg-hover);
+                        padding: 8px 21px;
                     }
                 }
+                .active-tab-button{
+                    @include base-button($purple-bg, $purple-bg-hover);
+                    font-size: 0.9em;
+                    font-weight: 600;
+                    padding: 8px 21px;
+                    width: 100%;
+                    border-radius: 6px;
+                    box-shadow: 0 10px 20px 0 rgba(103, 4, 118, 0.25);
+                    pointer-events: none;
+                }
+            }
+            @include mediaW(850px){
+                min-width: 600px;
+            }
+            @include mediaM(750px){
+                grid-template-columns: 50% 50%;
             }
         }
-        .summary-card{
-            position: relative;
-            .hanger{
-                position: absolute;
-                left: 0;
-                top: -20vh;
-                width: 3px;
-                height: 3px;
-                background-color: chartreuse;
+        .back-sect{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s ease;
+            .return{
+                font-size: 0.9em;
+                font-weight: 600;
+                padding: 8px 8px;
+                width: 100%;
+                border-radius: 6px;
+                border: 1px solid $purple-bg;
+                color: $purple-bg;
+                background-color: $white;
+                &:hover{
+                    @include base-button($purple-bg, $purple-bg-hover);
+                    padding: 8px 8px;
+                }
             }
+            &:hover{
+                .return{
+                    @include base-button($purple-bg, $purple-bg-hover);
+                    padding: 8px 8px;
+                }
+                h6{
+                    color: $purple-bg;
+                }
+            }
+            &:active{
+                transform: scale(1.07);
+            }
+            @include mediaM(920px){
+                display: none;
+            }
+        }
+        .bordered-top-bottom{
+            width: 100%;
+            border-top: 1px solid $black-faint3;
+            border-bottom: 1px solid $black-faint3;
         }
     }
 }

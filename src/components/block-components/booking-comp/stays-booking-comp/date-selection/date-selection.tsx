@@ -95,10 +95,10 @@ function DateSelectionComp(props: iDateProps) {
             />
           </div> 
           <div className='text-center'>
-            <button className='reset-button' onClick={resetDates}>Reset Date</button>
             {
               activeDate &&
               <>
+                <button className='reset-button' onClick={resetDates}>Reset Date</button>
                 &nbsp; &nbsp; 
                 <button className='reset-button' onClick={confirmDate}>Ok</button>
               </>

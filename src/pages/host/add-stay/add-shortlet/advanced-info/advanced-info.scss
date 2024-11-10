@@ -152,6 +152,29 @@
                 padding: 0.7em 0.6em;
             }
         }
+        .category-price-holder{
+            padding: 1em 1em 0;
+            display: grid;
+            grid-template-columns: 6em auto;
+            font-size: 0.85em;
+            .amount-text{
+                padding-top:2px;
+            }
+            .input{
+                display: grid;
+                grid-template-columns: 14px auto;
+                .currnency-float{
+                    padding-top:5px;
+                    // color: $black-faint1;
+                }
+                input{
+                    border: none;
+                    &:focus{
+                        outline: none;
+                    }
+                }
+            }
+        }
         .active-feature{
             box-shadow: 0 3px 10px -4px $purple-bg;
             .writeup-side, .writeup-side-small{

@@ -14,7 +14,7 @@ function AddShortletPage(props: any) {
 
   const alterSelectedTab = (tab: 'basic information' | 'advance information' | 'publish property') => {
     window.scrollTo(0, 0);
-    setSelectedTab(tab);
+    setSelectedTab(tab); 
   }
 
   const proceedToAdvanced = (data: iBasicInfo) => {

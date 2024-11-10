@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import IncrementalCountComponent from '../../../../../components/base-components/incremental-count/incremental-count';
+import { pickCurrency } from '../../../../../services/utils/currency-handler';
+import { acceptOnlyNumbers } from '../../../../../services/utils/data-manipulation-utilits';
 import { iAdvancedInfo } from '../add-shortlet-data';
 import './advanced-info.scss';
 import CounterComponent from './counter-comp/counter-comp';
@@ -59,6 +61,16 @@ function AdvancedInfoSect({data, revert, proceed}: {data: iAdvancedInfo, revert:
       document.getElementById('categories')?.scrollIntoView();
       return;
     }
+    if(
+      (facilityInfo.single && !facilityInfo.single_price) ||
+      (facilityInfo.suites && !facilityInfo.suites_price) ||
+      (facilityInfo.executive && !facilityInfo.executive_price) ||
+      (facilityInfo.double_chambers && !facilityInfo.double_chambers_price)
+      ) {
+      toast.error('please add the price for this appartment');
+      document.getElementById('categories')?.scrollIntoView();
+      return;
+    }
     if(!facilityInfo.description) {
       toast.error('Please add some description for this facility');
       document.getElementById('description')?.scrollIntoView();
@@ -71,9 +83,35 @@ function AdvancedInfoSect({data, revert, proceed}: {data: iAdvancedInfo, revert:
     proceed({...facilityInfo, images: imageList});
   }
 
+  const chooseActive = (): 'none' | 'single' | 'suites' | 'executive' | 'double_chambers' => {
+    let activeString: 'none' | 'single' | 'suites' | 'executive' | 'double_chambers' = 'none';
+    if(!facilityInfo.single && !facilityInfo.suites && !facilityInfo.executive && !facilityInfo.double_chambers) {
+      activeString = 'none';
+    } else if(facilityInfo.single) {
+      activeString = 'single';
+    } else if(facilityInfo.suites) {
+      activeString = 'suites';
+    } else if(facilityInfo.executive) {
+      activeString = 'executive';
+    } else if(facilityInfo.double_chambers) {
+      activeString = 'double_chambers';
+    }
+    return activeString;
+  }
+
   useEffect(() => {
-    // console.log({facilityInfo})
-  }, [facilityInfo]);
+    const newFacilityInfo = {...facilityInfo};
+    if(facilityInfo.single){
+      newFacilityInfo.suites_price = newFacilityInfo.executive_price = newFacilityInfo.double_chambers_price = '';
+    } else if (facilityInfo.suites){
+      newFacilityInfo.single_price = newFacilityInfo.executive_price = newFacilityInfo.double_chambers_price = '';
+    } else if (facilityInfo.executive){
+      newFacilityInfo.single_price = newFacilityInfo.suites_price = newFacilityInfo.double_chambers_price = '';
+    } else if (facilityInfo.double_chambers){
+      newFacilityInfo.single_price = newFacilityInfo.suites_price = newFacilityInfo.executive_price = '';
+    } 
+    setFacilityInfo(newFacilityInfo);
+  }, [facilityInfo.single, facilityInfo.suites, facilityInfo.executive, facilityInfo.double_chambers]);
 
   useEffect(() => {
     const tempImages: any[] = [];
@@ -160,45 +198,93 @@ function AdvancedInfoSect({data, revert, proceed}: {data: iAdvancedInfo, revert:
       <div className='full-list'>
         <div className='w90 max1100'>
           <div className='scroll-anchor' id='categories'></div>
-          <h4 className='blue-tx f700 pt-4'>Categories of Rooms in <span className='purple-tx'>Your Shortlet</span></h4>
+          <h4 className='blue-tx f700 pt-4'>Category of Rooms in <span className='purple-tx'>Your Shortlet</span></h4>
           <div className='row pb-3'>
             <div className='col-xl-3 col-md-6 py-3'>
-              <div className='selection-grid-big'>
-                <div className='tick-side'>
-                  <IncrementalCountComponent forcedWhite verticalCount updateCount={(count: any) => updateFacilityInfo(count, 'single')} count={facilityInfo.single} />
+              <div className={(chooseActive() !== 'none' && chooseActive() !== 'single') ? 'deactivated' : ''}>
+                <div className='selection-grid-big'>
+                  <div className='tick-side'>
+                    <IncrementalCountComponent forcedWhite verticalCount updateCount={(count: any) => updateFacilityInfo(count, 'single')} count={facilityInfo.single} />
+                  </div>
+                  <div className='writeup-side'>
+                    <h6 className='ps-3 f700 mb-0'>Single</h6>
+                  </div>
                 </div>
-                <div className='writeup-side'>
-                  <h6 className='ps-3 f700 mb-0'>Single</h6>
-                </div>
-              </div>
-            </div>
-            <div className='col-xl-3 col-md-6 py-3'>
-              <div className='selection-grid-big'>
-                <div className='tick-side'>
-                  <IncrementalCountComponent forcedWhite verticalCount updateCount={(count: any) => updateFacilityInfo(count, 'suites')} count={facilityInfo.suites} />
-                </div>
-                <div className='writeup-side'>
-                  <h6 className='ps-3 f700 mb-0'>Suites</h6>
-                </div>
-              </div>
-            </div>
-            <div className='col-xl-3 col-md-6 py-3'>
-              <div className='selection-grid-big'>
-                <div className='tick-side'>
-                  <IncrementalCountComponent forcedWhite verticalCount updateCount={(count: any) => updateFacilityInfo(count, 'executive')} count={facilityInfo.executive} />
-                </div>
-                <div className='writeup-side'>
-                  <h6 className='ps-3 f700 mb-0'>Executive</h6>
+                <div className='category-price-holder'>
+                  <p className='mb-0 amount-text'><span className='purple-tx reduced'>Amount</span></p>
+                  <div className='input number-medium'>
+                    <div className={'currnency-float reduced' + (facilityInfo.single_price ? '' : ' faint-tx')}> {pickCurrency()} </div>
+                    <input 
+                      type="text" onKeyUp={acceptOnlyNumbers} value={facilityInfo.single_price} placeholder='0.00'
+                      onChange={(ev: any) => updateFacilityInfo(ev.target.value, 'single_price')}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
             <div className='col-xl-3 col-md-6 py-3'>
-              <div className='selection-grid-big'>
-                <div className='tick-side'>
-                  <IncrementalCountComponent forcedWhite verticalCount updateCount={(count: any) => updateFacilityInfo(count, 'double_chambers')} count={facilityInfo.double_chambers} />
+              <div className={(chooseActive() !== 'none' && chooseActive() !== 'suites') ? 'deactivated' : ''}>
+                <div className='selection-grid-big'>
+                  <div className='tick-side'>
+                    <IncrementalCountComponent forcedWhite verticalCount updateCount={(count: any) => updateFacilityInfo(count, 'suites')} count={facilityInfo.suites} />
+                  </div>
+                  <div className='writeup-side'>
+                    <h6 className='ps-3 f700 mb-0'>Suites</h6>
+                  </div>
                 </div>
-                <div className='writeup-side'>
-                  <h6 className='ps-3 f700 mb-0'>Double Chambers</h6>
+                <div className='category-price-holder'>
+                  <p className='mb-0 amount-text'><span className='purple-tx reduced'>Amount</span></p>
+                  <div className='input number-medium'>
+                    <div className={'currnency-float reduced' + (facilityInfo.suites_price ? '' : ' faint-tx')}> {pickCurrency()} </div>
+                    <input 
+                      type="text" onKeyUp={acceptOnlyNumbers} value={facilityInfo.suites_price} placeholder='0.00'
+                      onChange={(ev: any) => updateFacilityInfo(ev.target.value, 'suites_price')}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className='col-xl-3 col-md-6 py-3'>
+              <div className={(chooseActive() !== 'none' && chooseActive() !== 'executive') ? 'deactivated' : ''}>
+                <div className='selection-grid-big'>
+                  <div className='tick-side'>
+                    <IncrementalCountComponent forcedWhite verticalCount updateCount={(count: any) => updateFacilityInfo(count, 'executive')} count={facilityInfo.executive} />
+                  </div>
+                  <div className='writeup-side'>
+                    <h6 className='ps-3 f700 mb-0'>Executive</h6>
+                  </div>
+                </div>
+                <div className='category-price-holder'>
+                  <p className='mb-0 amount-text'><span className='purple-tx reduced'>Amount</span></p>
+                  <div className='input number-medium'>
+                    <div className={'currnency-float reduced' + (facilityInfo.executive_price ? '' : ' faint-tx')}> {pickCurrency()} </div>
+                    <input 
+                      type="text" onKeyUp={acceptOnlyNumbers} value={facilityInfo.executive_price} placeholder='0.00'
+                      onChange={(ev: any) => updateFacilityInfo(ev.target.value, 'executive_price')}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className='col-xl-3 col-md-6 py-3'>
+              <div className={(chooseActive() !== 'none' && chooseActive() !== 'double_chambers') ? 'deactivated' : ''}>
+                <div className='selection-grid-big'>
+                  <div className='tick-side'>
+                    <IncrementalCountComponent forcedWhite verticalCount updateCount={(count: any) => updateFacilityInfo(count, 'double_chambers')} count={facilityInfo.double_chambers} />
+                  </div>
+                  <div className='writeup-side'>
+                    <h6 className='ps-3 f700 mb-0'>Double Chambers</h6>
+                  </div>
+                </div>
+                <div className='category-price-holder'>
+                  <p className='mb-0 amount-text'><span className='purple-tx reduced'>Amount</span></p>
+                  <div className='input number-medium'>
+                    <div className={'currnency-float reduced' + (facilityInfo.double_chambers_price ? '' : ' faint-tx')}> {pickCurrency()} </div>
+                    <input 
+                      type="text" onKeyUp={acceptOnlyNumbers} value={facilityInfo.double_chambers_price} placeholder='0.00'
+                      onChange={(ev: any) => updateFacilityInfo(ev.target.value, 'double_chambers_price')}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

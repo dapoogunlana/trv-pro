@@ -46,6 +46,7 @@ function LocationSelectionComp(props: iLocationProps) {
     } else {
       currentLocation.geolocation = data;
     }
+    console.log({data, type})
     setLocation(currentLocation);
     setConfirmedLocation({address: undefined, geolocation: undefined});
   }
@@ -60,6 +61,14 @@ function LocationSelectionComp(props: iLocationProps) {
   }, [props.componentState])
 
   useEffect(() => {
+    if(location.address) {
+      setConfirmedLocation(location);
+      if(showPopup === 2){
+        toggleShowPopup(1);
+      }
+    }
+  }, [location])
+  useEffect(() => {
     props.setLocation(confirmedLocation);
   }, [confirmedLocation])
 
@@ -67,10 +76,10 @@ function LocationSelectionComp(props: iLocationProps) {
     <div className='pt-3 pb-2'>
       <AppPopup
         switch={
-          <div className='selector2' onClick={() => toggleShowPopup(2)} title={`${confirmedLocation.address?.name || '...'}`}>
+          <div className='selector2' onClick={() => toggleShowPopup(2)} title={`${confirmedLocation?.address?.name || '...'}`}>
             <div className='label'><FontAwesomeIcon icon={'map-marker-alt'} className='fainter-tx' /> Location</div>
             <p className='mb-0'>
-              {clipToLength(confirmedLocation.address?.name, 10) || '...'}
+              {clipToLength(confirmedLocation?.address?.name, 10) || '...'}
             </p>
             <FontAwesomeIcon icon={'arrow-right-arrow-left'} />
           </div>
@@ -96,12 +105,12 @@ function LocationSelectionComp(props: iLocationProps) {
               </div>
             </div>
           </div>
-          {
+          {/* {
             location.address &&
             <div className='pt-3 text-center'>
               <button className='confirm-location-button' onClick={confirmLocation}>Confirm Location</button>
             </div>
-          }
+          } */}
         </div>
       </AppPopup>
     </div>

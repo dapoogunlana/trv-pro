@@ -12,7 +12,10 @@ export const formatTime = (time: string) => {
     return `${hour} : ${timeArray[1]} ${section}`;
 }
 
-export const calculatePrice = (stay: iFullShortletInfo) => {
+export const calculatePrice = (stay: iFullShortletInfo | undefined) => {
+    if(!stay) {
+        return '';
+    }
     if(stay.single) {
         return formatNumber(parseFloat(stay.single_price || ''));
     } else if(stay.suites) {
@@ -32,8 +35,31 @@ export const generateRatingStars = (rating: number) => {
     return ratingList.map((item, index) => <FontAwesomeIcon icon={'star'} key={index} className="orange-tx" />);
 }
 
-export const countAppartmentFeatures = (stayData: iFullShortletInfo) => {
+export const selectAppartmentCategory = (stay: iFullShortletInfo | undefined): { type: string, count: number } => {
+    let category = {
+        type: '',
+        count: 0,
+    };
+    if(!stay) {
+        return category;
+    }
+    if(stay.single) {
+        category = { type: 'Single', count: stay.single };
+    } else if(stay.suites) {
+        category = { type: 'Suites', count: stay.suites };
+    } else if(stay.executive) {
+        category = { type: 'Executive', count: stay.executive };
+    } else if(stay.double_chambers) {
+        category = { type: 'Double Chambers', count: stay.double_chambers };
+    }
+    return category;
+}
+export const countAppartmentFeatures = (stayData: iFullShortletInfo | undefined) => {
     let featureCount = 0;
+
+    if(!stayData){
+        return featureCount;
+    }
     
     if(stayData.bedrooms) featureCount += 1;
     if(stayData.bathrooms) featureCount += 1;
