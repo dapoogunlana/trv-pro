@@ -40,9 +40,11 @@
      flightTracker: 'flight-tracker',
      myBookings: 'my-bookings',
      flightTicket: 'flight-ticket',
+     stayBookingDetail: 'stay-booking-detail',
      feedBack: 'feed-back',
      industryNews: 'news',
 
      addShortlet: 'add-shortlet',
      editShortlet: 'edit-shortlet',
+     viewShortlet: 'view-shortlet',
  };

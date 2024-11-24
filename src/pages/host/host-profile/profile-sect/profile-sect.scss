@@ -2,19 +2,35 @@
 
 
 .profile-sect{
-    background-color: $white;
+    // background-color: $white;
     width: 100%;
     span{
         font-size: 1em;
     }
-    .banner{
+    .holder{
         width: 100%;
         min-height: calc(100vh - 170px);
+        padding-top: 1em;
         @include mediaM(850px){
             min-height: calc(100vh - 80px);
         }
         @include mediaM(550px){
             min-height: calc(100vh - 60px);
+        }
+        .graph-holder{
+            border-radius: 1.5em;
+            overflow: hidden;
+            box-shadow: 0 2px 10px 1px $black-faint4;
+            padding: 5em 0;
+            background-color: #DCD4E3;
+        }
+        .notifications-holder{
+            border-radius: 1.5em;
+            overflow: hidden;
+            box-shadow: 0 2px 10px 1px $black-faint4;
+            padding: 1.5em 0.6em;
+            min-height: 20vh;
+            background-color: $white;
         }
     }
 }

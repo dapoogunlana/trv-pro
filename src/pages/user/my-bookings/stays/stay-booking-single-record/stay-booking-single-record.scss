@@ -1,0 +1,80 @@
+@import "../../../../../assets/styles/variables.scss";
+
+
+.stay-tickets{
+    background-color: $white;
+    width: 100%;
+    padding: 5vh 0 9vh;
+    .preview-sect{
+        background-color: #FBFAFC;
+        width: 90%;
+        max-width: 1200px;
+        margin: auto;
+        padding: calc(4vw);
+        border-radius: 1em;
+        .spread-col{
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-direction: column;
+            .text{
+                width: 100%;
+                .orange-box{
+                    width: 50px;
+                    height: 50px;
+                    background-color: $orange;
+                    border-radius: 7px;
+                    margin-right: 1em;
+                }
+                h5{
+                    font-size: 1.5em;
+                }
+            }
+            .action{
+                width: 90%;
+                display: grid;
+                grid-template-columns: 47% 6% 47%;
+                
+                @include mediaM(750px){
+                    width: 100%
+                }
+            }
+        }
+        .booking-button{
+            @include base-hollow-button($purple-bg, $purple-bg-hover);
+            font-size: 0.9em;
+            font-weight: 600;
+            padding: 8px 21px;
+            width: 100%;
+            border-radius: 4.5px;
+            box-shadow: 0 10px 20px 0 rgba(103, 4, 118, 0.25);
+            .icon{
+                font-size: 0.9em;
+            }
+        }
+        .home-button{
+            @include base-button($primary-blue, $primary-blue-hover);
+            font-size: 0.9em;
+            font-weight: 600;
+            padding: 8px 21px;
+            width: 100%;
+            border-radius: 4.5px;
+            box-shadow: 0 10px 20px 0 rgba(103, 4, 118, 0.25);
+            .icon{
+                font-size: 0.9em;
+            }
+        }
+        .auto-scroll{
+            // background-color: $purple-bg;
+            height: calc(12vw + 30vh);
+            border-radius: 1.5em;
+            overflow: auto;
+            
+        }
+        .bordered-top-bottom{
+            width: 100%;
+            border-top: 1px solid $black-faint3;
+            border-bottom: 1px solid $black-faint3;
+        }
+    }
+}

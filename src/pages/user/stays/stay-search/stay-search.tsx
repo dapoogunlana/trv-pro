@@ -36,6 +36,7 @@ function StaysPage(props: any) {
     setLoading(true);
     setStaysSearched(true);
     setStayList([]);
+    console.log({stayData})
     
     sendRequest(
       {

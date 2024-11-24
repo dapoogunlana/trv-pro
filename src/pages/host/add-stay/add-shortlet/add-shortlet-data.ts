@@ -262,7 +262,6 @@ export const sampleFullShortletInfo: iFullShortletInfo = {
     lockbox: 0,
     self_checkin: 0,
     images: []
-
 }
 
 export const preparePropertyData = (basicInfo: iBasicInfo, advancedInfo: iAdvancedInfo) => {
@@ -330,4 +329,121 @@ export const preparePropertyData = (basicInfo: iBasicInfo, advancedInfo: iAdvanc
     })
 
     return formData;
+}
+
+export const generateFullShortletInfo = (data: iFullShortletInfo) => {
+    return {
+        apartment_name: '',
+        country: '',
+        state: '',
+        lga: '',
+        address: '',
+        email: '',
+        phone: '',
+        website: '',
+        single: 0,
+        suites: 0,
+        executive: 0,
+        double_chambers: 0,
+        description: '',
+        bedrooms: 1,
+        bathrooms: 1,
+        parking: 0,
+        pool: 0,
+        bathtube: 0,
+        bidet: 0,
+        body_soap: 0,
+        cleaning_products: 0,
+        hot_water: 0,
+        bed_linens: 0,
+        clothing_storage: 0,
+        drying_rack: 0,
+        essentials: 0,
+        extra_pillows: 0,
+        free_dryer: 0,
+        free_washer: 0,
+        hangers: 0,
+        iron: 0,
+        darkening_shades: 0,
+        archade_games: 0,
+        bluetooth: 0,
+        reading: 0,
+        game_console: 0,
+        ping_pong_table: 0,
+        pool_table: 0,
+        tv: 0,
+        ac: 0,
+        fans: 0,
+        monoxide_alarm: 0,
+        fire_extinguisher: 0,
+        first_aid_kit: 0,
+        security_cameras: 0,
+        smoke_alarm: 0,
+        dedicated_workspace: 0,
+        wifi: 0,
+        bbq_grill: 0,
+        outdoor_dining: 0,
+        outdoor_furniture: 0,
+        patio_balcony: 0,
+        backyard_fenced: 0,
+        carpot: 0,
+        street_parking: 0,
+        private_pool: 0,
+        lockbox: 0,
+        self_checkin: 0,
+        images: []
+    }
+}
+
+export interface iBookedAppartmentInfo {
+    apartment_address: string;
+    apartment_city: string;
+    apartment_country: string;
+    apartment_id: string;
+    apartment_img: string;
+    apartment_name: string;
+    apartment_owner: string;
+    apartment_state: string;
+    booking_reference: string;
+    check_in_date: string;
+    check_in_time: string;
+    check_out_date: string;
+    created_at: string;
+    email: string;
+    gps_location: string;
+    name: string;
+    owner: string;
+    payment_status: string;
+    phone: string;
+    price: number;
+    status: string;
+    __v: number;
+    _id: string;
+    images?: string[];
+}
+
+export const sambleBookedAppartmentInfo: iBookedAppartmentInfo = {
+    apartment_address: "",
+    apartment_city: "",
+    apartment_country: "",
+    apartment_id: "",
+    apartment_img: "",
+    apartment_name: "",
+    apartment_owner: "",
+    apartment_state: "",
+    booking_reference: "",
+    check_in_date: "",
+    check_in_time: "",
+    check_out_date: "",
+    created_at: "",
+    email: "",
+    gps_location: "",
+    name: "",
+    owner: "",
+    payment_status: "",
+    phone: "",
+    price: 0,
+    status: "",
+    __v: 0,
+    _id: "",
 }

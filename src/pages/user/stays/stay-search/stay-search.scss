@@ -89,6 +89,17 @@
                         }
                     }
                 }
+                @include mediaM(600px){
+                    display: block;
+                    .logo-side{
+                        width: 100%;
+                        max-width: 400px;
+                        margin: auto;
+                        img{
+                            border-radius: 12px 12px 0 0;
+                        }
+                    }
+                }
             }
             .stay-card2{
                 display: flex;

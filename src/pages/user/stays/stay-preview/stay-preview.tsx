@@ -21,6 +21,7 @@ function StayPreviewPage(props: any) {
   const [stayDetails, setStayDetails] = useState<iFullShortletInfo>();
   const [tab, setTab] = useState<'photos' | 'amenities' | 'reviews' | 'location'>('photos');
   const [activeImage, setActiveImage] = useState('');
+  const hostMode = props?.hostMode;
 
   const updateTab = (active: 'photos' | 'amenities' | 'reviews' | 'location') => {
     setTab(active);
@@ -53,11 +54,17 @@ function StayPreviewPage(props: any) {
   }
 
   const exitPage = () => {
+    hostMode ? 
+    navigate(`/${routeConstants.profile}/${stayId}`) :
     navigate(`/${routeConstants.stays}`)
   }
 
   const bookStay = (id: string) => {
     navigate(`/${routeConstants.stayBooking}/${id}`)
+  }
+
+  const editProperty = (id: string) => {
+    navigate(`/${routeConstants.editShortlet}/${id}`)
   }
 
   useEffect(() => {
@@ -111,7 +118,11 @@ function StayPreviewPage(props: any) {
                   <FontAwesomeIcon icon={'heart'} className='save-icon' />
                 </div>
                 <div className='pl-3'>
-                  <button className='stay-button' onClick={() => bookStay(stayDetails?._id || '')}>Rent Place</button>
+                  {
+                    hostMode ?
+                    <button className='stay-button' onClick={() => editProperty(stayDetails?._id || '')}>Edit Property</button> :
+                    <button className='stay-button' onClick={() => bookStay(stayDetails?._id || '')}>Rent Place</button>
+                  }
                 </div>
               </div>
             </div>
@@ -186,7 +197,11 @@ function StayPreviewPage(props: any) {
             }
 
             <div className=''>
-              <button className='stay-button' onClick={() => bookStay(stayDetails?._id || '')}>Rent Place</button>
+              {
+                hostMode ?
+                <button className='stay-button' onClick={() => editProperty(stayDetails?._id || '')}>Edit Property</button> :
+                <button className='stay-button' onClick={() => bookStay(stayDetails?._id || '')}>Rent Place</button>
+              }
             </div>
           </div>
         </div>

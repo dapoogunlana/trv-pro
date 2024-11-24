@@ -16,8 +16,10 @@ export const externalLinkConstants = {
  
 export const resourceLinks = {
     shortletImages: 'https://borderless-travel-backend-v1.onrender.com/files/imgs/shortlets/',
-    hostAvatarImages: 'https://borderless-travel-backend-v1.onrender.com/files/imgs/posts/',
+    postArticleImages: 'https://borderless-travel-backend-v1.onrender.com/files/imgs/posts/',
+    hostAvatarImages: 'https://borderless-travel-backend-v1.onrender.com/files/imgs/hosts/',
     userAvatarImages: 'https://borderless-travel-backend-v1.onrender.com/files/imgs/users/',
+    adminAvatarImages: 'https://borderless-travel-backend-v1.onrender.com/files/imgs/admins/',
     jobApplicationDocs: 'https://borderless-travel-backend-v1.onrender.com/files/docs/job-applications/',
 };
  

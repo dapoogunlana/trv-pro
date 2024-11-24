@@ -102,7 +102,11 @@ import PropertyTypeResorts from './property-type-resorts.jpg';
 import PropertyTypeShortlets from './property-type-shortlets.jpg'; 
 import PropertyTypeVillas from './property-type-villas.jpg'; 
 import PropertyOffer1 from './propery-offer-1.jpg'; 
-import PropertyOffer2 from './propery-offer-1.jpg'; 
+import PropertyOffer2 from './propery-offer-1.jpg';
+
+import AvatarIcon from './avatar-icon.svg';
+import PendingTag from './pending-tag.png';
+
 
 export {
     LogoWhite,
@@ -209,4 +213,7 @@ export {
     PropertyTypeVillas,
     PropertyOffer1,
     PropertyOffer2,
+
+    AvatarIcon,
+    PendingTag,
 }

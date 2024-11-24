@@ -1,7 +1,15 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { forwardRef, useEffect, useImperativeHandle } from "react";
 import './app-modal.scss';
 
-const AppModal = forwardRef((props: any, ref: any) => {
+interface ImodalProps {
+  onCloseModal: Function;
+  styleClass?: string
+  small?: boolean
+  children: any
+}
+
+const AppModal = forwardRef((props: ImodalProps, ref: any) => {
 
   const closeModal = () => {
     document.body.style.overflow = '';
@@ -35,10 +43,11 @@ const AppModal = forwardRef((props: any, ref: any) => {
   return (
     <div className="app-modal">
       <div className="modal-bg"></div>
-      <div className={"modal-container " + props.styleClass}>
+      <div className={"modal-container " + (props.styleClass || '') + (props.small ? ' small' : '')}>
         <div className="modal-content">
             <div className="modal-closer" onClick={closeModal}>
-                <i className="fas fa-times"></i>
+                {/* <i className="fas fa-times"></i> */}
+                <FontAwesomeIcon icon={'times'} />
             </div>
             {props.children}
         </div>

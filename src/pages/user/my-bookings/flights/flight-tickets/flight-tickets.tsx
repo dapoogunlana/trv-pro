@@ -3,7 +3,7 @@ import { useParams } from 'react-router';
 import { sendRequest } from '../../../../../services/utils/request';
 import './flight-tickets.scss';
 
-function FlightTickets() {
+function FlightTickets(props: any) {
 
   const flightReference = useParams().reference || '';
   const [loading, setLoading] = useState(0);
@@ -30,7 +30,7 @@ function FlightTickets() {
   useEffect(() => {
     getFlightDetails();
     window.scrollTo(0, 0);
-  });
+  }, [props]);
   
   return (
     <div className='flight-tickets'>

@@ -1,5 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import MiniLoader from '../../../../components/block-components/mini-loader/mini-loader';
+import { sendRequest } from '../../../../services/utils/request';
 import BasicInfoSect from './-basic-info/basic-info';
 import { iAdvancedInfo, iBasicInfo, sampleAdvancedInfo, sampleBasicInfo } from './add-shortlet-data';
 import './add-shortlet.scss';
@@ -8,9 +11,11 @@ import PublishPropertySect from './publish-property/publish-property';
 
 function AddShortletPage(props: any) {
 
+  const { id } = useParams();
   const [selectedTab, setSelectedTab] = useState<'basic information' | 'advance information' | 'publish property'>('basic information');
   const [basicInfoData, setBasicInfoData] = useState<iBasicInfo>(sampleBasicInfo);
   const [advancedInfoData, setAdvancedInfoData] = useState<iAdvancedInfo>(sampleAdvancedInfo);
+  const [loaded, setLoaded] = useState(false);
 
   const alterSelectedTab = (tab: 'basic information' | 'advance information' | 'publish property') => {
     window.scrollTo(0, 0);
@@ -37,8 +42,20 @@ function AddShortletPage(props: any) {
     alterSelectedTab('advance information');
   }
 
+  const getProperties = () => {
+    sendRequest({
+        url: 'host-profile/listing/' + id,
+        method: 'GET',
+    }, (res: any) => {
+        // setProperties(res.data || []);
+    }, (err: any) => {});
+  }
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    if(id) {
+      getProperties();
+    }
   }, [props]);
   
   return (
@@ -63,11 +80,17 @@ function AddShortletPage(props: any) {
           </div>
         </div>
       </div>
-      <>
-        {selectedTab === 'basic information' && <BasicInfoSect data={basicInfoData} proceed={proceedToAdvanced} />}
-        {selectedTab === 'advance information' && <AdvancedInfoSect data={advancedInfoData} proceed={proceedToPublish} revert={revertToBasic} />}
-        {selectedTab === 'publish property' && <PublishPropertySect basicData={basicInfoData} advancedData={advancedInfoData} revert={revertToAdvanced} />}
-      </>
+      {
+        (loaded || !id) ?
+        <>
+          {selectedTab === 'basic information' && <BasicInfoSect data={basicInfoData} proceed={proceedToAdvanced} />}
+          {selectedTab === 'advance information' && <AdvancedInfoSect data={advancedInfoData} proceed={proceedToPublish} revert={revertToBasic} />}
+          {selectedTab === 'publish property' && <PublishPropertySect basicData={basicInfoData} advancedData={advancedInfoData} revert={revertToAdvanced} />}
+        </> :
+        <div className='loader-holder-40 py-4'>
+          <MiniLoader/>
+        </div>
+      }
     </div>
   );
 }

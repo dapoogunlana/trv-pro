@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import AuthEnforcerModal from '../components/block-components/auth-enforcer-modal/auth-enforcer-modal';
-import { userLogout } from '../services/actions-reducers/user-data';
+import { userLogin, userLogout } from '../services/actions-reducers/user-data';
 import { iStoreState } from '../services/constants/interfaces/store-schemas';
 // import { routeConstants } from '../services/constants/route-constants';
 import { sendRequest } from '../services/utils/request';
@@ -29,7 +29,9 @@ const ProctedRoutes = () => {
           url: userType === 'user' ? 'user-profile/user' : 'host-profile/profile',
           method: "GET",
         },
-        (res: any) => {},
+        (res: any) => {
+            dispatch(userLogin({...res.data, userMode: userType}));
+        },
         (err: any) => {
         //   toast.error(err?.error || err?.message || 'Request Failed');
           if(err?.error === 'No cookie found'){

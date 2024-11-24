@@ -36,6 +36,7 @@
                 border: 3px solid $white;
                 background-color: #999999;
                 margin-right: 0.8em;
+                position: relative;
                 @include mediaW(751px){
                     width: 90px;
                     height: 90px;
@@ -44,6 +45,32 @@
                 img{
                     width: 100%;
                     height: 100%;
+                    border-radius: 50%;
+                    overflow: hidden;
+                }
+                .edit{
+                    position: absolute;
+                    top: -0.6em;
+                    right: -0.6em;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 2em;
+                    height: 2em;
+                    border-radius: 50%;
+                    background-color: rgb(100, 149, 237);
+                    border: 1px $black-faint3 solid;
+                    transition: 0.3s ease;
+                    cursor: pointer;
+                    &:hover{
+                        background-color: rgb(73, 111, 180);
+                    }
+                    &:active{
+                        transform: scale(1.1);
+                    }
+                    input{
+                        display: none;
+                    }
                 }
             }
             .tab-grid{
@@ -93,5 +120,17 @@
         @include mediaM(1150px){
             display: block;
         }
+    }
+}
+.action-popup{
+    .accept-button{
+        @include base-button($purple-bg, $purple-bg-hover);
+        border-radius: 6px;
+        padding: 4px;
+    }
+    .reject-button{
+        @include base-hollow-button($red, $red-hover);
+        border-radius: 6px;
+        padding: 4px;
     }
 }

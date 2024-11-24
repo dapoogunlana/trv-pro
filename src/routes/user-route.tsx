@@ -37,6 +37,7 @@ const TravelInfoPage = lazy(() => import("../pages/user/travel-info/travel-info"
 const FlightTrackerPage = lazy(() => import("../pages/user/flight-tracker/flight-tracker"));
 const MyBookingsPage = lazy(() => import("../pages/user/my-bookings/my-bookings"));
 const FlightTicketPage = lazy(() => import("../pages/user/my-bookings/flights/flight-tickets/flight-tickets"));
+const StayBookingSingleRecordPage = lazy(() => import("../pages/user/my-bookings/stays/stay-booking-single-record/stay-booking-single-record"));
 const FeedbackPage = lazy(() => import("../pages/user/feedback/feedback"));
 const PartnersPage = lazy(() => import("../pages/user/partners/partners"));
 const HelpPage = lazy(() => import("../pages/user/help/help"));
@@ -70,7 +71,6 @@ function UserRoute() {
           <Route path={`${routeConstants.flightBooking}/:id`} element={<FlightBookingPage/>}></Route>
           <Route path={routeConstants.stays} element={<StaySearchPage/>}></Route>
           <Route path={`${routeConstants.stayPreview}/:id`} element={<StayPreviewPage/>}></Route>
-          <Route path={`${routeConstants.stayBooking}/:id`} element={<StayBookingPage/>}></Route>
           <Route path={routeConstants.bookRides} element={<BookRidesPage/>}></Route>
           <Route path={routeConstants.rewards} element={<RewardsPage/>}></Route>
           <Route path={routeConstants.deals} element={<DealsPage/>}></Route>
@@ -84,13 +84,18 @@ function UserRoute() {
           <Route element={<ProctedRoutes/>}>
             <Route path={`${routeConstants.flightDetails}/:id`} element={<FlightDetailsPage/>}></Route>
             <Route path={`${routeConstants.stayDetails}/:id`} element={<StayDetailsPage/>}></Route>
+            <Route path={`${routeConstants.stayBooking}/:id`} element={<StayBookingPage/>}></Route>
             <Route path={routeConstants.profile} element={<ProfilePage/>}></Route>
+            <Route path={`${routeConstants.profile}/:tab`} element={<ProfilePage/>}></Route>
             <Route path={routeConstants.myBookings} element={<MyBookingsPage/>}></Route>
+            <Route path={`${routeConstants.myBookings}/:mode`} element={<MyBookingsPage/>}></Route>
             <Route path={`${routeConstants.flightTicket}/:reference`} element={<FlightTicketPage/>}></Route>
+            <Route path={`${routeConstants.stayBookingDetail}/:id`} element={<StayBookingSingleRecordPage/>}></Route>
 
-            {/* Hoat Routes */}
+            {/* Host Routes */}
             <Route path={`${routeConstants.addShortlet}`} element={<AddShortletPage/>}></Route>
             <Route path={`${routeConstants.editShortlet}/:id`} element={<AddShortletPage/>}></Route>
+            <Route path={`${routeConstants.viewShortlet}/:id`} element={<StayPreviewPage hostMode />}></Route>
           </Route>
           <Route path={routeConstants.all} element={<Navigate to={routeConstants.home2}/>}></Route>
         </Route>

@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router';
 import { iStoreState, IUserData } from '../../../services/constants/interfaces/store-schemas';
 import FlightBookingRecords from './flights/flight-booking-records/flight-booking-records';
 import './my-bookings.scss';
@@ -10,7 +11,8 @@ import StayBookingRecords from './stays/stay-booking-records/stay-booking-record
 function MyBookingsPage() {
 
   const user: IUserData = useSelector((state: iStoreState) => state.user);
-  const [selectedTab, setSelectedTab] = useState<'flights' | 'stays' | 'rides'>('flights');
+  const { mode } = useParams();
+  const [selectedTab, setSelectedTab] = useState<'flights' | 'stays' | 'rides'>(mode === 'stays' ? 'stays' : 'flights');
   
   const updateSelectedTab = (tab: 'flights' | 'stays' | 'rides') => {
     setSelectedTab(tab);

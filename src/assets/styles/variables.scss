@@ -82,3 +82,23 @@ $transparent: rgba(0, 0, 0, 0);
       transform: scale(1.03) translateY(5px);
   }
 }
+
+@mixin base-hollow-button ($bg, $hover-bg, $bg-shadow: rgba(0, 0, 0, 0), $hover-bg-shadow: rgba(0, 0, 0, 0)) {
+  background-color: $white-faint5;
+  color: $bg;
+  border: 1px solid $bg;
+  transition: 0.3s ease;
+  border-radius: 6px;
+  padding: 6px 9px;
+  &:hover{
+    color: $white;
+    background-color: $hover-bg;
+    box-shadow: 0 1px 10px 0 $bg-shadow;
+  }
+  &:active{
+    background-color: $hover-bg;
+    border-color: $hover-bg;
+    box-shadow: 0 1px 12px 0 $bg-shadow;
+    transform: scale(1.03) translateY(5px);
+  }
+}

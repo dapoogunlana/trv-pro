@@ -2,11 +2,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatNumber } from "../../../../services/utils/data-manipulation-utilits";
 import { iFullShortletInfo } from "../../../host/add-stay/add-shortlet/add-shortlet-data";
 
-export const formatTime = (time: string) => {
+export const formatTime = (time: string, shortened?: boolean) => {
     if(!time) {
         return '';
     }
-    const timeArray = time.split('T')[1].split(':');
+    let timeArray;
+    if(shortened) {
+        timeArray = time.split(':');
+    } else {
+        timeArray = time.split('T')[1].split(':');
+    }
     const section = parseFloat(timeArray[0]) > 11 ? 'pm' : 'am'
     let hour = parseFloat(timeArray[0]) > 12 ? (parseFloat(timeArray[0]) - 12) : parseFloat(timeArray[0]) === 0 ? 12 : timeArray[0]
     return `${hour} : ${timeArray[1]} ${section}`;
@@ -112,3 +117,17 @@ export const countAppartmentFeatures = (stayData: iFullShortletInfo | undefined)
 
 
 export const sampleStays = [];
+
+export const reviewProcessor = (reviewList: any[]) => {
+    return {
+        comment: 'Very Good',
+        count: 321,
+        rating: 4.1,
+    }
+}
+export const calculateLengthOfStay = (bookingInfo: any) => {
+    return 2
+}
+export const calculateBookingSubtotal = (bookingInfo: any, values: any) => {
+    return 110000
+}

@@ -8,6 +8,7 @@ export interface IAirportData {
 }
 
 export interface IUserData {
+    avatar?: string;
     email?: string;
     email_verified?: Boolean;
     first_name?: string;
